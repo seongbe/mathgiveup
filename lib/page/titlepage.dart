@@ -1,20 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:mathgame/page/homepage.dart';
 
 class Titlepage extends StatelessWidget {
   const Titlepage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'SMath',
-      home: StartPage(),
-    );
-  }
-}
-
-class StartPage extends StatelessWidget {
-  const StartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +45,7 @@ class StartPage extends StatelessWidget {
                       backgroundColor: Colors.blue,
                     ),
                   onPressed: () {
-                    print('Start button clicked');
+                    Get.to(Homepage());
                   },
                   child: Text(
                     '시작하기',
@@ -72,5 +62,7 @@ class StartPage extends StatelessWidget {
         ),
       ),
     );
+    
   }
 }
+
