@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   lottie: ^1.2.1
   get: ^4.6.6
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +65,7 @@ flutter:
   assets:
     - assets/tiltePage.json
     - assets/청룡.png
+    - assets/images/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
