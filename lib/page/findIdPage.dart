@@ -6,6 +6,7 @@ class FindIdPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text('아이디 찾기', style: TextStyle(fontFamily: 'Skybori')),
       ),
       body: Center(

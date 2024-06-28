@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/findIdPage.dart';
 import 'package:mathgame/page/findPasswdPage.dart';
 import 'package:mathgame/page/joinPage.dart';
 
-void main() {
-  runApp(const LoginPage());
-}
-
+ 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
@@ -23,6 +21,22 @@ class LoginPage extends StatelessWidget {
         ),
       ),
       home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+        title: Text('Math Game',
+        style: TextStyle(
+          color: Colors.black
+        ),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,
+          color: Colors.black,
+          ),
+            onPressed: () {
+             Get.back();
+            },),
+        ),
+      
         body: ListView(
           children: [
             MyWidget(),
