@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mathgame/const/colors.dart';
 
 class BlueButton extends StatelessWidget {
   final String text;
@@ -10,16 +11,14 @@ class BlueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: BACKGROUND_COLOR
                     ),
-                  onPressed: () {
-                   
-                  },
+                  onPressed:  onPressed,
                   child: Text(
                     text,
                     style: TextStyle(
                       fontSize: 30,
-                      color: Color.fromARGB(255, 93, 97, 213),
+                      color: Colors.white,
                     ),
                   ),
                 );

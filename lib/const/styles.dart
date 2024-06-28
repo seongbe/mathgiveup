@@ -74,24 +74,90 @@ class CustomTextField extends StatelessWidget {
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  final double? width;
+  final double? height;
+   
 
   const CustomButton({
     Key? key,
     required this.text,
     required this.onPressed,
+    this.height,
+    this.width,
+
+     
+    
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      
+      
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: PRIMARY_COLOR,
+        minimumSize: Size( width ?? 100.0, height ?? 50.0),
+        
+        
       ),
+      
       child: Text(
         text,
         textAlign: TextAlign.center,
         style: skyboriButtonTextStyle,
+      ),
+    );
+  }
+}
+
+class CustomButton2 extends StatelessWidget {
+  final String text;
+  final String text2;
+  final VoidCallback onPressed;
+  final double? width;
+  final double? height;
+   
+
+  const CustomButton2({
+    Key? key,
+    required this.text,
+    required this.text2,
+    required this.onPressed,
+    this.height,
+    this.width,
+
+     
+    
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      
+      
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: PRIMARY_COLOR,
+        minimumSize: Size( width ?? 100.0, height ?? 50.0),
+        
+        
+      ),
+      
+      child: Column(
+        children: [
+          Text(
+            text,
+            textAlign: TextAlign.center,
+            style: skyboriButtonTextStyle.copyWith(fontSize: 35),
+          ),
+          SizedBox(height: 40,),
+          Text(
+            text2,
+            textAlign: TextAlign.center,
+            style: skyboriButtonTextStyle.copyWith(fontSize: 15),
+          ),
+        ],
       ),
     );
   }
