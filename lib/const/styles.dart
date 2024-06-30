@@ -71,6 +71,7 @@ class CustomTextField extends StatelessWidget {
 }
 
 // 버튼 스타일 설정
+// 보통 버튼 크기
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
@@ -110,7 +111,7 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
-
+// 큰 버튼 크기
 class CustomButton2 extends StatelessWidget {
   final String text;
   final String text2;
@@ -162,3 +163,4 @@ class CustomButton2 extends StatelessWidget {
     );
   }
 }
+//오답노트 테이블
