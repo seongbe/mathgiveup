@@ -2,42 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
-import 'package:mathgame/page/findIdPage.dart';
-import 'package:mathgame/page/findPasswdPage.dart';
-import 'package:mathgame/page/joinPage.dart';
+import 'package:mathgame/page/find/findIdPage.dart';
+import 'package:mathgame/page/find/findPasswdPage.dart';
+import 'package:mathgame/page/join/joinPage.dart';
+import 'package:mathgame/page/homepage.dart';
 
- 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: BACKGROUND_COLOR,
-        textTheme: TextTheme(
-          bodyLarge: TextStyle(fontFamily: 'Skybori'),
-          bodyMedium: TextStyle(fontFamily: 'Skybori'),
-        ),
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-        title: Text('Math Game',
-        style: TextStyle(
-          color: Colors.black
-        ),
-        ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back,
-          color: Colors.black,
-          ),
-            onPressed: () {
-             Get.back();
-            },),
-        ),
-      
-        body: ListView(
+    return Scaffold(
+      appBar: CustomAppBar(title: '로그인'),
+      body: BackgroundContainer(
+        child: ListView(
           children: [
             MyWidget(),
           ],
@@ -96,7 +74,7 @@ class _MyWidgetState extends State<MyWidget> {
               ),
               Positioned(
                 left: 25,
-                top: 376,
+                top: 350,
                 child: SizedBox(
                   width: 312.84,
                   child: CustomTextField(
@@ -107,7 +85,7 @@ class _MyWidgetState extends State<MyWidget> {
               ),
               Positioned(
                 left: 25,
-                top: 438,
+                top: 410,
                 child: SizedBox(
                   width: 312.84,
                   child: CustomTextField(
@@ -118,8 +96,8 @@ class _MyWidgetState extends State<MyWidget> {
                 ),
               ),
               Positioned(
-                left: 25,
-                top: 484,
+                left: 15,
+                top: 450,
                 child: Row(
                   children: [
                     Checkbox(
@@ -140,7 +118,7 @@ class _MyWidgetState extends State<MyWidget> {
               ),
               Positioned(
                 left: 80,
-                top: 530,
+                top: 520,
                 child: Container(
                   width: 248,
                   height: 89.01,
@@ -151,11 +129,7 @@ class _MyWidgetState extends State<MyWidget> {
                         children: [
                           TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FindIdPage()),
-                              );
+                              Get.to(FindIdPage());
                             },
                             child: Text(
                               '아이디 찾기',
@@ -170,11 +144,7 @@ class _MyWidgetState extends State<MyWidget> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => FindPasswdPage()),
-                              );
+                              Get.to(FindPasswdPage());
                             },
                             child: Text(
                               '비밀번호 재설정',
@@ -190,17 +160,14 @@ class _MyWidgetState extends State<MyWidget> {
               ),
               Positioned(
                 left: 34,
-                top: 570,
+                top: 560,
                 child: Container(
                   width: 288,
-                  height: 50,
+                  height: 60,
                   child: CustomButton(
                     text: '시작하기',
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
+                      Get.to(Homepage()); // HomePage로 이동
                     },
                   ),
                 ),
@@ -217,13 +184,7 @@ class _MyWidgetState extends State<MyWidget> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                JoinPage(), // Navigate to SignUpPage
-                          ),
-                        );
+                        Get.to(JoinPage());
                       },
                       child: Text(
                         '회원가입',
