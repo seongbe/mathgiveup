@@ -11,15 +11,39 @@
 migrate_working_dir/
 
 # IntelliJ related
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
 *.iml
 *.ipr
-*.iws
 .idea/
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
 #.vscode/
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
 
 # Flutter/Dart/Pub related
 **/doc/api/
@@ -30,6 +54,18 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Example user template template
+### Example user template
 
 # Symbolication related
 app.*.symbols
@@ -41,3 +77,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+build
