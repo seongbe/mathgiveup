@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "958572857157",
+    "project_id": "smath-app",
+    "storage_bucket": "smath-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:958572857157:android:54a01831db825b15d5202c",
+        "android_client_info": {
+          "package_name": "com.example.mathgame"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVSGK0japole1w3rqzxA1-9FqrWgcHHww"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

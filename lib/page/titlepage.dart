@@ -46,17 +46,17 @@ class Titlepage extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                     ),
-                  onPressed: () {
-                    Get.to(Homepage());
-                  },
-                  child: Text(
-                    '시작하기',
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Color.fromARGB(255, 93, 97, 213),
+                    onPressed: () {
+                      Get.to(Homepage());
+                    },
+                    child: Text(
+                      '시작하기',
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Color.fromARGB(255, 93, 97, 213),
+                      ),
                     ),
                   ),
-                ),
                 ),
               ),
             ),
@@ -72,26 +72,23 @@ class Titlepage extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                     ),
-                  onPressed: () {
-                    Get.to(LoginPage());
-                  },
-                  child: Text(
-                    '로그인',
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Color.fromARGB(255, 93, 97, 213),
+                    onPressed: () {
+                      Get.to(LoginPage());
+                    },
+                    child: Text(
+                      '로그인',
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Color.fromARGB(255, 93, 97, 213),
+                      ),
                     ),
                   ),
                 ),
-                ),
               ),
             ),
-             
           ],
         ),
       ),
     );
-    
   }
 }
-
