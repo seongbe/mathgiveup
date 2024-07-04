@@ -38,82 +38,40 @@ class _MyWidgetState extends State<MyWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 360,
-          height: 800,
-          child: Stack(
-            children: [
-              Positioned(
-                left: 15,
-                top: 150,
-                child: Text('새 비밀번호',
-                    style: skyboriBaseTextStyle.copyWith(
-                      fontSize: 20,
-                    )),
-              ),
-              Positioned(
-                left: 15,
-                top: 185,
-                child: SizedBox(
-                  width: 312.84,
-                  child: CustomTextField(
-                    controller: passwordController1,
-                    hintText: '새 비밀번호를 입력하세요.',
-                    obscureText: true,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 15,
-                top: 300,
-                child: Text(
-                  '새 비밀번호 확인',
-                  style: skyboriBaseTextStyle.copyWith(
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 15,
-                top: 335,
-                child: SizedBox(
-                  width: 312.84,
-                  child: CustomTextField(
-                    controller: passwordController2,
-                    hintText: '새 비밀번호를 한 번 더 입력하세요.',
-                    obscureText: true,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: 34,
-                top: 500,
-                child: Container(
-                  width: 288,
-                  height: 60,
-                  child: CustomButton(
-                    text: '비밀번호 재설정',
-                    onPressed: _resetPassword,
-                  ),
-                ),
-              ),
-              if (errorMessage.isNotEmpty)
-                Positioned(
-                  left: 34,
-                  top: 570,
-                  right: 34,
-                  child: Text(
-                    errorMessage,
-                    style: TextStyle(color: Colors.red, fontSize: 16),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-            ],
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 100),
+          CustomInputField(
+            label: '새 비밀번호',
+            controller: passwordController1,
+            hintText: '새 비밀번호를 입력하세요.',
+            errorMessage: errorMessage,
+            obscureText: true,
           ),
-        ),
-      ],
+          SizedBox(height: 80),
+          CustomInputField(
+            label: '새 비밀번호 확인',
+            controller: passwordController2,
+            hintText: '비밀번호를 한 번 더 입력하세요.',
+            errorMessage: '',
+            obscureText: true,
+          ),
+          SizedBox(height: 120),
+          Center(
+            child: Container(
+              width: 288,
+              height: 60,
+              child: CustomButton(
+                text: '비밀번호 변경',
+                onPressed: _resetPassword,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -126,7 +84,7 @@ class _MyWidgetState extends State<MyWidget> {
       });
     } else if (passwordController1.text == passwordController2.text) {
       Get.to(PopUpPage(
-        message: '비밀번호 재설정이 완료되었습니다.\n다시 로그인해주세요!',
+        message: '비밀번호 변경이 완료되었습니다.\n다시 로그인해주세요!',
         onPressed: () {
           Get.to(LoginPage());
         },
