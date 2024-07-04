@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mathgame/const/colors.dart'; // Import the colors.dart file for color constants
 
+final List<String> existingIds = ['qwer', 'asdf', 'zxcv'];
+final List<String> existingNicknames = ['수학', '영어', '국어'];
+
 // 앱바
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -91,6 +94,7 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final bool enabled;
+  final VoidCallback? onTap;
 
   const CustomTextField({
     Key? key,
@@ -98,6 +102,7 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     this.obscureText = false,
     this.enabled = true, // 기본값은 활성화로 설정
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -105,6 +110,7 @@ class CustomTextField extends StatelessWidget {
     return TextField(
       controller: controller,
       enabled: enabled,
+      onTap: onTap,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: skyboriHintTextStyle,
@@ -122,6 +128,70 @@ class CustomTextField extends StatelessWidget {
       ),
       obscureText: obscureText,
       style: skyboriTextStyle.copyWith(color: Colors.black),
+    );
+  }
+}
+
+class CustomInputField extends StatelessWidget {
+  final String label;
+  final TextEditingController controller;
+  final String hintText;
+  final String errorMessage;
+  final Color? errorColor;
+  final bool obscureText;
+  final Widget? button;
+  final VoidCallback? onTap;
+
+  CustomInputField({
+    required this.label,
+    required this.controller,
+    required this.hintText,
+    required this.errorMessage,
+    this.errorColor,
+    this.obscureText = false,
+    this.button,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              label,
+              style: skyboriBaseTextStyle.copyWith(
+                fontSize: 20,
+              ),
+            ),
+            SizedBox(width: 10),
+            if (errorMessage.isNotEmpty)
+              Text(
+                errorMessage,
+                style: TextStyle(color: errorColor ?? Colors.red, fontSize: 15),
+              ),
+          ],
+        ),
+        SizedBox(height: 10),
+        Row(
+          children: [
+            Expanded(
+              child: CustomTextField(
+                controller: controller,
+                hintText: hintText,
+                obscureText: obscureText,
+                onTap: onTap,
+              ),
+            ),
+            if (button != null) ...[
+              SizedBox(width: 10),
+              button!,
+            ],
+          ],
+        ),
+      ],
     );
   }
 }
@@ -206,4 +276,41 @@ class CustomButton2 extends StatelessWidget {
     );
   }
 }
+
+class CustomSelectableButton extends StatelessWidget {
+  final String text;
+  final bool isSelected;
+  final VoidCallback onPressed;
+
+  CustomSelectableButton({
+    required this.text,
+    required this.isSelected,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 100,
+      height: 50,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: isSelected ? PRIMARY_COLOR : Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10), // 네모난 모양을 위해 둥글기 없앰
+          ),
+        ),
+        child: Text(
+          text,
+          style: skyboriButtonTextStyle.copyWith(
+            fontSize: 20,
+            color: isSelected ? Colors.white : Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 //오답노트 테이블

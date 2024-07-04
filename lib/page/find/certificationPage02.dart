@@ -20,6 +20,7 @@ class CertificationPage02 extends StatelessWidget {
       ),
       appBar: CustomAppBar(title: title),
       body: ListView(
+        padding: EdgeInsets.all(16.0),
         children: [
           MyWidget(title: title),
         ],
@@ -82,7 +83,7 @@ class _MyWidgetState extends State<MyWidget> {
           },
         ));
       } else {
-        // 아이디 찾기인 겅우
+        // 아이디 찾기인 경우
         Get.to(PopUpPage(
           message: '회원님의 SMath 아이디는 \nqwer입니다!',
           onPressed: () {
@@ -108,98 +109,63 @@ class _MyWidgetState extends State<MyWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          width: 360,
-          height: 800,
-          child: Stack(
-            children: [
-              Positioned(
-                left: 0,
-                right: 0,
-                top: 100,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    '메일 확인 후\n인증번호 4자리를 입력해주세요.',
-                    textAlign: TextAlign.center,
-                    style: skyboriBaseTextStyle.copyWith(
-                      fontSize: 27,
-                    ),
-                  ),
-                ),
-              ),
-              // 인증번호 입력
-              Positioned(
-                left: 34,
-                right: 34,
-                top: 250,
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _buildTextField(
-                            codeController1, focusNode1, focusNode2, null),
-                        _buildTextField(codeController2, focusNode2, focusNode3,
-                            focusNode1),
-                        _buildTextField(codeController3, focusNode3, focusNode4,
-                            focusNode2),
-                        _buildTextField(
-                            codeController4, focusNode4, null, focusNode3),
-                      ],
-                    ),
-                    if (errorMessage.isNotEmpty)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16.0),
-                        child: Text(
-                          errorMessage,
-                          style: TextStyle(color: Colors.red, fontSize: 16),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-              Positioned(
-                left: 0,
-                right: 0,
-                top: 450,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: TextButton(
-                    onPressed: () {
-                      Get.back(); // 인증번호 다시 받기 로직으로 바꾸기
-                    },
-                    child: Text(
-                      '인증번호 다시 받기',
-                      textAlign: TextAlign.center,
-                      style: skyboriUnderlineTextStyle.copyWith(
-                        color: PRIMARY_COLOR,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              // 인증번호 입력 버튼
-              Positioned(
-                left: 0,
-                right: 0,
-                top: 500,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    width: 288,
-                    height: 60,
-                    child: CustomButton(
-                      text: '인증하기',
-                      onPressed: _verifyCode,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+        SizedBox(height: 100),
+        Align(
+          alignment: Alignment.center,
+          child: Text(
+            '메일 확인 후\n인증번호 4자리를 입력해주세요.',
+            textAlign: TextAlign.center,
+            style: skyboriBaseTextStyle.copyWith(
+              fontSize: 27,
+            ),
           ),
         ),
+        SizedBox(height: 70),
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildTextField(codeController1, focusNode1, focusNode2, null),
+                _buildTextField(
+                    codeController2, focusNode2, focusNode3, focusNode1),
+                _buildTextField(
+                    codeController3, focusNode3, focusNode4, focusNode2),
+                _buildTextField(codeController4, focusNode4, null, focusNode3),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(height: 120),
+        TextButton(
+          onPressed: () {
+            Get.back(); // 인증번호 다시 받기 로직으로 바꾸기
+          },
+          child: Text(
+            '인증번호 다시 받기',
+            textAlign: TextAlign.center,
+            style: skyboriUnderlineTextStyle.copyWith(
+              color: PRIMARY_COLOR,
+            ),
+          ),
+        ),
+        Container(
+          width: 288,
+          height: 60,
+          child: CustomButton(
+            text: '인증하기',
+            onPressed: _verifyCode,
+          ),
+        ),
+        if (errorMessage.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: Text(
+              errorMessage,
+              style: TextStyle(color: Colors.red, fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+          ),
       ],
     );
   }
