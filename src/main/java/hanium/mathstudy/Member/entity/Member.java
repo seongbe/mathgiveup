@@ -1,4 +1,4 @@
-package hanium.mathstudy.user.entity;
+package hanium.mathstudy.Member.entity;
 
 import lombok.*;
 
@@ -7,9 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class User {
+public class Member {
     private String id;
     private String name;
     private String password;
-    private String email;
 }

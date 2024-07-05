@@ -1,4 +1,4 @@
-package hanium.mathstudy.user.config;
+package hanium.mathstudy.Member.config;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
