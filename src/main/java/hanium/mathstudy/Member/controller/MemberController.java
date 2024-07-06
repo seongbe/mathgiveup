@@ -2,28 +2,30 @@ package hanium.mathstudy.Member.controller;
 
 import hanium.mathstudy.Member.entity.Member;
 import hanium.mathstudy.Member.service.MemberService;
-
 import java.util.concurrent.ExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController; // 추가된 import 문
-import org.springframework.web.bind.annotation.RequestMapping; // 추가된 import 문
-
-import org.springframework.http.ResponseEntity;  // 추가된 import 문
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/api/members")
 public class MemberController {
 
-    @Autowired
     private MemberService memberService;
+
+    @Autowired
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody Member Member) {
         try {
-            hanium.mathstudy.Member.entity.Member infoUser = memberService.getMemberById(Member.getId());
-            if (infoUser != null && infoUser.getPassword().equals(Member.getPassword())) {
+            hanium.mathstudy.Member.entity.Member infoMember = memberService.getMemberById(Member.getId());
+            if (infoMember != null && infoMember.getPassword().equals(Member.getPassword())) {
                 return ResponseEntity.ok("Login successful");
             } else {
                 return ResponseEntity.status(401).body("Invalid credentials");
