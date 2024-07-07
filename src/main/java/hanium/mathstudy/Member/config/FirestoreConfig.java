@@ -1,15 +1,15 @@
 package hanium.mathstudy.Member.config;
 
 import com.google.auth.oauth2.GoogleCredentials;
+
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import com.google.cloud.firestore.Firestore;
 import com.google.firebase.cloud.FirestoreClient;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import com.google.cloud.firestore.Firestore;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import org.springframework.context.annotation.*;
+
+import java.io.*;
 
 @Configuration
 public class FirestoreConfig {
@@ -23,7 +23,8 @@ public class FirestoreConfig {
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(credentials)
-                .setProjectId("mathgiveup")
+                .setProjectId("mathgiveup-bc47a")
+                .setDatabaseUrl("https://mathgiveup.firebaseio.com")
                 .build();
 
         return FirebaseApp.initializeApp(options);
@@ -33,5 +34,4 @@ public class FirestoreConfig {
     public Firestore firestore(FirebaseApp firebaseApp) {
         return FirestoreClient.getFirestore();
     }
-
 }

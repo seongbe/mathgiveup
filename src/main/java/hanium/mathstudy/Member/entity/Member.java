@@ -3,12 +3,11 @@ package hanium.mathstudy.Member.entity;
 import lombok.*;
 
 @Getter
-@Builder
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 
 public class Member {
-    private String id;
-    private String name;
-    private String password;
+    private String login_id;
+    private String login_pwd;
 }
