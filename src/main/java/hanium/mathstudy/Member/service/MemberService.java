@@ -44,4 +44,50 @@ public class MemberService {
             throw ex;
         }
     }
+    public Member getMemberByEmail(String email) throws ExecutionException, InterruptedException {
+        Query query = firestore.collection("Members").whereEqualTo("email", email);
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+        List<QueryDocumentSnapshot> documents = querySnapshot.get().getDocuments();
+
+        if (!documents.isEmpty()) {
+            return documents.get(0).toObject(Member.class);
+        }
+        return null;
+    }
+
+    public Member getMemberByNickname(String nickname) throws ExecutionException, InterruptedException {
+        Query query = firestore.collection("Members").whereEqualTo("nickname", nickname);
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+        List<QueryDocumentSnapshot> documents = querySnapshot.get().getDocuments();
+
+        if (!documents.isEmpty()) {
+            return documents.get(0).toObject(Member.class);
+        }
+        return null;
+    }
+
+    public String createMember(Member member) throws ExecutionException, InterruptedException, IllegalArgumentException {
+        if (getMemberById(member.getLogin_id()) != null) {
+            throw new IllegalArgumentException("ID already exists");
+        }
+
+        if (getMemberByNickname(member.getNickname()) != null) {
+            throw new IllegalArgumentException("Nickname already exists");
+        }
+
+        CollectionReference members = firestore.collection("Members");
+        ApiFuture<DocumentReference> result = members.add(member);
+
+        return result.get().getId();
+    }
+
+    public void verifyEmail(String email) throws ExecutionException, InterruptedException {
+        Member member = getMemberByEmail(email);
+        if (member != null) {
+            member.setEmailVerified(true);
+            CollectionReference members = firestore.collection("Members");
+            ApiFuture<WriteResult> future = members.document(member.getLogin_id()).set(member);
+            future.get();
+        }
+    }
 }
