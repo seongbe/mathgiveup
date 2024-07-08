@@ -24,70 +24,68 @@ public class MemberService {
 
     public Member getMemberById(String id) throws ExecutionException, InterruptedException, TimeoutException {
         try {
-            System.out.println("Fetching member with login_id: " + id);
-
             Query query = firestore.collection("Members").whereEqualTo("login_id", id);
             ApiFuture<QuerySnapshot> querySnapshot = query.get();
 
             // 타임아웃을 10초로 설정
-            List<QueryDocumentSnapshot> documents = querySnapshot.get(10, TimeUnit.SECONDS).getDocuments();
+            List<QueryDocumentSnapshot> documents = querySnapshot.get(60, TimeUnit.SECONDS).getDocuments();
             System.out.println("Documents found: " + documents.size());
 
             if (!documents.isEmpty()) {
                 return documents.get(0).toObject(Member.class);
             } else {
-                throw new IllegalArgumentException("Document not found");
+                throw new IllegalArgumentException("Invalid login_id: " + id);
             }
-        } catch (Exception ex) {
+        } catch (Exception ex) {    // 모든 종류의 예외
             System.err.println("Error retrieving member: " + ex.getMessage());
             ex.printStackTrace();
             throw ex;
         }
     }
-    public Member getMemberByEmail(String email) throws ExecutionException, InterruptedException {
-        Query query = firestore.collection("Members").whereEqualTo("email", email);
-        ApiFuture<QuerySnapshot> querySnapshot = query.get();
-        List<QueryDocumentSnapshot> documents = querySnapshot.get().getDocuments();
+//    public Member getMemberByEmail(String email) throws ExecutionException, InterruptedException {
+//        Query query = firestore.collection("Members").whereEqualTo("email", email);
+//        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+//        List<QueryDocumentSnapshot> documents = querySnapshot.get().getDocuments();
+//
+//        if (!documents.isEmpty()) {
+//            return documents.get(0).toObject(Member.class);
+//        }
+//        return null;
+//    }
+//
+//    public Member getMemberByNickname(String nickname) throws ExecutionException, InterruptedException {
+//        Query query = firestore.collection("Members").whereEqualTo("nickname", nickname);
+//        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+//        List<QueryDocumentSnapshot> documents = querySnapshot.get().getDocuments();
+//
+//        if (!documents.isEmpty()) {
+//            return documents.get(0).toObject(Member.class);
+//        }
+//        return null;
+//    }
 
-        if (!documents.isEmpty()) {
-            return documents.get(0).toObject(Member.class);
-        }
-        return null;
-    }
+//    public String createMember(Member member) throws ExecutionException, InterruptedException, IllegalArgumentException {
+//        if (getMemberById(member.getLogin_id()) != null) {
+//            throw new IllegalArgumentException("ID already exists");
+//        }
+//
+//        if (getMemberByNickname(member.getNickname()) != null) {
+//            throw new IllegalArgumentException("Nickname already exists");
+//        }
+//
+//        CollectionReference members = firestore.collection("Members");
+//        ApiFuture<DocumentReference> result = members.add(member);
+//
+//        return result.get().getId();
+//    }
 
-    public Member getMemberByNickname(String nickname) throws ExecutionException, InterruptedException {
-        Query query = firestore.collection("Members").whereEqualTo("nickname", nickname);
-        ApiFuture<QuerySnapshot> querySnapshot = query.get();
-        List<QueryDocumentSnapshot> documents = querySnapshot.get().getDocuments();
-
-        if (!documents.isEmpty()) {
-            return documents.get(0).toObject(Member.class);
-        }
-        return null;
-    }
-
-    public String createMember(Member member) throws ExecutionException, InterruptedException, IllegalArgumentException {
-        if (getMemberById(member.getLogin_id()) != null) {
-            throw new IllegalArgumentException("ID already exists");
-        }
-
-        if (getMemberByNickname(member.getNickname()) != null) {
-            throw new IllegalArgumentException("Nickname already exists");
-        }
-
-        CollectionReference members = firestore.collection("Members");
-        ApiFuture<DocumentReference> result = members.add(member);
-
-        return result.get().getId();
-    }
-
-    public void verifyEmail(String email) throws ExecutionException, InterruptedException {
-        Member member = getMemberByEmail(email);
-        if (member != null) {
-            member.setEmailVerified(true);
-            CollectionReference members = firestore.collection("Members");
-            ApiFuture<WriteResult> future = members.document(member.getLogin_id()).set(member);
-            future.get();
-        }
-    }
+//    public void verifyEmail(String email) throws ExecutionException, InterruptedException {
+//        Member member = getMemberByEmail(email);
+//        if (member != null) {
+//            member.setEmailVerified(true);
+//            CollectionReference members = firestore.collection("Members");
+//            ApiFuture<WriteResult> future = members.document(member.getLogin_id()).set(member);
+//            future.get();
+//        }
+//    }
 }
