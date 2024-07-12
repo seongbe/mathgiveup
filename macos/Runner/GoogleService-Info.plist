@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>903509884558-46l97r2ilosmd546c1dsfququ0nu1nua.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.903509884558-46l97r2ilosmd546c1dsfququ0nu1nua</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAbuaJrQ7z87KlKGQRQ-i4IzgW4BU6ZCfQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>903509884558</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.mathgame</string>
+	<key>PROJECT_ID</key>
+	<string>mathgiveup-bc47a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mathgiveup-bc47a.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:903509884558:ios:41139d965f0883ba6413df</string>
+</dict>
+</plist>

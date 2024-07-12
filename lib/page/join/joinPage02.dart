@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/find/popUpPage.dart';
+import 'package:mathgame/page/test/mainTestPage.dart';
 
 class JoinPage02 extends StatelessWidget {
   @override
@@ -117,7 +118,7 @@ class _MyWidgetState extends State<MyWidget> {
         Get.to(PopUpPage(
           message: '회원가입이 완료되었습니다.\n확인 버튼을 누르면 실력테스트로 넘어갑니다.',
           onPressed: () {
-            Get.back();
+            Get.to(MainTestPage());
           },
         ));
       }

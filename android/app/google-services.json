@@ -1,26 +1,43 @@
 {
   "project_info": {
-    "project_number": "958572857157",
-    "project_id": "smath-app",
-    "storage_bucket": "smath-app.appspot.com"
+    "project_number": "903509884558",
+    "project_id": "mathgiveup-bc47a",
+    "storage_bucket": "mathgiveup-bc47a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:958572857157:android:54a01831db825b15d5202c",
+        "mobilesdk_app_id": "1:903509884558:android:c1d9a31959de8fab6413df",
         "android_client_info": {
-          "package_name": "com.example.mathgame"
+          "package_name": "com.hanium.SMath"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "903509884558-am8vjchn9ag5av9n1l0h174tpd97p9fu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyAVSGK0japole1w3rqzxA1-9FqrWgcHHww"
+          "current_key": "AIzaSyCnbbXHpaPO-JSo0Q3iU9a0bd0YYCrxNkE"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "903509884558-am8vjchn9ag5av9n1l0h174tpd97p9fu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "903509884558-s9iirs9efajkopf1u6g52sviokhnqn2l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hanium.SMath"
+              }
+            }
+          ]
         }
       }
     }
