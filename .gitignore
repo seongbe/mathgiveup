@@ -83,5 +83,12 @@ app.*.map.json
 out
 gen
 
+# Ignore environment configuration files
+/src/main/resources/serviceAccountKey.json
+/src/main/resources/application.properties
+/src/main/java/hanium/mathstudy/Member/config/FirestoreConfig.java
+/src/main/java/hanium/mathstudy/Member/service/GoogleIdTokenVerifier.java
+
+
 build
 serviceAccountKey

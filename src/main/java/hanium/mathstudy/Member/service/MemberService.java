@@ -1,16 +1,11 @@
 package hanium.mathstudy.Member.service;
-
-import hanium.mathstudy.Member.service.MemberService;
 import com.google.cloud.firestore.*;
 import hanium.mathstudy.Member.entity.Member;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 import java.util.concurrent.*;
-
 import com.google.api.core.ApiFuture;
-
 
 @Service
 public class MemberService {
@@ -29,7 +24,7 @@ public class MemberService {
             ApiFuture<QuerySnapshot> querySnapshot = query.get();
 
             // 타임아웃을 10초로 설정
-            List<QueryDocumentSnapshot> documents = querySnapshot.get(60, TimeUnit.SECONDS).getDocuments();
+            List<QueryDocumentSnapshot> documents = querySnapshot.get(100, TimeUnit.SECONDS).getDocuments();
             System.out.println("Documents found: " + documents.size());
 
             if (!documents.isEmpty()) {
@@ -43,6 +38,39 @@ public class MemberService {
             throw ex;
         }
     }
+
+    public Member findByGoogleId(String googleId) throws ExecutionException, InterruptedException, TimeoutException {
+        try {
+            Query query = firestore.collection("Members").whereEqualTo("googleId", googleId);
+            ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+            List<QueryDocumentSnapshot> documents = querySnapshot.get(100, TimeUnit.SECONDS).getDocuments();
+
+            if (!documents.isEmpty()) {
+                return documents.get(0).toObject(Member.class);
+            } else {
+                return null;
+            }
+        } catch (Exception ex) {
+            System.err.println("Error retrieving member by Google ID: " + ex.getMessage());
+            ex.printStackTrace();
+            throw ex;
+        }
+    }
+
+    public void save(Member member) throws ExecutionException, InterruptedException, TimeoutException {
+        try {
+            DocumentReference docRef = firestore.collection("Members").document(member.getGoogleId());
+            ApiFuture<WriteResult> result = docRef.set(member);
+            result.get(100, TimeUnit.SECONDS);
+            System.out.println("Member saved with ID: " + member.getGoogleId());
+        } catch (Exception ex) {
+            System.err.println("Error saving member: " + ex.getMessage());
+            ex.printStackTrace();
+            throw ex;
+        }
+    }
+
     public Member getMemberByEmail(String email) throws ExecutionException, InterruptedException {
         Query query = firestore.collection("Members").whereEqualTo("email", email);
         ApiFuture<QuerySnapshot> querySnapshot = query.get();
@@ -64,11 +92,6 @@ public class MemberService {
         }
         return null;
     }
-
-    public String createMember(Member member) throws ExecutionException, InterruptedException, IllegalArgumentException {
-        if (memberService.getMemberById(member.getLogin_id()) != null) {
-            throw new IllegalArgumentException("ID already exists");
-        }
 
         if (getMemberByNickname(member.getNickname()) != null) {
             throw new IllegalArgumentException("Nickname already exists");
