@@ -34,16 +34,19 @@ public class CustomMemberDetailsService implements UserDetailsService {
 
             List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
             if (documents.isEmpty()) {
+                System.out.println("User not found with login_id: " + username);
                 throw new UsernameNotFoundException("User not found");
             }
 
             Member member = documents.get(0).toObject(Member.class);
+            System.out.println("User found: " + member.getLogin_id());
 
             return User.builder()
                     .username(member.getLogin_id())
                     .password(member.getLogin_pwd())
                     .build();
         } catch (InterruptedException | ExecutionException e) {
+            System.err.println("Error fetching member: " + e.getMessage());
             throw new RuntimeException(e);
         }
     }

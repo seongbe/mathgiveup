@@ -18,14 +18,16 @@ public class SecurityConfig {
 
     public SecurityConfig(Firestore firestore) {
         this.firestore = firestore;
+        System.out.println("Firestore instance injected: " + firestore);
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        System.out.println("Configuring SecurityFilterChain...");
         http
                 .csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/api/members/login", "/api/members/register").permitAll()
+                        .requestMatchers("/api/members/login", "/api/members/register", "/api/members/google-login").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -35,19 +37,20 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .permitAll()
                 );
+        System.out.println("SecurityFilterChain configured.");
         return http.build();
 
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+        System.out.println("Configuring PasswordEncoder...");
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public CustomMemberDetailsService CustomMemberDetailsService() {
+        System.out.println("Creating CustomMemberDetailsService with Firestore: " + firestore);
         return new CustomMemberDetailsService(firestore);
     }
 }
-
-

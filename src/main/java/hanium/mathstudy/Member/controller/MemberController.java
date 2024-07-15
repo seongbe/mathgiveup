@@ -1,8 +1,10 @@
 package hanium.mathstudy.Member.controller;
 
 import hanium.mathstudy.Member.entity.Member;
+import hanium.mathstudy.Member.service.GoogleLoginService;
 import hanium.mathstudy.Member.service.MemberService;
 
+import java.util.Map;
 import java.util.concurrent.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +16,14 @@ import org.springframework.http.ResponseEntity;
 public class MemberController {
 
     private MemberService memberService;
+    private final GoogleLoginService googleLoginService;
 
     @Autowired
-    public MemberController(MemberService memberService) {
+    public MemberController(MemberService memberService, GoogleLoginService googleLoginService) {
         this.memberService = memberService; // controller가 생성될 때 service 주입하기
-        // System.out.println("MemberController instantiated with MemberService");
+         System.out.println("MemberController instantiated with MemberService");
+        this.googleLoginService = googleLoginService;
+        System.out.println("MemberController instantiated with googleLoginService");
     }
 
     @PostMapping("/login")
@@ -58,6 +63,27 @@ public class MemberController {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (TimeoutException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping("/google-login")
+    public ResponseEntity<String> googleLogin(@RequestBody Map<String, String> request) {
+        String idToken = request.get("idToken");
+
+        try {
+            System.out.println("ID Token received: " + idToken);
+
+            Member member = googleLoginService.processGoogleLogin(idToken);
+
+            if (member != null) {
+                return ResponseEntity.ok("Login successful! Nickname: " + member.getNickname());
+            } else {
+                return ResponseEntity.status(401).body("Login failed for Google ID");
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error during login: " + e.getMessage());
+            return ResponseEntity.status(500).body("Error during login: " + e.getMessage());
         }
     }
 //    @PostMapping("/signup")

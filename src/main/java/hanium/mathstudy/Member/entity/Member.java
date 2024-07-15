@@ -16,4 +16,6 @@ public class Member {
     private int grade;
     private String birthDate;
     private boolean emailVerified;
+
+    private String googleId;
 }
