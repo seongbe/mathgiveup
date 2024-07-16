@@ -12,7 +12,7 @@ public class GoogleLoginService {
     private MemberService memberService;
 
     @Autowired
-    private GoogleIdTokenVerifier googleIdTokenVerifier;
+    private GoogleIdTokenVerifierService googleIdTokenVerifier;
 
     public Member processGoogleLogin(String idTokenString) throws Exception {
         System.out.println("Processing Google login with token: " + idTokenString);
