@@ -93,15 +93,15 @@ public class MemberService {
         return null;
     }
 
-        if (getMemberByNickname(member.getNickname()) != null) {
-            throw new IllegalArgumentException("Nickname already exists");
-        }
-
-        CollectionReference members = firestore.collection("Members");
-        ApiFuture<DocumentReference> result = members.add(member);
-
-        return result.get().getId();
-    }
+//        if (getMemberByNickname(member.getNickname()) != null) {
+//            throw new IllegalArgumentException("Nickname already exists");
+//        }
+//
+//        CollectionReference members = firestore.collection("Members");
+//        ApiFuture<DocumentReference> result = members.add(member);
+//
+//        return result.get().getId();
+//    }
 
     public void verifyEmail(String email) throws ExecutionException, InterruptedException {
         Member member = getMemberByEmail(email);
