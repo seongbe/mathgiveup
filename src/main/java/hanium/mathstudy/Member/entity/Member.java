@@ -9,12 +9,13 @@ import lombok.*;
 @Builder
 
 public class Member {
+    private String name;
     private String email;
     private String login_id;
     private String login_pwd;
     private String nickname;
-    private int grade;
     private String birthDate;
+    private int grade;
     private boolean emailVerified;
 
     private String googleId;
