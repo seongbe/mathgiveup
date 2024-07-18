@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/find/popUpPage.dart';
@@ -135,7 +136,8 @@ class _MyWidgetState extends State<MyWidget> {
 
     if (selectedDate != null) {
       setState(() {
-        birthController.text = "${selectedDate.toLocal()}".split(' ')[0];
+        // DateFormat을 사용하여 날짜를 로컬 형식으로 변환
+        birthController.text = DateFormat.yMd().format(selectedDate);
       });
     }
   }
