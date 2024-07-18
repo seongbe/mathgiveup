@@ -55,12 +55,12 @@ class _MyWidgetState extends State<MyWidget> {
               emailErrorMessage = message;
               isEmailSent = true; // 이메일 전송 완료로 설정
             });
-            Get.to(PopUpPage(
-              message: '입력한 이메일로\n인증 링크가 발송되었습니다.',
-              onPressed: () {
-                Get.back();
-              },
-            ));
+            // Get.to(PopUpPage(
+            //   message: '입력한 이메일로\n인증 링크가 발송되었습니다.',
+            //   onPressed: () {
+            //     Get.back();
+            //   },
+            // ));
           },
           onError: (error) {
             setState(() {

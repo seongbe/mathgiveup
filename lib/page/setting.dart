@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/myaccount.dart';
 import 'package:mathgame/page/nicknamechangepage.dart';
+import 'package:mathgame/page/setting/profilePage.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
@@ -12,9 +13,9 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
-   bool isSwitched1 = false; 
-   bool isSwitched2 = false; 
-   bool isSwitched3 = false; 
+  bool isSwitched1 = false;
+  bool isSwitched2 = false;
+  bool isSwitched3 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,9 +42,9 @@ class _SettingState extends State<Setting> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   GestureDetector(
-                     onTap: (){
-                    Get.to(() => MyAccount());
-                  },
+                    onTap: () {
+                      Get.to(() => MyAccount());
+                    },
                     child: Container(
                       padding: EdgeInsets.fromLTRB(40, 20, 0, 20),
                       child: Row(
@@ -59,36 +60,41 @@ class _SettingState extends State<Setting> {
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width*0.8,
-                    child: Divider(
-                      color: Colors.white,
-                      thickness: 2,
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(40, 20, 0, 20),
-                    child: Row(
-                      children: [
-                        Text(
-                          '아이콘 변경',
-                          style: skyboriBaseTextStyle.copyWith(fontSize: 20),
-                        ),
-                        SizedBox(width: 30),
-                        Icon(Icons.arrow_circle_right_outlined),
-                      ],
-                    ),
-                  ),
-                    Container(
-                    width: MediaQuery.of(context).size.width*0.8,
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: Divider(
                       color: Colors.white,
                       thickness: 2,
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){
-                    Get.to(() => nickchange());
-                  },
+                    onTap: () {
+                      Get.to(() => ProfilePage());
+                    },
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(40, 20, 0, 20),
+                      child: Row(
+                        children: [
+                          Text(
+                            '프로필 변경',
+                            style: skyboriBaseTextStyle.copyWith(fontSize: 20),
+                          ),
+                          SizedBox(width: 30),
+                          Icon(Icons.arrow_circle_right_outlined),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: Divider(
+                      color: Colors.white,
+                      thickness: 2,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => nickchange());
+                    },
                     child: Container(
                       padding: EdgeInsets.fromLTRB(40, 20, 0, 20),
                       child: Row(
@@ -103,9 +109,8 @@ class _SettingState extends State<Setting> {
                       ),
                     ),
                   ),
-                   
                   Container(
-                    width: MediaQuery.of(context).size.width*0.8,
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: Divider(
                       color: Colors.white,
                       thickness: 2,
@@ -120,7 +125,7 @@ class _SettingState extends State<Setting> {
                           style: skyboriBaseTextStyle.copyWith(fontSize: 20),
                         ),
                         SizedBox(width: 30),
-                         Switch(
+                        Switch(
                           value: isSwitched1,
                           onChanged: (value) {
                             setState(() {
@@ -133,9 +138,8 @@ class _SettingState extends State<Setting> {
                       ],
                     ),
                   ),
-                   
-                    Container(
-                    width: MediaQuery.of(context).size.width*0.8,
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: Divider(
                       color: Colors.white,
                       thickness: 2,
@@ -150,7 +154,7 @@ class _SettingState extends State<Setting> {
                           style: skyboriBaseTextStyle.copyWith(fontSize: 20),
                         ),
                         SizedBox(width: 30),
-                       Switch(
+                        Switch(
                           value: isSwitched2,
                           onChanged: (value) {
                             setState(() {
@@ -163,15 +167,14 @@ class _SettingState extends State<Setting> {
                       ],
                     ),
                   ),
-                   
-                   Container(
-                    width: MediaQuery.of(context).size.width*0.8,
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: Divider(
                       color: Colors.white,
                       thickness: 2,
                     ),
                   ),
-                   Container(
+                  Container(
                     padding: EdgeInsets.fromLTRB(40, 20, 0, 20),
                     child: Row(
                       children: [
@@ -180,7 +183,7 @@ class _SettingState extends State<Setting> {
                           style: skyboriBaseTextStyle.copyWith(fontSize: 20),
                         ),
                         SizedBox(width: 30),
-                         Switch(
+                        Switch(
                           value: isSwitched3,
                           onChanged: (value) {
                             setState(() {
@@ -193,9 +196,8 @@ class _SettingState extends State<Setting> {
                       ],
                     ),
                   ),
-                   
-                   Container(
-                    width: MediaQuery.of(context).size.width*0.8,
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: Divider(
                       color: Colors.white,
                       thickness: 2,
