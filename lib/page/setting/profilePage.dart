@@ -28,7 +28,7 @@ class MyWidget extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<MyWidget> {
-  String selectedImagePath = 'assets/images/icon1.png';
+  String selectedImagePath = 'assets/images/icon1.png'; // 이거 DB에서 받아오는 걸로 수정하기
 
   // 아이콘 선택 버튼
   Widget iconButton({required String assetPath, required VoidCallback onTap}) {

@@ -1,0 +1,19 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "LearningRecords",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "idMember",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "learningDate",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
