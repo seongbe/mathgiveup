@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/find/popUpPage.dart';
@@ -37,6 +38,8 @@ class _MyWidgetState extends State<MyWidget> {
   final TextEditingController checkPasswordController = TextEditingController();
   final TextEditingController nicknameController = TextEditingController();
   final TextEditingController birthController = TextEditingController();
+  // Firestore 인스턴스 생성
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   String idErrorMessage = '';
   String passworddErrorMessage = '';
   String nicknameErrorMessage = '';
@@ -47,6 +50,15 @@ class _MyWidgetState extends State<MyWidget> {
   bool isIdVerified = false; // 아이디 중복확인 여부를 추적하는 변수
   bool isNicknameVerified = false; // 닉네임 중복확인 여부를 추적하는 변수
   int selectedButtonIndex = -1; // 선택된 버튼의 인덱스를 추적
+
+  String? email; // 이메일 정보를 저장할 변수
+
+  @override
+  void initState() {
+    super.initState();
+    //email = Get.arguments as String; // 이메일 정보를 가져옴
+    email = 'dus1655@gmail.com';
+  }
 
   void _checkId() {
     setState(() {
@@ -116,14 +128,32 @@ class _MyWidgetState extends State<MyWidget> {
         gradeErrorMessage = '학년을 선택해 주세요.';
         brithErrorMessage = '';
       } else {
-        Get.to(PopUpPage(
-          message: '회원가입이 완료되었습니다.\n확인 버튼을 누르면 실력테스트로 넘어갑니다.',
-          onPressed: () {
-            Get.to(MainTestPage());
-          },
-        ));
+        _saveUserInfo(); // Firestore에 회원가입 정보 저장
       }
     });
+  }
+
+  Future<void> _saveUserInfo() async {
+    try {
+      await _firestore.collection('Members').doc(idController.text.trim()).set({
+        'email': email,
+        'login_id': idController.text.trim(),
+        'login_pwd': passwordController.text.trim(),
+        'nickname': nicknameController.text.trim(),
+        'birthDate': birthController.text.trim(),
+        'grade': selectedButtonIndex,
+        //'timestamp': FieldValue.serverTimestamp(),
+      });
+
+      Get.to(PopUpPage(
+        message: '회원가입이 완료되었습니다.\n확인 버튼을 누르면 실력테스트로 넘어갑니다.',
+        onPressed: () {
+          Get.to(MainTestPage());
+        },
+      ));
+    } catch (e) {
+      print('Error saving user info: $e');
+    }
   }
 
   Future<void> _selectDate(BuildContext context) async {
