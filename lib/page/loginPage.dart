@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
-import 'package:mathgame/auth/google_sign_in_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:mathgame/auth/google_sign_in_provider.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/find/findIdPage.dart';
@@ -37,24 +39,35 @@ class _MyWidgetState extends State<MyWidget> {
   final TextEditingController idController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool keepLoggedIn = false;
-  String errorMessage = '아이디 또는 비밀번호를 잘못 입력했습니다.';
+  String errorMessage = '아이디 또는 비밀번호를 다시 확인해 주세요';
+  String _message = '';
   Color errorColor = Colors.transparent;
 
-  void _login() {
-    setState(() {
-      if (idController.text.isEmpty ||
-          passwordController.text.isEmpty ||
-          idController.text != 'qwer' ||
-          passwordController.text != '1234') {
-        errorColor = Colors.red;
-      } else {
-        errorColor = Colors.transparent;
+  // 백엔드 API 호출
+  Future<void> _login() async {
+    final response = await http.post(
+      Uri.parse('http://192.168.50.195:8080/api/members/login'), // 백엔드 API 주소
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'login_id': idController.text,
+        'login_pwd': passwordController.text,
+        'autoLogin': keepLoggedIn,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
         Get.to(Homepage()); // HomePage로 이동
-      }
-    });
+      });
+    } else {
+      setState(() {
+        errorColor = Colors.red;
+      });
+    }
   }
 
-//소셜 로그인 버튼
+  // 소셜 로그인 버튼
   Widget snsButton(
       {required String assetPath,
       required VoidCallback onTap,
@@ -158,7 +171,7 @@ class _MyWidgetState extends State<MyWidget> {
               snsButton(
                 assetPath: 'assets/images/apple.png',
                 onTap: () {
-                  print('Kakao Talk Button Pressed');
+                  print('Apple Sign In Button Pressed');
                 },
                 backgroundColor: Colors.white,
               ),

@@ -8,8 +8,10 @@ import 'package:mathgame/page/loginPage.dart';
 
 class CertificationPage02 extends StatelessWidget {
   final String title;
+  final String email;
 
-  const CertificationPage02({super.key, required this.title});
+  const CertificationPage02(
+      {super.key, required this.title, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class CertificationPage02 extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(16.0),
         children: [
-          MyWidget(title: title),
+          MyWidget(title: title, email: email),
         ],
       ),
     );
@@ -31,8 +33,9 @@ class CertificationPage02 extends StatelessWidget {
 
 class MyWidget extends StatefulWidget {
   final String title;
+  final String email;
 
-  MyWidget({required this.title});
+  MyWidget({required this.title, required this.email});
   @override
   _MyWidgetState createState() => _MyWidgetState(title: title);
 }

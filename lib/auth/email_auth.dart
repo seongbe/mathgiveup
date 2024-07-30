@@ -1,64 +1,77 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:ffi';
+
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class EmailAuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final String baseUrl = 'http://192.168.50.195:8080/api/members';
 
-  Future<void> sendSignInLinkToEmail({
+  Future<bool> emailVail({required String email}) async {
+    try {
+      final url = Uri.parse('$baseUrl/sendCode');
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'email=${Uri.encodeQueryComponent(email)}',
+      );
+
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print('Error sending authentication code to email: $e');
+      return false;
+    }
+  }
+
+  Future<void> sendAuthCode({
     required String email,
     required Function(String) onSuccess,
     required Function(String) onError,
   }) async {
     try {
-      ActionCodeSettings actionCodeSettings = ActionCodeSettings(
-        url:
-            'https://smath.page.link/finishSignUp?email=${email}}', //'http://localhost:5000',
-        handleCodeInApp: true,
-        iOSBundleId: 'com.hanium.SMath',
-        androidPackageName: 'com.hanium.SMath',
-        androidInstallApp: true,
-        androidMinimumVersion: '12',
+      final url = Uri.parse('$baseUrl/sendCode');
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'email=${Uri.encodeQueryComponent(email)}',
       );
 
-      await _auth.sendSignInLinkToEmail(
-        email: email,
-        actionCodeSettings: actionCodeSettings,
-      );
-
-      onSuccess('인증 이메일이 전송되었습니다.');
+      if (response.statusCode == 200) {
+        onSuccess('인증 코드가 이메일로 전송되었습니다.');
+      } else {
+        onError('인증 코드 전송 중 오류가 발생했습니다.');
+      }
     } catch (e) {
-      print('Error sending sign-in link to email: $e');
-      onError('이메일 전송 중 오류가 발생했습니다.');
+      print('Error sending authentication code to email: $e');
+      onError('인증 코드 전송 중 오류가 발생했습니다.');
     }
   }
 
-  Future<void> signInWithEmailLink({
+  Future<void> verifyAuthCode({
     required String email,
-    required String emailLink,
-    required Function(User?) onSuccess,
+    required String authCode,
+    required Function(String) onSuccess,
     required Function(String) onError,
   }) async {
     try {
-      final bool isValidLink = _auth.isSignInWithEmailLink(emailLink);
-      if (!isValidLink) {
-        onError('유효하지 않은 이메일 링크입니다.');
-        return;
-      }
-
-      UserCredential userCredential = await _auth.signInWithEmailLink(
-        email: email,
-        emailLink: emailLink,
+      final url = Uri.parse(
+          '$baseUrl/verifyCode?email=${Uri.encodeQueryComponent(email)}&authCode=${Uri.encodeQueryComponent(authCode)}');
+      final response = await http.get(
+        url,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       );
 
-      User? user = userCredential.user;
-
-      if (user != null && user.emailVerified) {
-        onSuccess(user);
+      if (response.statusCode == 200) {
+        onSuccess('이메일 인증이 완료되었습니다.');
       } else {
-        onError('이메일 인증이 완료되지 않았습니다.');
+        onError('이메일 인증에 실패했습니다.');
       }
     } catch (e) {
-      print('Error signing in with email link: $e');
-      onError('로그인 중 오류가 발생했습니다.');
+      print('Error verifying authentication code: $e');
+      onError('이메일 인증 중 오류가 발생했습니다.');
     }
   }
 }
