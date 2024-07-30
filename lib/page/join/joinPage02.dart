@@ -166,8 +166,8 @@ class _MyWidgetState extends State<MyWidget> {
 
     if (selectedDate != null) {
       setState(() {
-        // DateFormat을 사용하여 날짜를 로컬 형식으로 변환
-        birthController.text = DateFormat.yMd().format(selectedDate);
+        birthController.text =
+            "${selectedDate.year}-${selectedDate.month.toString().padLeft(2, '0')}-${selectedDate.day.toString().padLeft(2, '0')}";
       });
     }
   }

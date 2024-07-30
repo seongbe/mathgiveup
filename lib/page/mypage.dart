@@ -4,7 +4,7 @@ import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/detailnotepage.dart';
 import 'package:mathgame/page/learningInfo/studyDaysPage.dart';
 import 'package:mathgame/page/setting.dart';
-import 'package:mathgame/learningInfo/studyDaysPage.dart';
+import 'package:mathgame/page/learningInfo/studyDaysPage.dart';
 import 'package:mathgame/model/progressModel.dart';
 import 'package:mathgame/page/test/mainTestPage.dart';
 

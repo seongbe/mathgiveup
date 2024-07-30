@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mathgame/Notification/personalInfoPage.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/find/popUpPage.dart';
@@ -32,67 +33,79 @@ class MyWidget extends StatefulWidget {
 
 class _MyWidgetState extends State<MyWidget> {
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController emailLinkController = TextEditingController();
+  final TextEditingController authCodeController = TextEditingController();
   String emailErrorMessage = '';
   String authMessage = '';
   Color codeErrorColor = Colors.grey;
-  bool isEmailSent = false; // 이메일 전송 여부를 추적하는 변수
-  bool isEmailVerified = false; // 이메일 인증 여부를 추적하는 변수
+  bool isAuthCodeSent = false; // 인증 코드 전송 여부를 추적하는 변수
+  bool isAuthCodeVerified = false; // 인증 코드 검증 여부를 추적하는 변수
 
   final EmailAuthService _authService = EmailAuthService();
 
-  void _sendSignInLink() {
+  Future<void> _sendAuthCode() async {
     setState(() {
       emailErrorMessage = '';
-
-      if (emailController.text.isEmpty) {
-        emailErrorMessage = '이메일을 입력하세요';
-      } else {
-        _authService.sendSignInLinkToEmail(
-          email: emailController.text,
-          onSuccess: (message) {
-            setState(() {
-              emailErrorMessage = message;
-              isEmailSent = true; // 이메일 전송 완료로 설정
-            });
-          },
-          onError: (error) {
-            setState(() {
-              emailErrorMessage = error;
-            });
-          },
-        );
-      }
     });
+
+    if (emailController.text.isEmpty) {
+      setState(() {
+        emailErrorMessage = '이메일을 입력하세요';
+      });
+      return;
+    }
+
+    bool emailExists =
+        await _authService.emailVail(email: emailController.text);
+
+    if (!emailExists) {
+      _authService.sendAuthCode(
+        email: emailController.text,
+        onSuccess: (message) {
+          setState(() {
+            emailErrorMessage = message;
+            isAuthCodeSent = true; // 인증 코드 전송 완료로 설정
+          });
+        },
+        onError: (error) {
+          setState(() {
+            emailErrorMessage = error;
+          });
+        },
+      );
+    } else {
+      setState(() {
+        emailErrorMessage = '이메일이 이미 존재합니다.';
+      });
+    }
   }
 
-  void _verifyEmailLink() {
+  void _verifyAuthCode() {
     setState(() {
       authMessage = '';
     });
 
-    _authService.signInWithEmailLink(
+    _authService.verifyAuthCode(
       email: emailController.text,
-      emailLink: emailLinkController.text,
-      onSuccess: (user) {
+      authCode: authCodeController.text,
+      onSuccess: (message) {
         setState(() {
           authMessage = '이메일 인증이 완료되었습니다!';
           codeErrorColor = Colors.blue;
-          isEmailVerified = true; // 이메일 인증 성공으로 설정
+          isAuthCodeVerified = true; // 인증 코드 검증 성공으로 설정
         });
       },
       onError: (error) {
         setState(() {
           authMessage = error;
           codeErrorColor = Colors.red;
-          isEmailVerified = false; // 이메일 인증 실패로 설정
+          isAuthCodeVerified = false; // 인증 코드 검증 실패로 설정
         });
       },
     );
   }
 
   void _onNextButtonPressed() {
-    if (isEmailVerified) {
+    if (isAuthCodeVerified) {
       Get.to(JoinPage02(), arguments: emailController.text.trim());
     } else {
       setState(() {
@@ -140,20 +153,20 @@ class _MyWidgetState extends State<MyWidget> {
               width: 250,
               height: 50,
               child: CustomButton(
-                text: '인증 메일 받기',
+                text: '인증 코드 받기',
                 fontSize: 25,
-                onPressed: _sendSignInLink,
+                onPressed: _sendAuthCode,
               ),
             ),
           ),
           SizedBox(height: 80),
-          if (isEmailSent) ...[
+          if (isAuthCodeSent) ...[
             Center(
               child: Column(
                 children: [
                   CustomTextField(
-                    controller: emailLinkController,
-                    hintText: '이메일로 받은 링크를 입력하세요.',
+                    controller: authCodeController,
+                    hintText: '이메일로 받은 인증 코드를 입력하세요.',
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -170,9 +183,9 @@ class _MyWidgetState extends State<MyWidget> {
                       width: 250,
                       height: 50,
                       child: CustomButton(
-                        text: '이메일 인증 확인',
+                        text: '인증 코드 확인',
                         fontSize: 25,
-                        onPressed: _verifyEmailLink,
+                        onPressed: _verifyAuthCode,
                       ),
                     ),
                   ),
@@ -198,7 +211,9 @@ class _MyWidgetState extends State<MyWidget> {
                 style: skyboriTextStyle,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  PersonalInfo(context);
+                },
                 child: Text(
                   '개인정보취급방침',
                   textAlign: TextAlign.center,

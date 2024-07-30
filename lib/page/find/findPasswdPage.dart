@@ -39,7 +39,10 @@ class _MyWidgetState extends State<MyWidget> {
         errorMessage = '아이디를 입력하세요.';
       } else if (idController.text == 'qwer') {
         errorMessage = ''; // 오류메시지 초기화
-        Get.to(CertificationPage01(title: '비밀번호 재설정'));
+        Get.to(CertificationPage01(
+          title: '비밀번호 재설정',
+          email: '',
+        ));
       } else {
         errorMessage = '';
         Get.to(FindPasswdFailPage());

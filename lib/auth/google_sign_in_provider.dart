@@ -5,14 +5,19 @@ class GoogleSignInProvider extends ChangeNotifier {
   final AuthService _authService = AuthService();
 
   Future<void> signInWithGoogle(BuildContext context) async {
-    final user = await _authService.signInWithGoogle();
-    if (user != null) {
-      // 로그인 성공 후 HomePage로 이동
-      Navigator.pushReplacementNamed(context, '/home');
-    } else {
-      // 로그인 실패 처리
+    try {
+      final user = await _authService.signInWithGoogle();
+      if (user != null) {
+        Navigator.pushReplacementNamed(context, '/home');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Google 로그인에 실패했습니다. 다시 시도해주세요.')),
+        );
+      }
+    } catch (error) {
+      print("Sign-in error: $error");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Google 로그인에 실패했습니다. 다시 시도해주세요.')),
+        SnackBar(content: Text('로그인 중 오류가 발생했습니다.')),
       );
     }
   }
