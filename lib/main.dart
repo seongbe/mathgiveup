@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mathgame/page/loginPage.dart';
 import 'firebase_options.dart'; // Firebase 초기화 옵션 파일
 import 'package:provider/provider.dart';
 import 'auth/google_sign_in_provider.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         home: Titlepage(),
         routes: {
           '/home': (context) => Homepage(), // HomePage 경로를 맞게 변경
+          '/login': (context) => LoginPage(),
         },
       ),
     );

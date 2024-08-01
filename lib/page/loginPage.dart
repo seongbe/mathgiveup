@@ -17,7 +17,14 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: '로그인'),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          '로그인',
+          style: skyboriBaseTextStyle.copyWith(fontSize: 30),
+        ),
+        leading: Container(),
+      ), //CustomAppBar(title: '로그인'),
       body: BackgroundContainer(
         child: ListView(
           padding: const EdgeInsets.all(16.0),
@@ -58,7 +65,7 @@ class _MyWidgetState extends State<MyWidget> {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
-        Get.to(Homepage()); // HomePage로 이동
+        Get.to(() => Homepage()); // HomePage로 이동
       });
     } else {
       setState(() {
@@ -183,7 +190,7 @@ class _MyWidgetState extends State<MyWidget> {
             children: [
               TextButton(
                 onPressed: () {
-                  Get.to(FindIdPage());
+                  Get.to(() => FindIdPage());
                 },
                 child: Text(
                   '아이디 찾기',
@@ -198,7 +205,7 @@ class _MyWidgetState extends State<MyWidget> {
               ),
               TextButton(
                 onPressed: () {
-                  Get.to(FindPasswdPage());
+                  Get.to(() => FindPasswdPage());
                 },
                 child: Text(
                   '비밀번호 재설정',
@@ -225,7 +232,7 @@ class _MyWidgetState extends State<MyWidget> {
               ),
               TextButton(
                 onPressed: () {
-                  Get.to(JoinPage());
+                  Get.to(() => JoinPage());
                 },
                 child: Text(
                   '회원가입',

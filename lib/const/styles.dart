@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mathgame/const/colors.dart'; // Import the colors.dart file for color constants
+import 'package:mathgame/const/colors.dart';
 
+// 임시 아이디, 닉네임
 final List<String> existingIds = ['qwer', 'asdf', 'zxcv'];
 final List<String> existingNicknames = ['수학', '영어', '국어'];
 
