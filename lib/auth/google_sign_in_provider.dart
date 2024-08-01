@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mathgame/auth/auth_service.dart';
+import 'auth_service.dart';
 
 class GoogleSignInProvider extends ChangeNotifier {
   final AuthService _authService = AuthService();
 
   Future<void> signInWithGoogle(BuildContext context) async {
     try {
-      final user = await _authService.signInWithGoogle();
+      final user = await _authService.signInWithGoogle(context);
       if (user != null) {
         Navigator.pushReplacementNamed(context, '/home');
       } else {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mathgame/auth/google_sign_in_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:mathgame/const/styles.dart';
 
 class MyAccount extends StatelessWidget {
@@ -43,7 +45,7 @@ class MyAccount extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width*0.8,
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: Divider(
                       color: Colors.white,
                       thickness: 2,
@@ -62,29 +64,36 @@ class MyAccount extends StatelessWidget {
                       ],
                     ),
                   ),
-                    Container(
-                    width: MediaQuery.of(context).size.width*0.8,
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: Divider(
                       color: Colors.white,
                       thickness: 2,
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(40, 20, 0, 20),
-                    child: Row(
-                      children: [
-                        Text(
-                          '로그아웃',
-                          style: skyboriBaseTextStyle.copyWith(fontSize: 20),
-                        ),
-                        SizedBox(width: 30),
-                        Icon(Icons.logout),
-                      ],
+                  GestureDetector(
+                    onTap: () async {
+                      await Provider.of<GoogleSignInProvider>(context,
+                              listen: false)
+                          .signOut();
+                      Navigator.pushReplacementNamed(context, '/login');
+                    },
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(40, 20, 0, 20),
+                      child: Row(
+                        children: [
+                          Text(
+                            '로그아웃',
+                            style: skyboriBaseTextStyle.copyWith(fontSize: 20),
+                          ),
+                          SizedBox(width: 30),
+                          Icon(Icons.logout),
+                        ],
+                      ),
                     ),
                   ),
-                   
                   Container(
-                    width: MediaQuery.of(context).size.width*0.8,
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: Divider(
                       color: Colors.white,
                       thickness: 2,
@@ -103,15 +112,13 @@ class MyAccount extends StatelessWidget {
                       ],
                     ),
                   ),
-                   
-                    Container(
-                    width: MediaQuery.of(context).size.width*0.8,
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: Divider(
                       color: Colors.white,
                       thickness: 2,
                     ),
                   ),
-                    
                 ],
               ),
             ],
