@@ -126,13 +126,45 @@ class Communitypage extends StatelessWidget {
                  Divider(
                       color: Colors.white,
                     ), 
-                  Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ChatContainer(chat: chat1),
-                  ],
-                ),
              
+
+                  Column(
+                    children: [
+                       SizedBox(height: 20,),
+                       Text('채팅창',
+                             style: skyboriTextStyle.copyWith(fontSize: 30),
+                           ),
+                              SizedBox(height: 20,),
+                      Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        
+                     
+                        ChatContainer(chat: chat1),
+                      ],
+                                      ),
+                    ],
+                  ),
+                   Divider(
+                      color: Colors.white,
+                    ), 
+             Column(
+                    children: [
+                       SizedBox(height: 20,),
+                       Text('랭킹',
+                             style: skyboriTextStyle.copyWith(fontSize: 30),
+                           ),
+                              SizedBox(height: 20,),
+                      Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        
+                     
+                       RankingContainer(),
+                      ],
+                                      ),
+                    ],
+                  ),
             ],
             
           ),
@@ -432,6 +464,111 @@ class ChatContainer extends StatelessWidget {
               ),
             ],
           ),
+            
+        ],
+      ),
+    );
+  }
+}
+
+
+
+class RankingContainer extends StatelessWidget {
+  const RankingContainer({super.key});
+  
+
+  @override
+  Widget build(BuildContext context) {
+    return    Container(
+       width: MediaQuery.of(context).size.width * 0.8,
+      height: 260,
+      margin: EdgeInsets.all(20.0),
+      padding: EdgeInsets.all(30.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(40.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        
+        children: [
+          Column(
+            children: [
+              Row(
+                children: [
+                  Text(
+                    '스테이지 게임',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(width: 30,),
+                  Text(
+                    '1:1 게임',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                   SizedBox(width: 30,),
+                   Text(
+                    '퀴즈게임',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              SizedBox(height: 15),
+               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('스테이지 게임 순위',
+                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                  
+                ],
+               ),
+            ],
+          ),
+          SizedBox(height: 15),
+          Column(children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('🥇',
+                style: TextStyle(fontSize: 25),),
+               
+                 Text('닉네임',
+                style: TextStyle(fontSize: 25),),
+                Text('STAGE3-15',
+                style: TextStyle(fontSize: 15),),
+                
+              ],
+            ),
+            SizedBox(height: 5,),
+           Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('🥈',
+                style: TextStyle(fontSize: 25),),
+               
+                 Text('닉네임',
+                style: TextStyle(fontSize: 25),),
+                Text('STAGE3-15',
+                style: TextStyle(fontSize: 15),),
+                
+              ],
+            ),
+            SizedBox(height: 5,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('🥉',
+                style: TextStyle(fontSize: 25),),
+               
+                 Text('닉네임',
+                style: TextStyle(fontSize: 25),),
+                Text('STAGE3-15',
+                style: TextStyle(fontSize: 15),),
+                
+              ],
+            ),
+          ],)
+         
+       
             
         ],
       ),
