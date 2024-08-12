@@ -38,9 +38,9 @@ dependencies:
   lottie: ^3.1.2
   get: ^4.6.6
   intl: ^0.19.0
-  firebase_auth: ^5.1.2
-  firebase_core: ^3.2.0
-  cloud_firestore: ^5.1.0
+  firebase_auth: ^5.1.4
+  firebase_core: ^3.3.0
+  cloud_firestore: ^5.2.1
   google_sign_in: ^6.2.1
   http: ^1.2.2
   table_calendar: ^3.1.2
@@ -73,6 +73,7 @@ flutter:
     - assets/titlePage.gif
     - assets/청룡.png
     - assets/images/
+    - assets/images/실력테스트.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

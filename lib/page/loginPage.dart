@@ -53,7 +53,7 @@ class _MyWidgetState extends State<MyWidget> {
   // 백엔드 API 호출
   Future<void> _login() async {
     final response = await http.post(
-      Uri.parse('http://192.168.50.195:8080/api/members/login'), // 백엔드 API 주소
+      Uri.parse('http://43.203.199.74:8080/api/members/login'), // 백엔드 API 주소
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'login_id': idController.text,
