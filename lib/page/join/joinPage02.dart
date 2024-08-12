@@ -33,6 +33,7 @@ class MyWidget extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<MyWidget> {
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController idController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController checkPasswordController = TextEditingController();
@@ -179,6 +180,14 @@ class _MyWidgetState extends State<MyWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          CustomInputField(
+            label: '이름',
+            controller: nameController,
+            hintText: '이름 입력',
+            errorMessage: idErrorMessage,
+            errorColor: idErrorColor,
+          ),
+          SizedBox(height: 20),
           CustomInputField(
             label: '아이디',
             controller: idController,

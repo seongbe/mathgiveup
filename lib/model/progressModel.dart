@@ -15,6 +15,7 @@ final List<DateTime> specialDays = [
   DateTime(2024, 7, 28),
   DateTime(2024, 7, 29),
   DateTime(2024, 7, 30),
+  DateTime(2024, 7, 31),
 ];
 
 class ProgressModel with ChangeNotifier {
