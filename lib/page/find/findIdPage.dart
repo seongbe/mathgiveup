@@ -60,9 +60,9 @@ class _MyWidgetState extends State<MyWidget> {
 
     // URL에 쿼리 파라미터 추가
     final url = Uri.parse(
-      'http://192.168.50.195:8080/api/members/find/loginId'
+      'http://43.203.199.74:8080/api/members/find/loginId'
       '?email=${Uri.encodeComponent(emailController.text)}'
-      '&birthDate=${Uri.encodeComponent(birthController.text)}',
+      '&birthdate=${Uri.encodeComponent(birthController.text)}',
     );
 
     final response = await http.get(url);

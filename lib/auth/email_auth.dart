@@ -4,11 +4,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class EmailAuthService {
-  final String baseUrl = 'http://192.168.50.195:8080/api/members';
+  final String baseUrl = 'http://172.30.1.85:8080/api/members';
 
   Future<bool> emailVail({required String email}) async {
     try {
-      final url = Uri.parse('$baseUrl/sendCode');
+      final url = Uri.parse('$baseUrl/checkEmail');
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -18,6 +18,7 @@ class EmailAuthService {
       if (response.statusCode == 200) {
         return true;
       } else {
+        print('Failed to send code. Status code: ${response.statusCode}');
         return false;
       }
     } catch (e) {

@@ -26,12 +26,7 @@ class AuthService {
           await _auth.signInWithCredential(credential);
       final User? user = userCredential.user;
 
-      if (user != null) {
-        if (userCredential.additionalUserInfo?.isNewUser ?? false) {
-          // 처음 로그인하는 사용자
-          await _showPersonalInfoDialog(context);
-        }
-      }
+      await _showPersonalInfoDialog(context);
 
       return user;
     } catch (e) {
