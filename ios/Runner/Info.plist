@@ -2,6 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>LSApplicationQueriesSchemes</key>
+  	<array>
+      	<!-- 카카오톡으로 로그인 -->
+      	<string>kakaokompassauth</string>
+	      <!-- 카카오톡 공유 -->
+    	  <string>kakaolink</string>
+	      <!-- 카카오톡 채널 -->
+    	  <string>kakaoplus</string>
+  	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -47,6 +56,7 @@
 	<true/>
 	<key>CFBundleURLTypes</key>
 	<array>
+		<!-- 구글 키 설정 -->
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
@@ -55,6 +65,15 @@
 				<string>com.googleusercontent.apps.903509884558-46l97r2ilosmd546c1dsfququ0nu1nua</string>
 			</array>
 		</dict>
+		<!-- 카카오톡 키 설정 -->
+    	<dict>
+        	<key>CFBundleURLName</key>
+	        <string>kakao</string>
+    	    <key>CFBundleURLSchemes</key>
+        	<array>
+            	<string>kakao${b27c9e44a65488be85a63f8ccb4ee727}</string>
+        	</array>
+    	</dict>
 	</array>
 </dict>
 </plist>

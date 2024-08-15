@@ -54,29 +54,20 @@ class _MyWidgetState extends State<MyWidget> {
       return;
     }
 
-    bool emailExists =
-        await _authService.emailVail(email: emailController.text);
-
-    if (!emailExists) {
-      _authService.sendAuthCode(
-        email: emailController.text,
-        onSuccess: (message) {
-          setState(() {
-            emailErrorMessage = message;
-            isAuthCodeSent = true; // 인증 코드 전송 완료로 설정
-          });
-        },
-        onError: (error) {
-          setState(() {
-            emailErrorMessage = error;
-          });
-        },
-      );
-    } else {
-      setState(() {
-        emailErrorMessage = '이메일이 이미 존재합니다.';
-      });
-    }
+    _authService.sendAndVerifyEmail(
+      email: emailController.text,
+      onSuccess: (message) {
+        setState(() {
+          emailErrorMessage = message;
+          isAuthCodeSent = true; // 인증 코드 전송 완료로 설정
+        });
+      },
+      onError: (error) {
+        setState(() {
+          emailErrorMessage = error;
+        });
+      },
+    );
   }
 
   void _verifyAuthCode() {

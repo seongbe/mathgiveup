@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:mathgame/const/api.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/find/CertificationPage01.dart';
@@ -60,17 +61,21 @@ class _MyWidgetState extends State<MyWidget> {
 
     // URL에 쿼리 파라미터 추가
     final url = Uri.parse(
-      'http://43.203.199.74:8080/api/members/find/loginId'
+      '$membersUrl/find/loginId'
       '?email=${Uri.encodeComponent(emailController.text)}'
       '&birthdate=${Uri.encodeComponent(birthController.text)}',
     );
 
     final response = await http.get(url);
 
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}'); // 서버 응답 출력
+
     if (response.statusCode == 200) {
       Get.to(CertificationPage01(
         title: '아이디 찾기',
         email: emailController.text,
+        loginId: response.body,
       ));
     } else {
       Get.to(PopUpPage(

@@ -56,44 +56,45 @@ class _MyWidgetState extends State<MyWidget> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Expanded(
-                  child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '뱃지 지급까지 ${progressModel.targetDay - progressModel.currentDay}일 남았어요',
-                    style: skyboriBaseTextStyle.copyWith(
-                      fontSize: 20,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '뱃지 지급까지 ${progressModel.targetDay - progressModel.currentDay}일 남았어요',
+                      style: skyboriBaseTextStyle.copyWith(
+                        fontSize: 20,
+                      ),
                     ),
-                  ),
-                  Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text: '연속 학습 ',
-                          style: skyboriBaseTextStyle.copyWith(
-                            fontSize: 15,
-                            color: Colors.blueGrey,
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '연속 학습 ',
+                            style: skyboriBaseTextStyle.copyWith(
+                              fontSize: 15,
+                              color: Colors.blueGrey,
+                            ),
                           ),
-                        ),
-                        TextSpan(
-                          text: '${progressModel.currentDay}',
-                          style: skyboriBaseTextStyle.copyWith(
-                            fontSize: 15,
-                            color: Colors.blue,
+                          TextSpan(
+                            text: '${progressModel.currentDay}',
+                            style: skyboriBaseTextStyle.copyWith(
+                              fontSize: 15,
+                              color: Colors.blue,
+                            ),
                           ),
-                        ),
-                        TextSpan(
-                          text: '일차',
-                          style: skyboriBaseTextStyle.copyWith(
-                            fontSize: 15,
-                            color: Colors.blueGrey,
+                          TextSpan(
+                            text: '일차',
+                            style: skyboriBaseTextStyle.copyWith(
+                              fontSize: 15,
+                              color: Colors.blueGrey,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              )),
+                  ],
+                ),
+              ),
               Text(
                 '${progressModel.currentDay}/${progressModel.targetDay} days',
                 style: skyboriBaseTextStyle.copyWith(
@@ -237,23 +238,6 @@ class _MyWidgetState extends State<MyWidget> {
               },
             ),
           ),
-          SizedBox(height: 50),
-          // Center(
-          //   child: Column(
-          //     children: [
-          //       Text(
-          //           '연속 학습 일수: ${progressModel.currentDay}/${progressModel.targetDay} days',
-          //           style: skyboriBaseTextStyle.copyWith(fontSize: 15)),
-          //       SizedBox(height: 10),
-          //       LinearProgressIndicator(
-          //         value: progressValue,
-          //         minHeight: 10,
-          //         backgroundColor: Colors.grey[300],
-          //         color: Colors.blue,
-          //       ),
-          //     ],
-          //   ),
-          // ),
         ],
       ),
     );

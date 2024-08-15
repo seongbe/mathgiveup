@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:mathgame/const/api.dart';
 import 'dart:convert';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
@@ -52,27 +53,25 @@ class _MyWidgetState extends State<MyWidget> {
     try {
       final response = await http.get(
         Uri.parse(
-            'http://43.203.199.74:8080/find/pwd/loginId?loginId=${Uri.encodeComponent(id)}'),
+            '$membersUrl/reset/password/loginId?loginId=${Uri.encodeComponent(id)}'),
         headers: {'Content-Type': 'application/json'},
       );
 
+      // 디버깅
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      print(id);
+
       if (response.statusCode == 200) {
-        final responseBody = response.body;
-        if (responseBody == 'Login ID exists.') {
-          // ID가 유효할 때
-          Get.to(CertificationPage01(
-            title: '비밀번호 재설정',
-            email: '',
-          ));
-        } else {
-          // ID가 유효하지 않을 때
-          Get.to(FindPasswdFailPage());
-        }
-      } else if (response.statusCode == 400) {
-        // 사용자 미존재 처리
-        setState(() {
-          errorMessage = '사용자를 찾을 수 없습니다.';
-        });
+        // ID가 유효할 때
+        Get.to(CertificationPage01(
+          title: '비밀번호 재설정',
+          email: response.body,
+          loginId: id,
+        ));
+      } else if (response.statusCode == 500) {
+        // ID가 유효하지 않을 때
+        Get.to(FindPasswdFailPage());
       } else {
         // 서버 오류 처리
         setState(() {
