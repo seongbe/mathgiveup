@@ -1,5 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:mathgame/const/api.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/find/popUpPage.dart';
@@ -9,9 +12,14 @@ import 'package:mathgame/page/loginPage.dart';
 class CertificationPage02 extends StatelessWidget {
   final String title;
   final String email;
+  final String loginId;
 
-  const CertificationPage02(
-      {super.key, required this.title, required this.email});
+  const CertificationPage02({
+    super.key,
+    required this.title,
+    required this.email,
+    required this.loginId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +32,7 @@ class CertificationPage02 extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(16.0),
         children: [
-          MyWidget(title: title, email: email),
+          MyWidget(title: title, email: email, loginId: loginId),
         ],
       ),
     );
@@ -34,16 +42,31 @@ class CertificationPage02 extends StatelessWidget {
 class MyWidget extends StatefulWidget {
   final String title;
   final String email;
+  final String loginId;
 
-  MyWidget({required this.title, required this.email});
+  MyWidget({
+    required this.title,
+    required this.email,
+    required this.loginId,
+  });
   @override
-  _MyWidgetState createState() => _MyWidgetState(title: title);
+  _MyWidgetState createState() => _MyWidgetState(
+        title: title,
+        email: email,
+        loginId: loginId,
+      );
 }
 
 class _MyWidgetState extends State<MyWidget> {
   final String title;
+  final String email;
+  final String loginId;
 
-  _MyWidgetState({required this.title});
+  _MyWidgetState({
+    required this.title,
+    required this.email,
+    required this.loginId,
+  });
   final TextEditingController codeController1 = TextEditingController();
   final TextEditingController codeController2 = TextEditingController();
   final TextEditingController codeController3 = TextEditingController();
@@ -70,40 +93,64 @@ class _MyWidgetState extends State<MyWidget> {
     }
   }
 
-  void _verifyCode() {
+  Future<void> _verifyCode() async {
     String code = codeController1.text +
         codeController2.text +
         codeController3.text +
         codeController4.text;
-    // 임시 인증번호
-    if (code == '1234') {
-      if (title == '비밀번호 재설정') {
-        // 비번 재설정인 경우
-        Get.to(PopUpPage(
-          message: '인증이 완료되었습니다!',
-          onPressed: () {
-            Get.to(FindPasswdPage02());
-          },
-        ));
+
+    print('Entered code: $code');
+
+    try {
+      final url = Uri.parse(
+          '$membersUrl/find/email/verify?email=${Uri.encodeQueryComponent(email)}&code=${Uri.encodeQueryComponent(code)}');
+      final response = await http.get(url);
+
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      print('${loginId}');
+
+      if (response.statusCode == 200) {
+        if (response.body.contains('Verification code valid')) {
+          if (title == '비밀번호 재설정') {
+            Get.to(PopUpPage(
+              message: '인증이 완료되었습니다!',
+              onPressed: () {
+                Get.to(FindPasswdPage02(email: email, code: code));
+              },
+            ));
+          } else {
+            Get.to(PopUpPage(
+              message: '회원님의 SMath 아이디는 \n${loginId}입니다!',
+              onPressed: () {
+                Get.to(LoginPage());
+              },
+            ));
+          }
+        } else {
+          setState(() {
+            errorMessage = '인증번호를 다시 확인해주세요.';
+            FocusScope.of(context).requestFocus(focusNode1);
+            codeController1.clear();
+            codeController2.clear();
+            codeController3.clear();
+            codeController4.clear();
+          });
+        }
       } else {
-        // 아이디 찾기인 경우
-        Get.to(PopUpPage(
-          message: '회원님의 SMath 아이디는 \nqwer입니다!',
-          onPressed: () {
-            Get.to(LoginPage());
-          },
-        ));
+        setState(() {
+          errorMessage = '인증 오류가 발생했습니다. 다시 시도해 주세요.';
+          FocusScope.of(context).requestFocus(focusNode1);
+          codeController1.clear();
+          codeController2.clear();
+          codeController3.clear();
+          codeController4.clear();
+        });
       }
-    } else {
+    } catch (e) {
+      print('Error verifying authentication code: $e');
       setState(() {
-        errorMessage = '인증번호를 다시 확인해주세요.';
-        // 첫 번째 입력 필드로 포커스를 이동
-        FocusScope.of(context).requestFocus(focusNode1);
-        // 입력 필드 초기화
-        codeController1.clear();
-        codeController2.clear();
-        codeController3.clear();
-        codeController4.clear();
+        errorMessage = '인증 코드 확인 중 오류가 발생했습니다.';
       });
     }
   }

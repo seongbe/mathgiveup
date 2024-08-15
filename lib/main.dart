@@ -13,6 +13,7 @@ import 'package:mathgame/page/odabnotepage.dart';
 import 'package:mathgame/page/homepage.dart';
 import 'package:mathgame/page/titlepage.dart';
 import 'package:mathgame/model/progressModel.dart';
+import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart'; // 카카오
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,13 @@ void main() async {
     sslEnabled: false,
     persistenceEnabled: false,
   ); // 이 설정을 통해 Firestore가 로컬 에뮬레이터를 사용하도록 지정
+
+  // 웹 환경에서 카카오 로그인을 정상적으로 완료하려면 runApp() 호출 전 아래 메서드 호출 필요
+  WidgetsFlutterBinding.ensureInitialized();
+  // runApp() 호출 전 Flutter SDK 초기화
+  KakaoSdk.init(
+    nativeAppKey: 'b27c9e44a65488be85a63f8ccb4ee727',
+  );
 
   runApp(MyApp());
 }

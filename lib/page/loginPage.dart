@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:mathgame/auth/auth_token.dart';
+import 'package:mathgame/const/api.dart';
+import 'package:mathgame/page/join/joinPage02.dart';
 import 'package:provider/provider.dart';
 import 'package:mathgame/auth/google_sign_in_provider.dart';
 import 'package:mathgame/const/colors.dart';
@@ -53,7 +56,7 @@ class _MyWidgetState extends State<MyWidget> {
   // 백엔드 API 호출
   Future<void> _login() async {
     final response = await http.post(
-      Uri.parse('http://43.203.199.74:8080/api/members/login'), // 백엔드 API 주소
+      Uri.parse('$membersUrl/login'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'login_id': idController.text,
@@ -62,8 +65,14 @@ class _MyWidgetState extends State<MyWidget> {
       }),
     );
 
+    print('${response.body}');
+
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
+      final token = data['token'];
+
+      // 토큰 저장
+      await AuthTokenStorage.saveToken(token);
       setState(() {
         Get.to(() => Homepage()); // HomePage로 이동
       });
@@ -176,11 +185,11 @@ class _MyWidgetState extends State<MyWidget> {
               ),
               SizedBox(width: 30),
               snsButton(
-                assetPath: 'assets/images/apple.png',
+                assetPath: 'assets/images/kakao_talk.png',
                 onTap: () {
-                  print('Apple Sign In Button Pressed');
+                  print('Kakao Sign In Button Pressed');
                 },
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.yellow,
               ),
             ],
           ),

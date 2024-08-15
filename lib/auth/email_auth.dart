@@ -1,39 +1,17 @@
 import 'dart:ffi';
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:mathgame/const/api.dart';
 
 class EmailAuthService {
-  final String baseUrl = 'http://172.30.1.85:8080/api/members';
-
-  Future<bool> emailVail({required String email}) async {
-    try {
-      final url = Uri.parse('$baseUrl/checkEmail');
-      final response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: 'email=${Uri.encodeQueryComponent(email)}',
-      );
-
-      if (response.statusCode == 200) {
-        return true;
-      } else {
-        print('Failed to send code. Status code: ${response.statusCode}');
-        return false;
-      }
-    } catch (e) {
-      print('Error sending authentication code to email: $e');
-      return false;
-    }
-  }
-
-  Future<void> sendAuthCode({
+  Future<void> sendAndVerifyEmail({
     required String email,
     required Function(String) onSuccess,
     required Function(String) onError,
   }) async {
     try {
-      final url = Uri.parse('$baseUrl/sendCode');
+      // 이메일 유효성 검사 및 인증 코드 전송
+      final url = Uri.parse('$membersUrl/check-email');
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -41,8 +19,10 @@ class EmailAuthService {
       );
 
       if (response.statusCode == 200) {
+        print('Response Body: ${response.body}');
         onSuccess('인증 코드가 이메일로 전송되었습니다.');
       } else {
+        print('Error Response Body: ${response.body}');
         onError('인증 코드 전송 중 오류가 발생했습니다.');
       }
     } catch (e) {
@@ -59,10 +39,10 @@ class EmailAuthService {
   }) async {
     try {
       final url = Uri.parse(
-          '$baseUrl/verifyCode?email=${Uri.encodeQueryComponent(email)}&authCode=${Uri.encodeQueryComponent(authCode)}');
-      final response = await http.get(
+          '$membersUrl/verify-email?email=${Uri.encodeQueryComponent(email)}&code=${Uri.encodeQueryComponent(authCode)}');
+      final response = await http.patch(
         url,
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        headers: {'Content-Type': 'application/json'},
       );
 
       if (response.statusCode == 200) {

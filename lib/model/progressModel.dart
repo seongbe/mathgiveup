@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 // 임시 학습 데이터
 final List<DateTime> specialDays = [
@@ -16,13 +15,28 @@ final List<DateTime> specialDays = [
   DateTime(2024, 7, 29),
   DateTime(2024, 7, 30),
   DateTime(2024, 7, 31),
+  DateTime(2024, 8, 1),
+  DateTime(2024, 8, 2),
+  DateTime(2024, 8, 3),
+  DateTime(2024, 8, 4),
+  DateTime(2024, 8, 5),
+  DateTime(2024, 8, 6),
+  DateTime(2024, 8, 7),
+  DateTime(2024, 8, 8),
+  DateTime(2024, 8, 9),
+  DateTime(2024, 8, 10),
+  DateTime(2024, 8, 11),
+  DateTime(2024, 8, 12),
+  DateTime(2024, 8, 13),
+  DateTime(2024, 8, 14),
 ];
 
 class ProgressModel with ChangeNotifier {
   int _currentDay = 0;
-  final int _targetDay = 7;
+  late int _targetDay;
 
   ProgressModel() {
+    _calculateTargetDay();
     _calculateCurrentDay();
   }
 
@@ -33,7 +47,6 @@ class ProgressModel with ChangeNotifier {
     DateTime now = DateTime.now();
     DateTime yesterday = now.subtract(Duration(days: 1));
 
-    // 어제까지 연속으로 학습한 날 계산
     int count = 0;
     DateTime checkDate = yesterday;
 
@@ -45,9 +58,14 @@ class ProgressModel with ChangeNotifier {
     _currentDay = count;
   }
 
+  void _calculateTargetDay() {
+    _targetDay = _currentDay < 7 ? 7 : 30;
+  }
+
   void incrementDay() {
     if (_currentDay < _targetDay) {
       _currentDay++;
+      _calculateTargetDay();
       notifyListeners();
     }
   }

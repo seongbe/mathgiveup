@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:mathgame/const/api.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/find/popUpPage.dart';
 import 'package:mathgame/page/loginPage.dart';
 
 class FindPasswdPage02 extends StatelessWidget {
-  const FindPasswdPage02({super.key});
+  final String email;
+  final String code;
+
+  const FindPasswdPage02({
+    Key? key,
+    required this.email,
+    required this.code,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +26,9 @@ class FindPasswdPage02 extends StatelessWidget {
       ),
       appBar: CustomAppBar(title: '비밀번호 재설정'),
       body: ListView(
+        padding: EdgeInsets.all(16.0),
         children: [
-          MyWidget(),
+          MyWidget(email: email, code: code),
         ],
       ),
     );
@@ -26,6 +36,15 @@ class FindPasswdPage02 extends StatelessWidget {
 }
 
 class MyWidget extends StatefulWidget {
+  final String email;
+  final String code;
+
+  const MyWidget({
+    Key? key,
+    required this.email,
+    required this.code,
+  }) : super(key: key);
+
   @override
   _MyWidgetState createState() => _MyWidgetState();
 }
@@ -33,7 +52,6 @@ class MyWidget extends StatefulWidget {
 class _MyWidgetState extends State<MyWidget> {
   final TextEditingController passwordController1 = TextEditingController();
   final TextEditingController passwordController2 = TextEditingController();
-  bool keepLoggedIn = false;
   String errorMessage = '';
 
   @override
@@ -75,25 +93,51 @@ class _MyWidgetState extends State<MyWidget> {
     );
   }
 
-  void _resetPassword() {
-    if (passwordController1.text.isEmpty || passwordController2.text.isEmpty) {
+  Future<void> _resetPassword() async {
+    final newPassword = passwordController1.text;
+    final confirmPassword = passwordController2.text;
+
+    if (newPassword.isEmpty || confirmPassword.isEmpty) {
       setState(() {
         errorMessage = '비밀번호를 입력해주세요.';
-        passwordController1.clear();
-        passwordController2.clear();
       });
-    } else if (passwordController1.text == passwordController2.text) {
-      Get.to(PopUpPage(
-        message: '비밀번호 변경이 완료되었습니다.\n다시 로그인해주세요!',
-        onPressed: () {
-          Get.to(LoginPage());
-        },
-      ));
-    } else {
+      return;
+    }
+
+    if (newPassword != confirmPassword) {
       setState(() {
-        errorMessage = '비밀번호를 다시 확인해주세요.';
-        passwordController1.clear();
-        passwordController2.clear();
+        errorMessage = '비밀번호가 일치하지 않습니다.';
+      });
+      return;
+    }
+
+    try {
+      final url = Uri.parse(
+          '$membersUrl/reset/password/change?email=${Uri.encodeQueryComponent(widget.email)}&new_password=${Uri.encodeQueryComponent(newPassword)}&code=${Uri.encodeQueryComponent(widget.code)}');
+      final response = await http.patch(
+        url,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      );
+
+      // 디버깅
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        Get.to(PopUpPage(
+            message: '비밀번호 변경이 완료되었습니다.\n다시 로그인해주세요!',
+            onPressed: () {
+              Get.to(LoginPage());
+            }));
+      } else {
+        setState(() {
+          errorMessage = '비밀번호 변경에 실패했습니다.';
+        });
+      }
+    } catch (e) {
+      print('Error: $e');
+      setState(() {
+        errorMessage = '비밀번호 변경 중 오류가 발생했습니다.';
       });
     }
   }
