@@ -5,6 +5,8 @@ import 'package:mathgame/component/button.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/controller/NavigationController.dart';
+import 'package:mathgame/game/Game.dart';
+import 'package:mathgame/game/GamePage1.dart';
 import 'package:mathgame/page/communitypage.dart';
 import 'package:mathgame/page/detailnotepage.dart';
 import 'package:mathgame/page/mypage.dart';
@@ -18,7 +20,7 @@ class Homepage extends StatelessWidget {
     Communitypage(),
     Odabnotepage(),
     Mypage(),
-   
+    GameSelectPage(),
    
   ];
 
@@ -31,7 +33,7 @@ class Homepage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: Text(
-          navigationController.selectedIndex.value == 4 ? 'Detail Notepage' : 'Smath',
+          navigationController.selectedIndex.value == 5 ? 'Detail Notepage' : 'Smath',
           style: skyboriBaseTextStyle,
         ),
         leading: navigationController.selectedIndex.value == 4
@@ -61,6 +63,10 @@ class Homepage extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.people),
             label: '마이페이지',
+          ),
+           BottomNavigationBarItem(
+            icon: Icon(Icons.gamepad),
+            label: '게임페이지',
           ),
  
           
