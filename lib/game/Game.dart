@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mathgame/game/GamePage1.dart';
+import 'package:mathgame/game/GamePage2.dart';
+import 'package:mathgame/game/GamePage3.dart';
 
 class GameSelectPage extends StatelessWidget {
   const GameSelectPage({super.key});
@@ -22,14 +24,14 @@ class GameSelectPage extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Get.toNamed('/game2');
+                Get.to(() => GamePage2());
               },
               child: Text('1대1게임'),
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Get.toNamed('/game3');
+               Get.to(() => GamePage3());
               },
               child: Text('수학피하기 게임'),
             ),

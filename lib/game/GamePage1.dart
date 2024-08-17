@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class GamePage extends StatefulWidget {
@@ -116,9 +117,17 @@ class _GamePageState extends State<GamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Get.back(); // Navigator.pop 대신 Get.back을 사용하여 뒤로가기
+          },
+        ),
+        title: Text('game page'),
+      ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 100),
+        padding: const EdgeInsets.all(100.0),
         child: _questions.isEmpty
             ? const Center(child: CircularProgressIndicator())
             : Column(

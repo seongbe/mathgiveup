@@ -242,6 +242,8 @@ class CommunityContainer extends StatelessWidget {
                 community.number,
                 style: skyboriHintTextStyle,
               ),
+              SizedBox(width: 120,),
+               
             ],
           ),
           SizedBox(height: 8.0),
