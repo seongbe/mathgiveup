@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:mathgame/const/api.dart';
+import 'package:mathgame/api/api.dart';
 import 'package:mathgame/page/find/popUpPage.dart';
 import 'package:mathgame/page/test/mainTestPage.dart';
 import 'package:mathgame/auth/auth_token.dart';

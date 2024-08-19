@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class GamePage extends StatefulWidget {
@@ -116,39 +117,60 @@ class _GamePageState extends State<GamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
-      body: Padding(
-        padding: const EdgeInsets.only(top: 100),
-        child: _questions.isEmpty
-            ? const Center(child: CircularProgressIndicator())
-            : Column(
-                children: [
-                  Text('Question ${_currentQuestionIndex + 1}:'),
-                  Text(
-                    _questions[_currentQuestionIndex],
-                    style: const TextStyle(fontSize: 24),
-                  ),
-                  TextField(
-                    controller: _controller,
-                    onChanged: (value) {
-                      _userAnswer = value;
-                    },
-                    decoration: const InputDecoration(
-                      hintText: '정답을 입력하세요',
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: _checkAnswer,
-                    child: const Text('정답제출'),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Score: $_score',
-                    style: const TextStyle(fontSize: 18),
-                  ),
-                ],
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Get.back(); // Navigator.pop 대신 Get.back을 사용하여 뒤로가기
+          },
+        ),
+        title: Text('game page'),
+      ),
+      body: Stack(
+        children: [
+           Container(
+            // 배경 이미지 설정
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background.png'), // 배경 이미지 경로
+                fit: BoxFit.cover, // 이미지 크기 조정 방식
               ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(100.0),
+            child: _questions.isEmpty
+                ? const Center(child: CircularProgressIndicator())
+                : Column(
+                    children: [
+                      Text('Question ${_currentQuestionIndex + 1}:'),
+                      Text(
+                        _questions[_currentQuestionIndex],
+                        style: const TextStyle(fontSize: 24),
+                      ),
+                      TextField(
+                        controller: _controller,
+                        onChanged: (value) {
+                          _userAnswer = value;
+                        },
+                        decoration: const InputDecoration(
+                          hintText: '정답을 입력하세요',
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: _checkAnswer,
+                        child: const Text('정답제출'),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'Score: $_score',
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  ),
+          ),
+        ],
       ),
     );
   }

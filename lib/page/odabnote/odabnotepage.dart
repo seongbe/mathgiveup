@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/controller/NavigationController.dart';
-import 'package:mathgame/page/detailnotepage.dart';
+import 'package:mathgame/page/odabnote/detailnotepage.dart';
 
 class Odabnotepage extends StatelessWidget {
   const Odabnotepage({super.key});

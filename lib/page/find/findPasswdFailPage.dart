@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/find/findIdPage.dart';
-import 'package:mathgame/page/loginPage.dart';
+import 'package:mathgame/page/join/loginPage.dart';
 
 class FindPasswdFailPage extends StatelessWidget {
   const FindPasswdFailPage({super.key});

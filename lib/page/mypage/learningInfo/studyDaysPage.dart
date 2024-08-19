@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mathgame/page/detailnotepage.dart';
+import 'package:mathgame/page/odabnote/detailnotepage.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';

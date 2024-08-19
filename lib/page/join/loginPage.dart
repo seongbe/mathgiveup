@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:mathgame/auth/auth_token.dart';
-import 'package:mathgame/const/api.dart';
+import 'package:mathgame/api/api.dart';
 import 'package:mathgame/page/join/joinPage02.dart';
 import 'package:provider/provider.dart';
 import 'package:mathgame/auth/google_sign_in_provider.dart';
@@ -12,7 +12,7 @@ import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/find/findIdPage.dart';
 import 'package:mathgame/page/find/findPasswdPage.dart';
 import 'package:mathgame/page/join/joinPage.dart';
-import 'package:mathgame/page/homepage.dart';
+import 'package:mathgame/router/homepage.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
