@@ -145,7 +145,7 @@ class JoinProcess {
       print('Response status code: ${response.statusCode}');
       print('Response body: ${response.body}');
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final token = data['token'];
 
