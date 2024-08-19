@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:mathgame/const/api.dart';
+import 'package:mathgame/api/api.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/find/popUpPage.dart';
 import 'package:mathgame/page/find/findPasswdPage02.dart';
-import 'package:mathgame/page/loginPage.dart';
+import 'package:mathgame/page/join/loginPage.dart';
 
 class CertificationPage02 extends StatelessWidget {
   final String title;

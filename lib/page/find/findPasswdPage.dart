@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:mathgame/const/api.dart';
+import 'package:mathgame/api/api.dart';
 import 'dart:convert';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';

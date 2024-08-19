@@ -98,41 +98,55 @@ class _GamePage3State extends State<GamePage3> {
         ),
         title: Text('Game Page - Stage $stage'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Score: $playerScore',
-              style: TextStyle(fontSize: 24),
-            ),
-            SizedBox(height: 20),
-            Text(
-              question,
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
-            TextField(
-              controller: answerController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: 'Your Answer',
-                border: OutlineInputBorder(),
+      body: Stack(
+        
+        children: [
+           Container(
+            // 배경 이미지 설정
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background.png'), // 배경 이미지 경로
+                fit: BoxFit.cover, // 이미지 크기 조정 방식
               ),
-              onSubmitted: (_) => checkAnswer(),
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: checkAnswer,
-              child: Text('Submit'),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Score: $playerScore',
+                  style: TextStyle(fontSize: 24),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  question,
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  controller: answerController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: '답을 적어주세요!',
+                    border: OutlineInputBorder(),
+                  ),
+                  onSubmitted: (_) => checkAnswer(),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: checkAnswer,
+                  child: Text('제출하기'),
+                ),
+                SizedBox(height: 40),
+                stage < 50
+                    ? Text('Stage $stage of 50', style: TextStyle(fontSize: 20))
+                    : Text('Final Stage', style: TextStyle(fontSize: 20)),
+              ],
             ),
-            SizedBox(height: 40),
-            stage < 50
-                ? Text('Stage $stage of 50', style: TextStyle(fontSize: 20))
-                : Text('Final Stage', style: TextStyle(fontSize: 20)),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

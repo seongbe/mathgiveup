@@ -3,15 +3,15 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:mathgame/page/loginPage.dart';
-import 'firebase_options.dart'; // Firebase 초기화 옵션 파일
+import 'package:mathgame/page/join/loginPage.dart';
+import 'controller/firebase_options.dart'; // Firebase 초기화 옵션 파일
 import 'package:provider/provider.dart';
 import 'auth/google_sign_in_provider.dart';
-import 'package:mathgame/page/communitypage.dart';
-import 'package:mathgame/page/mypage.dart';
-import 'package:mathgame/page/odabnotepage.dart';
-import 'package:mathgame/page/homepage.dart';
-import 'package:mathgame/page/titlepage.dart';
+import 'package:mathgame/page/community/communitypage.dart';
+import 'package:mathgame/page/mypage/mypage.dart';
+import 'package:mathgame/page/odabnote/odabnotepage.dart';
+import 'package:mathgame/router/homepage.dart';
+import 'package:mathgame/page/join/titlepage.dart';
 import 'package:mathgame/model/progressModel.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart'; // 카카오
 

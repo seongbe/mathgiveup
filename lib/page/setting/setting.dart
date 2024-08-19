@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mathgame/const/styles.dart';
-import 'package:mathgame/page/myaccount.dart';
-import 'package:mathgame/page/nicknamechangepage.dart';
+import 'package:mathgame/page/mypage/myaccount.dart';
+import 'package:mathgame/page/mypage/nicknamechangepage.dart';
 import 'package:mathgame/page/setting/profilePage.dart';
 
 class Setting extends StatefulWidget {
