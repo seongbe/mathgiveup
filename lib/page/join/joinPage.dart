@@ -37,6 +37,7 @@ class _MyWidgetState extends State<MyWidget> {
   String emailErrorMessage = '';
   String authMessage = '';
   Color codeErrorColor = Colors.grey;
+  Color emailErrorColor = Colors.grey;
   bool isAuthCodeSent = false; // 인증 코드 전송 여부를 추적하는 변수
   bool isAuthCodeVerified = false; // 인증 코드 검증 여부를 추적하는 변수
 
@@ -59,12 +60,14 @@ class _MyWidgetState extends State<MyWidget> {
       onSuccess: (message) {
         setState(() {
           emailErrorMessage = message;
+          emailErrorColor = Colors.blue;
           isAuthCodeSent = true; // 인증 코드 전송 완료로 설정
         });
       },
       onError: (error) {
         setState(() {
           emailErrorMessage = error;
+          emailErrorColor = Colors.red;
         });
       },
     );
@@ -127,7 +130,7 @@ class _MyWidgetState extends State<MyWidget> {
               Expanded(
                 child: Text(
                   emailErrorMessage,
-                  style: TextStyle(color: Colors.red, fontSize: 15),
+                  style: TextStyle(color: emailErrorColor, fontSize: 15),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

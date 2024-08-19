@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:mathgame/api/api.dart';
 import 'package:mathgame/page/find/popUpPage.dart';
 import 'package:mathgame/page/test/mainTestPage.dart';
+import 'package:mathgame/auth/auth_token.dart';
 
 class JoinProcess {
   final grades = ['1학년', '2학년', '3학년'];
@@ -34,6 +35,22 @@ class JoinProcess {
     email = userEmail;
   }
 
+  bool isValidId(String id) {
+    // 아이디 유효성 검사
+    final regex = RegExp(r'^[a-z][a-z0-9]{3,11}$');
+    return regex.hasMatch(id);
+  }
+
+  bool isValidPassword(String password) {
+    // 비밀번호 유효성 검사
+    final regex =
+        RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$&*~]).{8,}$');
+    print(password);
+    bool result = regex.hasMatch(password);
+    print(result);
+    return regex.hasMatch(password);
+  }
+
   Future<void> checkID(List<String> existingIds, State state) async {
     try {
       final url = Uri.parse(
@@ -41,14 +58,17 @@ class JoinProcess {
         '?loginId=${Uri.encodeComponent(idController.text)}',
       );
 
-      print('Requesting: $url'); // URL 출력
-
       final response = await http.post(url);
 
-      print('Response status code: ${response.statusCode}'); // 상태 코드 출력
-      print('Response body: ${response.body}'); // 응답 본문 출력
+      // 디버깅
+      print('Response status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
 
-      if (idController.text.isEmpty) {
+      if (!isValidId(idController.text)) {
+        idErrorMessage = "유효하지 않은 아이디 형식입니다.";
+        idErrorColor = Colors.red;
+        isIdVerified = false;
+      } else if (idController.text.isEmpty) {
         idErrorMessage = '아이디를 입력해 주세요.';
         idErrorColor = Colors.red;
         isIdVerified = false;
@@ -82,8 +102,10 @@ class JoinProcess {
     );
   }
 
-  Future<void> checkField(BuildContext context) async {
-    if (idController.text.isEmpty) {
+  Future<void> checkField(BuildContext context, State state) async {
+    if (nameController.text.isEmpty) {
+      showSnackBar(context, '이름을 입력해 주세요.');
+    } else if (idController.text.isEmpty) {
       showSnackBar(context, '아이디를 입력해 주세요.');
       isIdVerified = false;
     } else if (!isIdVerified) {
@@ -93,6 +115,8 @@ class JoinProcess {
       showSnackBar(context, '비밀번호를 입력해주세요.');
     } else if (passwordController.text != checkPasswordController.text) {
       showSnackBar(context, '비밀번호를 다시 확인해주세요.');
+    } else if (!isValidPassword(passwordController.text)) {
+      showSnackBar(context, '유효하지 않은 비밀번호 형식입니다.');
     } else if (nicknameController.text.isEmpty) {
       showSnackBar(context, '닉네임을 입력해 주세요.');
     } else if (birthController.text.isEmpty) {
@@ -116,8 +140,20 @@ class JoinProcess {
           'birthdate': birthController.text,
         }),
       );
-      if (response.statusCode == 200) {
-        print('Response Body: ${response.body}');
+
+      // 디버깅
+      print('Response status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
+
+      if (response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+        final token = data['token'];
+
+        // 토큰 저장
+        await AuthTokenStorage.saveToken(token);
+        print('Token: ${token}');
+
+        // 화면 전환
         Get.to(PopUpPage(
           message: '회원가입이 완료되었습니다.\n확인 버튼을 누르면 실력테스트로 넘어갑니다.',
           onPressed: () {
@@ -125,7 +161,6 @@ class JoinProcess {
           },
         ));
       } else {
-        print('Response Body: ${response.body}');
         showSnackBar(context, '회원가입에 실패했습니다. 다시 시도해 주세요.');
       }
     }
@@ -135,7 +170,7 @@ class JoinProcess {
     final DateTime? selectedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
+      firstDate: DateTime(2000),
       lastDate: DateTime.now(),
     );
 
