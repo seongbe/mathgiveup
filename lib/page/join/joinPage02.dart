@@ -69,7 +69,7 @@ class _MyWidgetState extends State<MyWidget> {
           CustomInputField(
             label: '아이디',
             controller: idController,
-            hintText: '아이디 입력(n ~ m자)',
+            hintText: '아이디 입력(4 ~ 12자)',
             errorMessage: joinProcess.idErrorMessage,
             errorColor: joinProcess.idErrorColor,
             button: CustomButton(
@@ -84,7 +84,7 @@ class _MyWidgetState extends State<MyWidget> {
           CustomInputField(
             label: '비밀번호',
             controller: passwordController,
-            hintText: '숫자, 영문, 특수문자 조합 8자 이상',
+            hintText: '대소문자, 숫자, 특수문자 조합 8자 이상',
             errorMessage: '',
             obscureText: true,
           ),
@@ -141,7 +141,7 @@ class _MyWidgetState extends State<MyWidget> {
               child: CustomButton(
                 text: '가입하기',
                 onPressed: () {
-                  joinProcess.checkField(context);
+                  joinProcess.checkField(context, this);
                 },
               ),
             ),

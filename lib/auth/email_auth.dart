@@ -23,7 +23,7 @@ class EmailAuthService {
         onSuccess('인증 코드가 이메일로 전송되었습니다.');
       } else {
         print('Error Response Body: ${response.body}');
-        onError('인증 코드 전송 중 오류가 발생했습니다.');
+        onError('사용 중인 이메일입니다.');
       }
     } catch (e) {
       print('Error sending authentication code to email: $e');
