@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:mathgame/const/api.dart';
+import 'package:mathgame/api/api.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/find/CertificationPage01.dart';
 import 'package:mathgame/page/find/popUpPage.dart';
-import 'package:mathgame/page/loginPage.dart';
+import 'package:mathgame/page/join/loginPage.dart';
 
 class FindIdPage extends StatelessWidget {
   @override

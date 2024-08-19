@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:mathgame/const/styles.dart';
+import 'package:mathgame/page/community/postpage.dart';
+import 'package:mathgame/page/community/writepage.dart';
+import 'package:mathgame/page/community/writtelistpage.dart';
 
 class Communitypage extends StatelessWidget {
   final List<Community> communitys = [
@@ -63,23 +68,48 @@ class Communitypage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
-              ...communitys.map((community) {
-                return Column(
-                 
-                  
-                  children: [
-                    CommunityContainer(
-                      width: MediaQuery.of(context).size.width * 0.8, // 화면 너비의 80%로 설정
-                      height: 240, // 원하는 height 값으로 수정
-                      community: community,
-                    ),
-                    Divider(
-                      color: Colors.white,
-                    ),  
-                   
-                  ],
-                );
-              }).toList(),
+             ...communitys.asMap().entries.map((entry) {
+  int index = entry.key;
+  Community community = entry.value;
+
+  return Column(
+    children: [
+      GestureDetector(
+        onTap: () {
+          Get.to(() => Postpage());
+        },
+        child: CommunityContainer(
+          width: MediaQuery.of(context).size.width * 0.8,
+          height: 240,
+          community: community,
+        ),
+      ),
+      if (index == 0) // 첫 번째 컨테이너인지 확인
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Get.to(() => Writepage()); 
+              },
+              child: Text('글쓰기'),
+            ),
+            SizedBox(width: 10),
+             ElevatedButton(
+              onPressed: () {
+                Get.to(() => Writelistpage()); 
+              },
+              child: Text('글목록'),
+            ),
+               SizedBox(width: 10),
+          ],
+        ),
+      Divider(
+        color: Colors.white,
+      ),
+    ],
+  );
+}).toList(),
               SizedBox(height: 30,),
                SizedBox(
                   

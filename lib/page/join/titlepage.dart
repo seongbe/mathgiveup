@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
-import 'package:mathgame/page/homepage.dart';
-import 'package:mathgame/page/loginPage.dart';
+import 'package:mathgame/router/homepage.dart';
+import 'package:mathgame/page/join/loginPage.dart';
 
 class Titlepage extends StatelessWidget {
   const Titlepage({super.key});

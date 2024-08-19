@@ -7,10 +7,10 @@ import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/controller/NavigationController.dart';
 import 'package:mathgame/game/Game.dart';
 import 'package:mathgame/game/GamePage1.dart';
-import 'package:mathgame/page/communitypage.dart';
-import 'package:mathgame/page/detailnotepage.dart';
-import 'package:mathgame/page/mypage.dart';
-import 'package:mathgame/page/odabnotepage.dart';
+import 'package:mathgame/page/community/communitypage.dart';
+import 'package:mathgame/page/odabnote/detailnotepage.dart';
+import 'package:mathgame/page/mypage/mypage.dart';
+import 'package:mathgame/page/odabnote/odabnotepage.dart';
 
 class Homepage extends StatelessWidget {
   final NavigationController navigationController = Get.put(NavigationController());

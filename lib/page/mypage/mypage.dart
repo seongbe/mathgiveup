@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mathgame/const/styles.dart';
-import 'package:mathgame/page/detailnotepage.dart';
-import 'package:mathgame/page/learningInfo/studyDaysPage.dart';
-import 'package:mathgame/page/setting.dart';
-import 'package:mathgame/page/learningInfo/studyDaysPage.dart';
+import 'package:mathgame/page/odabnote/detailnotepage.dart';
+import 'package:mathgame/page/mypage/learningInfo/studyDaysPage.dart';
+import 'package:mathgame/page/mypage/rankgrade.dart';
+import 'package:mathgame/page/mypage/statics.dart';
+import 'package:mathgame/page/setting/setting.dart';
+import 'package:mathgame/page/mypage/learningInfo/studyDaysPage.dart';
 import 'package:mathgame/model/progressModel.dart';
 import 'package:mathgame/page/test/mainTestPage.dart';
 
@@ -43,23 +45,28 @@ class Mypage extends StatelessWidget {
                   child: Row(
                     children: [
                       SizedBox(width: 30),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                    'assets/images/image copy 2.png'),
-                                fit: BoxFit.fill,
+                       GestureDetector (
+                         onTap: () {
+                          Get.to(() => Rankgrade()); // 실력 등급 페이지로 이동
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/image copy 2.png'),
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(height: 10),
-                          Text('실력 등급')
-                        ],
+                            SizedBox(height: 10),
+                            Text('실력 등급')
+                          ],
+                        ),
                       ),
                       SizedBox(width: 20),
                       VerticalDivider(
@@ -96,22 +103,27 @@ class Mypage extends StatelessWidget {
                         thickness: 1.5,
                       ),
                       SizedBox(width: 20),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/image.png'),
-                                fit: BoxFit.fill,
+                      GestureDetector(
+                         onTap: () {
+                          Get.to(() => Statics()); // 학습 통계 페이지로 이동
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('assets/images/image.png'),
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(height: 10),
-                          Text('학습 통계')
-                        ],
+                            SizedBox(height: 10),
+                            Text('학습 통계')
+                          ],
+                        ),
                       ),
                     ],
                   ),
