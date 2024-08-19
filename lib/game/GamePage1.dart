@@ -25,7 +25,6 @@ class _GamePageState extends State<GamePage> {
   }
 
   Future<void> _loadQuestions() async {
-    // 여기에 고정된 문제 리스트를 추가하거나, API를 통해 문제를 불러올 수 있습니다.
     setState(() {
       _questions = [
         "2 + 2",
@@ -36,7 +35,6 @@ class _GamePageState extends State<GamePage> {
       ];
     });
 
-    // API를 통해 각 문제의 답을 불러옵니다.
     for (String question in _questions) {
       await _solveMathProblem(question);
     }
@@ -89,15 +87,30 @@ class _GamePageState extends State<GamePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Game Over'),
-          content: Text('Your final score is: $_score'),
+          title: Text(
+            'Game Over',
+            style: TextStyle(fontSize: 28, color: Colors.redAccent),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Your final score is:', style: TextStyle(fontSize: 18)),
+              Text(
+                '$_score',
+                style: TextStyle(
+                    fontSize: 48,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green),
+              ),
+            ],
+          ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 _resetGame();
               },
-              child: const Text('Restart'),
+              child: Text('Restart', style: TextStyle(fontSize: 18)),
             ),
           ],
         );
@@ -121,51 +134,112 @@ class _GamePageState extends State<GamePage> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Get.back(); // Navigator.pop 대신 Get.back을 사용하여 뒤로가기
+            Get.back();
           },
         ),
-        title: Text('game page'),
+        title: Text('Game Page'),
       ),
       body: Stack(
         children: [
-           Container(
-            // 배경 이미지 설정
+          Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/background.png'), // 배경 이미지 경로
-                fit: BoxFit.cover, // 이미지 크기 조정 방식
+                image: AssetImage('assets/images/background.png'),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.5),
+                  BlendMode.dstATop,
+                ),
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(100.0),
+            padding: const EdgeInsets.all(20.0),
             child: _questions.isEmpty
                 ? const Center(child: CircularProgressIndicator())
                 : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text('Question ${_currentQuestionIndex + 1}:'),
+                      LinearProgressIndicator(
+                        value: (_currentQuestionIndex + 1) / _questions.length,
+                        backgroundColor: Colors.white,
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Question ${_currentQuestionIndex + 1}:',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(height: 10),
                       Text(
                         _questions[_currentQuestionIndex],
-                        style: const TextStyle(fontSize: 24),
+                        style: TextStyle(
+                          fontSize: 28,
+                          color: Colors.yellowAccent,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
+                      SizedBox(height: 20),
                       TextField(
                         controller: _controller,
                         onChanged: (value) {
                           _userAnswer = value;
                         },
-                        decoration: const InputDecoration(
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
                           hintText: '정답을 입력하세요',
+                          hintStyle: TextStyle(color: Colors.white70),
+                          filled: true,
+                          fillColor: Colors.black54,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: _checkAnswer,
-                        child: const Text('정답제출'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        child: Text(
+                          '정답제출',
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
                       ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'Score: $_score',
-                        style: const TextStyle(fontSize: 18),
+                      SizedBox(height: 20),
+                      AnimatedContainer(
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: _userAnswer ==
+                                  (_answers.isNotEmpty
+                                      ? _answers[_currentQuestionIndex]
+                                      : '')
+                              ? Colors.green
+                              : Colors.lightBlue,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          'Score: $_score',
+                          style: TextStyle(
+                              fontSize: 22,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ],
                   ),

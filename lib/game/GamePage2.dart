@@ -76,12 +76,16 @@ class _GamePage2State extends State<GamePage2> {
       ),
       body: Stack(
         children: [
-           Container(
+          Container(
             // 배경 이미지 설정
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/background.png'), // 배경 이미지 경로
                 fit: BoxFit.cover, // 이미지 크기 조정 방식
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.5), 
+                  BlendMode.dstATop,
+                ),
               ),
             ),
           ),
@@ -89,30 +93,58 @@ class _GamePage2State extends State<GamePage2> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
                   'Player $currentPlayer\'s Turn',
-                  style: TextStyle(fontSize: 24),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 28,
+                    color: Colors.yellowAccent,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 SizedBox(height: 20),
                 Text(
                   question,
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
                 SizedBox(height: 20),
                 TextField(
                   controller: answerController,
                   keyboardType: TextInputType.number,
+                  style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     labelText: '답을 제출해주세요',
-                    border: OutlineInputBorder(),
+                    labelStyle: TextStyle(color: Colors.yellowAccent),
+                    filled: true,
+                    fillColor: Colors.black54,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                   onSubmitted: (_) => checkAnswer(),
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: checkAnswer,
-                  child: Text('제출하기'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent,
+                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  child: Text(
+                    '제출하기',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
                 ),
                 SizedBox(height: 40),
                 Row(
@@ -122,11 +154,28 @@ class _GamePage2State extends State<GamePage2> {
                       children: [
                         Text(
                           'Player 1 Score',
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.white,
+                          ),
                         ),
-                        Text(
-                          '$player1Score',
-                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                        SizedBox(height: 8),
+                        AnimatedContainer(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                          padding: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.greenAccent.withOpacity(0.7),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            '$player1Score',
+                            style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -134,11 +183,28 @@ class _GamePage2State extends State<GamePage2> {
                       children: [
                         Text(
                           'Player 2 Score',
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.white,
+                          ),
                         ),
-                        Text(
-                          '$player2Score',
-                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                        SizedBox(height: 8),
+                        AnimatedContainer(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                          padding: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.orangeAccent.withOpacity(0.7),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            '$player2Score',
+                            style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
                         ),
                       ],
                     ),
