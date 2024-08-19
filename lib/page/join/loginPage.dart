@@ -64,8 +64,15 @@ class _MyWidgetState extends State<MyWidget> {
         'autoLogin': keepLoggedIn,
       }),
     );
-
-    print('${response.body}');
+    // 디버깅
+    print('Response headers: ${response.headers}');
+    print('Response status code: ${response.statusCode}');
+    print('Response body: ${response.body}');
+    if (response.statusCode != 200) {
+      var decodedBody = jsonDecode(response.body);
+      print('Error message: ${decodedBody['error_message']}');
+      print('Error code: ${decodedBody['error_code']}');
+    }
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
