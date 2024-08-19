@@ -7,6 +7,8 @@ import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/controller/NavigationController.dart';
 import 'package:mathgame/game/Game.dart';
 import 'package:mathgame/game/GamePage1.dart';
+import 'package:mathgame/game/GamePage2.dart';
+import 'package:mathgame/game/GamePage3.dart';
 import 'package:mathgame/page/community/communitypage.dart';
 import 'package:mathgame/page/odabnote/detailnotepage.dart';
 import 'package:mathgame/page/mypage/mypage.dart';
@@ -93,7 +95,7 @@ class HomePageContent extends StatelessWidget {
   final List<Notice> notices = [
     Notice(
       title: "첫번쨰 공지사항",
-      description: "오늘은 개암을 좀 쉬세요.",
+      description: "오늘은 게임 좀 쉬세요.",
       date: DateTime.now(),
     ),
     Notice(
@@ -124,29 +126,39 @@ class HomePageContent extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    
-                  width: 161,
-                  height: 185,
-                   
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                     image: AssetImage('assets/images/mathgame1.png'),
-                      fit: BoxFit.fill,
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => GamePage());
+                    },
+                    child: Container(
+                      
+                    width: 161,
+                    height: 185,
+                     
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                       image: AssetImage('assets/images/mathgame1.png'),
+                        fit: BoxFit.fill,
+                      ),
                     ),
+                                    ),
                   ),
-                ),
                 SizedBox(width: 20,),
-                 Container(
-                  width: 161,
-                  height: 185,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/mathgame2.png'),
-                      fit: BoxFit.fill,
+                 GestureDetector(
+                  onTap: () {
+                    Get.to(() => GamePage2());
+                  },
+                   child: Container(
+                    width: 161,
+                    height: 185,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/mathgame2.png'),
+                        fit: BoxFit.fill,
+                      ),
                     ),
-                  ),
-                ),
+                                   ),
+                 ),
                 ],
               ),
               Row(
@@ -248,7 +260,7 @@ class HomePageContent extends StatelessWidget {
               width:  320,
               height:  90,
               onPressed: () {
-                
+                Get.to(()=>GamePage3());
               },
             ),
             SizedBox(height: 30,),
@@ -257,7 +269,7 @@ class HomePageContent extends StatelessWidget {
               width:  231,
               height:  55,
               onPressed: () {
-                
+                 Get.to(()=>GamePage3());
               },
             ),
             ],
