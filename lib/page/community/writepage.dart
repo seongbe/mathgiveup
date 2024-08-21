@@ -1,26 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mathgame/api/api_post.dart'; // api_post로 변경 필요
 import 'package:mathgame/const/colors.dart';
+import 'package:mathgame/page/community/communitypage.dart';
+import 'package:mathgame/page/community/postlistpage.dart';
 
-class Writepage extends StatelessWidget {
+class Writepage extends StatefulWidget {
   const Writepage({super.key});
+
+  @override
+  State<Writepage> createState() => _WritepageState();
+}
+
+class _WritepageState extends State<Writepage> {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _contentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
+      appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Get.back(); // Navigator.pop 대신 Get.back을 사용하여 뒤로가기
+              Get.back(); 
           },
         ),
         title: Text('game page'),
       ),
-       body: Stack(
+      body: Stack(
         children: [
           Container(
-            // 배경 이미지 설정
+          
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/background.png'), // 배경 이미지 경로
@@ -39,7 +50,7 @@ class Writepage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-            child: Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -51,6 +62,7 @@ class Writepage extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   TextField(
+                    controller: _titleController,
                     decoration: InputDecoration(
                       labelText: '제목',
                       border: OutlineInputBorder(
@@ -60,6 +72,7 @@ class Writepage extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   TextField(
+                    controller: _contentController,
                     maxLines: 10,
                     decoration: InputDecoration(
                       labelText: '내용',
@@ -72,26 +85,49 @@ class Writepage extends StatelessWidget {
                   SizedBox(height: 20),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: BACKGROUND_COLOR
+                      backgroundColor: BACKGROUND_COLOR,
                     ),
                     onPressed: () {
-                      // 글쓰기 완료 버튼 동작
+                      String title = _titleController.text;
+                      String content = _contentController.text;
+
+                      if (title.isNotEmpty && content.isNotEmpty) {
+                        postData(title, content).then((_) {
+                          Get.snackbar(
+                            '성공',
+                            '글이 성공적으로 작성되었습니다!',
+                            snackPosition: SnackPosition.BOTTOM,
+                          );
+                          Get.to(() => Postlistpage()); // 성공 후 뒤로가기
+                        }).catchError((error) {
+                          Get.snackbar(
+                            '오류',
+                            '글 작성 중 오류가 발생했습니다.',
+                            snackPosition: SnackPosition.BOTTOM,
+                          );
+                        });
+                      } else {
+                        Get.snackbar(
+                          '경고',
+                          '제목과 내용을 모두 입력하세요.',
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      }
                     },
-                    
-                    child: Text('작성 완료',
-                     style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),),
+                    child: Text(
+                      '작성 완료',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-            ),
-          
+          ),
         ],
       ),
-    
     );
   }
 }

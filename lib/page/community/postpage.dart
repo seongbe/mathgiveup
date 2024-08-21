@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mathgame/const/colors.dart';
-
 import '../../api/api_model.dart';
 import '../../api/api_user.dart';
 
-
-
- 
 class Postpage extends StatelessWidget {
   const Postpage({super.key});
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +21,7 @@ class Postpage extends StatelessWidget {
             Get.back(); // Navigator.pop 대신 Get.back을 사용하여 뒤로가기
           },
         ),
-        title: Text('게시판'),
+        title: Text('친구목록'),
        ),
         body: FutureBuilder<List<User>>(
         future: fetchUsers(),
