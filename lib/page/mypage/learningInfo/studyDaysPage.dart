@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/model/progressModel.dart';
+import 'package:mathgame/auth/auth_token.dart';
 
 class StudyDaysPage extends StatelessWidget {
   @override

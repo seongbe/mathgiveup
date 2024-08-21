@@ -51,9 +51,9 @@ class _MyWidgetState extends State<MyWidget> {
     }
 
     try {
-      final response = await http.get(
+      final response = await http.post(
         Uri.parse(
-            '$membersUrl/reset/password/loginId?loginId=${Uri.encodeComponent(id)}'),
+            '$membersUrl/reset/password/loginId?login_id=${Uri.encodeComponent(id)}'),
         headers: {'Content-Type': 'application/json'},
       );
 
