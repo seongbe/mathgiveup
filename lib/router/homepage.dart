@@ -15,7 +15,9 @@ import 'package:mathgame/page/mypage/mypage.dart';
 import 'package:mathgame/page/odabnote/odabnotepage.dart';
 
 class Homepage extends StatelessWidget {
-  final NavigationController navigationController = Get.put(NavigationController());
+  final NavigationController navigationController 
+  = Get.find<NavigationController>();
+
 
   final List<Widget> pages = [
     HomePageContent(), // 홈 페이지 컨텐츠
@@ -38,14 +40,7 @@ class Homepage extends StatelessWidget {
           navigationController.selectedIndex.value == 5 ? 'Detail Notepage' : 'Smath',
           style: skyboriBaseTextStyle,
         ),
-        leading: navigationController.selectedIndex.value == 4
-            ? IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  navigationController.changePage(2); // Odabnotepage로 돌아가기
-                },
-              )
-            : null,
+        leading:  Container(),
       ),
       body: Obx(() => pages[navigationController.selectedIndex.value]),
       bottomNavigationBar: Obx(() => BottomNavigationBar(

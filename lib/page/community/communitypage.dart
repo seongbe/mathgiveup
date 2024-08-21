@@ -5,9 +5,14 @@ import 'package:intl/intl.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/community/postpage.dart';
 import 'package:mathgame/page/community/writepage.dart';
-import 'package:mathgame/page/community/writtelistpage.dart';
+import 'package:mathgame/page/community/postlistpage.dart';
 
-class Communitypage extends StatelessWidget {
+class Communitypage extends StatefulWidget {
+  @override
+  State<Communitypage> createState() => _CommunitypageState();
+}
+
+class _CommunitypageState extends State<Communitypage> {
   final List<Community> communitys = [
     Community(
       title: "게시글",
@@ -37,17 +42,6 @@ class Communitypage extends StatelessWidget {
     ),
     // 다른 공지사항들을 필요에 따라 추가할 수 있습니다.
   ];
-  final chat1 = Chat(
-  title: "읽지않은 메세지",
-  number: "3",
-  username: "유저1",
-  description: "안녕하세요",
-  username2: "유저2",
-  description2: "반갑습니다",
-  username3: "유저3",
-  description3: "좋은 하루입니다",
-);
-
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +69,14 @@ class Communitypage extends StatelessWidget {
   return Column(
     children: [
       GestureDetector(
-        onTap: () {
-          Get.to(() => Postpage());
-        },
+       onTap: () {
+                        if (index == 0) {
+                          Get.to(() => Postlistpage()); // 첫 번째 컨테이너 클릭 시 Postpage로 이동
+                        } else if (index == 1) {
+                          Get.to(() => Postpage()); // 두 번째 컨테이너 클릭 시 Friendpage로 이동
+                        }
+                        // 추가적인 인덱스에 대한 동작을 여기에 추가할 수 있습니다.
+                      },
         child: CommunityContainer(
           width: MediaQuery.of(context).size.width * 0.8,
           height: 240,
@@ -97,7 +96,7 @@ class Communitypage extends StatelessWidget {
             SizedBox(width: 10),
              ElevatedButton(
               onPressed: () {
-                Get.to(() => Writelistpage()); 
+                Get.to(() => Postlistpage()); 
               },
               child: Text('글목록'),
             ),
@@ -111,73 +110,9 @@ class Communitypage extends StatelessWidget {
   );
 }).toList(),
               SizedBox(height: 30,),
-               SizedBox(
-                  
-                 child: Row(
-                   children: [
-                    SizedBox(width: 40,),
-                     Text('게임 같이하기',
-                     style: skyboriTextStyle.copyWith(fontSize: 30),
-                     ),
-                   ],
-                 ),
-               ),
-               SizedBox(height: 30,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 300,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                         image: AssetImage('assets/images/mathgame1.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomButton(
-                      width: 140,
-                      height: 60,
-                      text: '같이하기',
-                      onPressed: () {
-                        
-                      },
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20,),
-                 Divider(
-                      color: Colors.white,
-                    ), 
-             
-
-                  Column(
-                    children: [
-                       SizedBox(height: 20,),
-                       Text('채팅창',
-                             style: skyboriTextStyle.copyWith(fontSize: 30),
-                           ),
-                              SizedBox(height: 20,),
-                      Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        
-                     
-                        ChatContainer(chat: chat1),
-                      ],
-                                      ),
-                    ],
-                  ),
-                   Divider(
-                      color: Colors.white,
-                    ), 
+              
+              
+                   
              Column(
                     children: [
                        SizedBox(height: 20,),

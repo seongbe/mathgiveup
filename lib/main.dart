@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mathgame/controller/NavigationController.dart';
 import 'package:mathgame/page/join/loginPage.dart';
 import 'controller/firebase_options.dart'; // Firebase 초기화 옵션 파일
 import 'package:provider/provider.dart';
@@ -33,7 +34,7 @@ void main() async {
   KakaoSdk.init(
     nativeAppKey: 'b27c9e44a65488be85a63f8ccb4ee727',
   );
-
+  Get.lazyPut(() => NavigationController());
   runApp(MyApp());
 }
 
