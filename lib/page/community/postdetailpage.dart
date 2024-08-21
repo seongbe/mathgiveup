@@ -1,10 +1,10 @@
+import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mathgame/api/%08api_comment_post.dart';
 import 'package:mathgame/api/api_post_delete.dart';
 import 'package:mathgame/api/api_post_patch.dart';
+import 'package:mathgame/controller/PostDetailController.dart';
 import 'package:mathgame/page/community/postlistpage.dart';
- 
 class PostDetailPage extends StatefulWidget {
   final Map<String, dynamic> post;
 
@@ -18,16 +18,15 @@ class _PostDetailPageState extends State<PostDetailPage> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController contentController = TextEditingController();
   final TextEditingController commentController = TextEditingController();
-  
-  List<Map<String, dynamic>> comments = []; // 댓글 목록을 관리하는 상태 변수
+
+  final PostDetailController controller = Get.put(PostDetailController());
 
   @override
   void initState() {
     super.initState();
     titleController.text = widget.post['title'];
     contentController.text = widget.post['content'];
-    // 초기 댓글 목록을 서버에서 가져와 설정할 수 있습니다.
-    // comments = 초기 댓글 목록;
+    controller.fetchComments(widget.post['id']); // 댓글 목록 불러오기
   }
 
   @override
@@ -37,12 +36,10 @@ class _PostDetailPageState extends State<PostDetailPage> {
     commentController.dispose();
     super.dispose();
   }
-  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: AppBar(
         title: Text('게시물 상세'),
         actions: [
@@ -78,17 +75,13 @@ class _PostDetailPageState extends State<PostDetailPage> {
           ),
         ],
       ),
-      body: 
-      
-      Stack(
-        
+      body: Stack(
         children: [
-           Container(
-            // 배경 이미지 설정
+          Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/background.png'), // 배경 이미지 경로
-                fit: BoxFit.cover, // 이미지 크기 조정 방식
+                image: AssetImage('assets/images/background.png'),
+                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -162,38 +155,46 @@ class _PostDetailPageState extends State<PostDetailPage> {
                         onPressed: () async {
                           String comment = commentController.text;
                           if (comment.isNotEmpty) {
-                            bool success = await postComment(comment, widget.post['id']);
-                            if (success) {
-                              setState(() {
-                                comments.add({'content': comment, 'username': '나'}); // 새로운 댓글 추가
-                              });
-                              commentController.clear();
-                              Get.snackbar('성공', '댓글이 추가되었습니다.');
-                            } else {
-                              Get.snackbar('오류', '댓글 추가에 실패했습니다.');
-                            }
+                            await controller.addComment(widget.post['id'], comment);
+                            commentController.clear();
+                            Get.snackbar('성공', '댓글이 추가되었습니다.');
                           }
                         },
                       ),
                     ),
                   ),
                   SizedBox(height: 20),
-                  // 댓글 목록
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: comments.length,
-                    itemBuilder: (context, index) {
-                      final comment = comments[index];
-                      return ListTile(
-                        leading: CircleAvatar(
-                          child: Text(comment['username'][0]), // 사용자 이니셜 또는 이미지
-                        ),
-                        title: Text(comment['username']),
-                        subtitle: Text(comment['content']),
+                   
+                 Obx(() {
+                    if (controller.isLoading.value) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (controller.comments.isEmpty) {
+                      return Text('댓글이 없습니다.');
+                    } else {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: controller.comments.length,
+                        itemBuilder: (context, index) {
+                          final comment = controller.comments[index];
+                          return ListTile(
+                            subtitle: Bubble(
+                            margin: BubbleEdges.all(8),
+                            color: Colors.white, // 말풍선 배경색을 흰색으로 설정
+                            nip: BubbleNip.leftBottom, // 말풍선의 꼬리 방향을 설정
+                            elevation: 3, // 그림자 효과를 위해 elevation을 사용
+                            padding: BubbleEdges.all(16.0), // 내부 여백 설정
+                            child: Text(
+                              comment['content'], // 댓글 내용만 표시
+                              style: TextStyle(
+                                  color: Colors.black), // 텍스트 색상을 검정색으로 설정
+                            ),
+                          ) // 댓글 내용만 표시
+                          );
+                        },
                       );
-                    },
-                  ),
+                    }
+                  })
                 ],
               ),
             ),

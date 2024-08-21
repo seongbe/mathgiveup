@@ -50,6 +50,8 @@ dependencies:
   kakao_flutter_sdk_user: ^1.9.5  # 카카오 로그인 API 패키지
   flutter_secure_storage: ^9.2.2 # 토큰
   flame: ^1.18.0
+  shared_preferences: ^2.3.2
+  bubble: ^1.2.1
 
 dev_dependencies:
   flutter_test:

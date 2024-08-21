@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mathgame/const/styles.dart';
+import 'package:mathgame/page/join/loginPage.dart';
 import 'package:mathgame/page/odabnote/detailnotepage.dart';
 import 'package:mathgame/page/mypage/learningInfo/studyDaysPage.dart';
 import 'package:mathgame/page/mypage/rankgrade.dart';
@@ -166,18 +167,18 @@ class Mypage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Get.to(() => Setting());
+                    Get.to(() => LoginPage());
                   },
                   child: Container(
                     padding: EdgeInsets.fromLTRB(40, 20, 0, 0),
                     child: Row(
                       children: [
                         Text(
-                          '설정',
+                          '로그아웃',
                           style: skyboriBaseTextStyle.copyWith(fontSize: 20),
                         ),
                         SizedBox(width: 30),
-                        Icon(Icons.settings),
+                        Icon(Icons.logout),
                       ],
                     ),
                   ),
