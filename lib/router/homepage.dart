@@ -13,6 +13,7 @@ import 'package:mathgame/page/community/communitypage.dart';
 import 'package:mathgame/page/odabnote/detailnotepage.dart';
 import 'package:mathgame/page/mypage/mypage.dart';
 import 'package:mathgame/page/odabnote/odabnotepage.dart';
+import 'package:mathgame/page/setting/setting.dart';
 
 class Homepage extends StatelessWidget {
   final NavigationController navigationController 
@@ -40,7 +41,22 @@ class Homepage extends StatelessWidget {
           navigationController.selectedIndex.value == 5 ? 'Detail Notepage' : 'Smath',
           style: skyboriBaseTextStyle,
         ),
-        leading:  Container(),
+        leading:  Container(
+          child: GestureDetector(
+                  onTap: () {
+                    Get.to(() => Setting());
+                  },
+                  child: Container(
+                     
+                    child: Row(
+                      children: [
+                        SizedBox(width: 20,),
+                        Icon(Icons.settings),
+                      ],
+                    ),
+                  ),
+                ),
+        ),
       ),
       body: Obx(() => pages[navigationController.selectedIndex.value]),
       bottomNavigationBar: Obx(() => BottomNavigationBar(
