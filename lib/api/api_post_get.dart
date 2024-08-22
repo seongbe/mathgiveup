@@ -5,7 +5,7 @@ import 'package:mathgame/api/api.dart';
 import 'package:mathgame/auth/auth_token.dart';
 
 Future<List<Map<String, dynamic>>?> getPosts() async {
-  final url = Uri.parse('$mathUrl/community/posts/my'); // 게시물 목록을 가져오는 API 엔드포인트
+  final url = Uri.parse('$mathUrl/community/posts/all'); // 게시물 목록을 가져오는 API 엔드포인트
   final token = await AuthTokenStorage.getToken();
 
   if (token == null) {
