@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:mathgame/auth/auth_token.dart';
+import 'package:mathgame/userInfo/userPreferences.dart';
 import 'package:mathgame/api/api.dart';
 import 'package:mathgame/page/join/joinPage02.dart';
 import 'package:provider/provider.dart';
@@ -75,11 +76,21 @@ class _MyWidgetState extends State<MyWidget> {
     }
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      final token = data['token'];
+      // 수동으로 UTF-8 디코딩
+      var rawString = response.body;
+      var decodedString = utf8.decode(rawString.codeUnits);
+      print('Decoded string: $decodedString');
 
-      // 토큰 저장
+      // JSON 디코딩
+      final data = jsonDecode(decodedString);
+      final token = data['token'];
+      final nickname = data['nickname'];
+
+      // 닉네임과 토큰 처리
       await AuthTokenStorage.saveToken(token);
+      await UserPreferences.saveNickname(nickname);
+
+      // 페이지 이동
       setState(() {
         Get.to(() => Homepage()); // HomePage로 이동
       });
