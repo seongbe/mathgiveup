@@ -15,9 +15,8 @@ import 'package:mathgame/page/mypage/mypage.dart';
 import 'package:mathgame/page/odabnote/odabnotepage.dart';
 
 class Homepage extends StatelessWidget {
-  final NavigationController navigationController 
-  = Get.find<NavigationController>();
-
+  final NavigationController navigationController =
+      Get.find<NavigationController>();
 
   final List<Widget> pages = [
     HomePageContent(), // 홈 페이지 컨텐츠
@@ -25,10 +24,7 @@ class Homepage extends StatelessWidget {
     Odabnotepage(),
     Mypage(),
     GameSelectPage(),
-   
   ];
-
-  
 
   Homepage({super.key});
 
@@ -36,55 +32,51 @@ class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-          navigationController.selectedIndex.value == 5 ? 'Detail Notepage' : 'Smath',
+        title: Text(
+          navigationController.selectedIndex.value == 5
+              ? 'Detail Notepage'
+              : 'Smath',
           style: skyboriBaseTextStyle,
         ),
-        leading:  Container(),
+        leading: Container(),
       ),
       body: Obx(() => pages[navigationController.selectedIndex.value]),
       bottomNavigationBar: Obx(() => BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '홈',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: '커뮤니티',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.note),
-            label: '오답노트',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            label: '마이페이지',
-          ),
-           BottomNavigationBarItem(
-            icon: Icon(Icons.gamepad),
-            label: '게임페이지',
-          ),
- 
-          
-          
-        ],
-        currentIndex: navigationController.selectedIndex.value,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-         showUnselectedLabels: true, // 선택되지 않은 항목의 라벨도 보이게 설정
-        onTap: (index) {
-          navigationController.changePage(index);
-        },
-      )),
-    
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: '홈',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.chat),
+                label: '커뮤니티',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.note),
+                label: '오답노트',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.people),
+                label: '마이페이지',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.gamepad),
+                label: '게임페이지',
+              ),
+            ],
+            currentIndex: navigationController.selectedIndex.value,
+            selectedItemColor: Colors.blue,
+            unselectedItemColor: Colors.grey,
+            showUnselectedLabels: true, // 선택되지 않은 항목의 라벨도 보이게 설정
+            onTap: (index) {
+              navigationController.changePage(index);
+            },
+          )),
     );
   }
 }
 
-
-
-// lib/page/homepage_content.dart 
+// lib/page/homepage_content.dart
 
 class HomePageContent extends StatelessWidget {
   final List<Notice> notices = [
@@ -126,69 +118,67 @@ class HomePageContent extends StatelessWidget {
                       Get.to(() => GamePage());
                     },
                     child: Container(
-                      
-                    width: 161,
-                    height: 185,
-                     
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                       image: AssetImage('assets/images/mathgame1.png'),
-                        fit: BoxFit.fill,
+                      width: 161,
+                      height: 185,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/mathgame1.png'),
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
-                                    ),
                   ),
-                SizedBox(width: 20,),
-                 GestureDetector(
-                  onTap: () {
-                    Get.to(() => GamePage2());
-                  },
-                   child: Container(
-                    width: 161,
-                    height: 185,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/mathgame2.png'),
-                        fit: BoxFit.fill,
+                  SizedBox(
+                    width: 20,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => GamePage2());
+                    },
+                    child: Container(
+                      width: 161,
+                      height: 185,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/mathgame2.png'),
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
-                                   ),
-                 ),
+                  ),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(width: 30,),
-                   Container(
-                    
-                  width: 75,
-                  height: 75,
-                   
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                     image: AssetImage('assets/images/notice.png'),
-                      fit: BoxFit.fill,
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Container(
+                    width: 75,
+                    height: 75,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/notice.png'),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(width: 70,),
-                Text('공지사항',
-                  style: skyboriBaseTextStyle.copyWith(fontSize: 30)
-                  
-                )
-
+                  SizedBox(
+                    width: 70,
+                  ),
+                  Text('공지사항',
+                      style: skyboriBaseTextStyle.copyWith(fontSize: 30))
                 ],
               ),
-             Container(
+              Container(
                 width: 400,
                 height: 300, // 공지사항 컨테이너 높이 조절
-                 decoration: BoxDecoration(
-                color: BACKGROUND_COLOR,
+                decoration: BoxDecoration(
+                  color: BACKGROUND_COLOR,
                   borderRadius: BorderRadius.circular(16.0), // 모서리를 둥글게 설정
-               ),
-                
-                
+                ),
+
                 child: ListView.builder(
                   itemCount: notices.length,
                   itemBuilder: (context, index) {
@@ -201,72 +191,78 @@ class HomePageContent extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(width: 20,),
+                    SizedBox(
+                      width: 20,
+                    ),
                     Text('오늘의목표',
-                    style: skyboriBaseTextStyle.copyWith(fontSize: 30)),
+                        style: skyboriBaseTextStyle.copyWith(fontSize: 30)),
                   ],
                 ),
               ),
-               Container(
+              Container(
                 width: 400,
                 height: 120, // 공지사항 컨테이너 높이 조절
-                 decoration: BoxDecoration(
-                color: PRIMARY_COLOR,
+                decoration: BoxDecoration(
+                  color: PRIMARY_COLOR,
                   borderRadius: BorderRadius.circular(16.0), // 모서리를 둥글게 설정
-                  
-               ),
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Goal(text: '0승/5승',
-                    text2: '오늘의 승리수',),
-                    Goal(text: '0승/5승',
-                    text2: '오늘의 승리수',),
-                    Goal(text: '0승/5승',
-                    text2: '오늘의 승리수',),
-                    
+                    Goal(
+                      text: '0승/5승',
+                      text2: '오늘의 승리수',
+                    ),
+                    Goal(
+                      text: '0승/5승',
+                      text2: '오늘의 승리수',
+                    ),
+                    Goal(
+                      text: '0승/5승',
+                      text2: '오늘의 승리수',
+                    ),
                   ],
                 ),
-                
-                 
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    
-                    Container(
-                      width: 161,
-                      height: 185,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/청룡.png"),
-                          fit: BoxFit.fill,
-                        ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 161,
+                    height: 185,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/청룡.png"),
+                        fit: BoxFit.fill,
                       ),
                     ),
-                    Text('SMATH',
-                    style: skyboriBaseTextStyle.copyWith(fontSize: 40),),
-                  ],
-                ),
-              
-            CustomButton2(
-              text: '계속플레이',
-              text2: '스테이지2부터',
-              width:  320,
-              height:  90,
-              onPressed: () {
-                Get.to(()=>GamePage3());
-              },
-            ),
-            SizedBox(height: 30,),
-            CustomButton(
-              text: '처음부터하기',
-              width:  231,
-              height:  55,
-              onPressed: () {
-                 Get.to(()=>GamePage3());
-              },
-            ),
+                  ),
+                  Text(
+                    'SMATH',
+                    style: skyboriBaseTextStyle.copyWith(fontSize: 40),
+                  ),
+                ],
+              ),
+              CustomButton2(
+                text: '계속플레이',
+                text2: '스테이지2부터',
+                width: 320,
+                height: 90,
+                onPressed: () {
+                  Get.to(() => GamePage3());
+                },
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              CustomButton(
+                text: '처음부터하기',
+                width: 231,
+                height: 55,
+                onPressed: () {
+                  Get.to(() => GamePage3());
+                },
+              ),
             ],
           ),
         ],
@@ -274,6 +270,7 @@ class HomePageContent extends StatelessWidget {
     );
   }
 }
+
 class Notice {
   final String title;
   final String description;
@@ -281,9 +278,6 @@ class Notice {
 
   Notice({required this.title, required this.description, required this.date});
 }
-
-
- 
 
 class NoticeContainer extends StatelessWidget {
   final Notice notice;
@@ -320,7 +314,7 @@ class NoticeContainer extends StatelessWidget {
           ),
           SizedBox(height: 8.0),
           Text(
-         DateFormat('yyyy-MM-dd').format(notice.date),
+            DateFormat('yyyy-MM-dd').format(notice.date),
             style: TextStyle(
               fontSize: 14,
               color: Colors.grey,
@@ -343,10 +337,7 @@ class NoticeContainer extends StatelessWidget {
 class Goal extends StatelessWidget {
   final String text;
   final String text2;
-  const Goal({super.key, 
-  required this.text,
-   required this.text2
-  });
+  const Goal({super.key, required this.text, required this.text2});
 
   @override
   Widget build(BuildContext context) {
@@ -368,18 +359,19 @@ class Goal extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(text,
-          style: skyboriBaseTextStyle.copyWith(fontSize: 14),
+          Text(
+            text,
+            style: skyboriBaseTextStyle.copyWith(fontSize: 14),
           ),
-          SizedBox(height: 5,),
-          Text(text2,
-          style: skyboriBaseTextStyle.copyWith(fontSize: 10),
+          SizedBox(
+            height: 5,
           ),
-
-
+          Text(
+            text2,
+            style: skyboriBaseTextStyle.copyWith(fontSize: 10),
+          ),
         ],
       ),
-
-      );
+    );
   }
 }

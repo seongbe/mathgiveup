@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/mypage/myaccount.dart';
-import 'package:mathgame/page/mypage/nicknamechangepage.dart';
+import 'package:mathgame/page/setting/nicknamechangepage.dart';
 import 'package:mathgame/page/setting/profilePage.dart';
 
 class Setting extends StatefulWidget {
@@ -93,7 +93,7 @@ class _SettingState extends State<Setting> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.to(() => nickchange());
+                      Get.to(() => NickChange());
                     },
                     child: Container(
                       padding: EdgeInsets.fromLTRB(40, 20, 0, 20),
