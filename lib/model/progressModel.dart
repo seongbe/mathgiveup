@@ -1,23 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:mathgame/page/mypage/learningInfo/api_studyDays.dart';
+
+// 임시 학습 데이터
+final List<DateTime> specialDays = [
+  DateTime(2024, 7, 4),
+  DateTime(2024, 7, 9),
+  DateTime(2024, 7, 13),
+  DateTime(2024, 7, 15),
+  DateTime(2024, 7, 18),
+  DateTime(2024, 7, 23),
+  DateTime(2024, 7, 24),
+  DateTime(2024, 7, 25),
+  DateTime(2024, 7, 27),
+  DateTime(2024, 7, 28),
+  DateTime(2024, 7, 29),
+  DateTime(2024, 7, 30),
+  DateTime(2024, 7, 31),
+  DateTime(2024, 8, 1),
+  DateTime(2024, 8, 2),
+  DateTime(2024, 8, 3),
+  DateTime(2024, 8, 4),
+  DateTime(2024, 8, 5),
+  DateTime(2024, 8, 6),
+  DateTime(2024, 8, 7),
+  DateTime(2024, 8, 8),
+  DateTime(2024, 8, 9),
+  DateTime(2024, 8, 10),
+  DateTime(2024, 8, 11),
+  DateTime(2024, 8, 12),
+  DateTime(2024, 8, 13),
+  DateTime(2024, 8, 14),
+];
 
 class ProgressModel with ChangeNotifier {
   int _currentDay = 0;
-  int _targetDay = 7; // 초기값 설정
+  late int _targetDay;
 
   ProgressModel() {
-    _initialize();
+    _calculateTargetDay();
+    _calculateCurrentDay();
   }
 
   int get currentDay => _currentDay;
   int get targetDay => _targetDay;
-
-  Future<void> _initialize() async {
-    await fetchStudyDays(); // 전역 변수 specialDays를 초기화
-    _calculateCurrentDay(); // 초기화 후에 현재 날 계산
-    _calculateTargetDay();
-    notifyListeners(); // 변경 사항을 UI에 알림
-  }
 
   void _calculateCurrentDay() {
     DateTime now = DateTime.now();
