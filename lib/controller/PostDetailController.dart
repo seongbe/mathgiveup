@@ -19,39 +19,49 @@ class PostDetailController extends GetxController {
 
   // 댓글 가져오기 함수
   Future<void> fetchComments(int postId) async {
-    isLoading.value = true;
-    final url = Uri.parse('$mathUrl/community/comments/post/$postId'); 
-    final token = await AuthTokenStorage.getToken();
+  isLoading.value = true;
+  final url = Uri.parse('$mathUrl/community/comments/post/$postId'); 
+  final token = await AuthTokenStorage.getToken();
 
-    if (token == null) {
-      print('Token not found');
-      isLoading.value = false;
-      return;
-    }
-
-    try {
-       print('Fetching comments from: $url'); 
-      final response = await http.get(
-        url,
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer $token',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        List<dynamic> jsonData = json.decode(response.body);
-        comments.assignAll(jsonData.cast<Map<String, dynamic>>());
-      } else {
-        print('Failed to fetch comments with status: ${response.statusCode}');
-         print('Response body: ${response.body}');
-      }
-    } catch (e) {
-      print('An error occurred: $e');
-    } finally {
-      isLoading.value = false;
-    }
+  if (token == null) {
+    print('Token not found');
+    isLoading.value = false;
+    return;
   }
+
+  try {
+    print('Fetching comments from: $url'); 
+    final response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> jsonData = json.decode(response.body);
+
+      // Null 검사 및 기본값 설정
+      comments.assignAll(jsonData.map((comment) {
+        return {
+         'id': comment['commentId'] ?? 0, // 서버에서 반환된 'commentId'를 사용
+          'postId': comment['postId'] ?? 0, // 서버에서 반환된 'postId'를 사용
+          'content': comment['content'] ?? '', // content 필드를 그대로 사용
+        };
+      }).cast<Map<String, dynamic>>());
+
+    } else {
+      print('Failed to fetch comments with status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+    }
+  } catch (e) {
+    print('An error occurred: $e');
+  } finally {
+    isLoading.value = false;
+  }
+}
+
 
   // 댓글 추가 함수
   Future<void> addComment(int postId, String commentContent) async {
@@ -87,48 +97,67 @@ class PostDetailController extends GetxController {
       print('An error occurred: $e');
     }
   }
+Future<bool> deleteComment(int commentId) async {
+  // URL에 commentId를 경로 변수로 포함시킵니다.
+  final url = Uri.parse('$mathUrl/community/comments/$commentId'); 
+  final token = await AuthTokenStorage.getToken();
 
+  if (token == null) {
+    print('No token found');
+    return false;
+  }
 
+ 
+  final response = await http.delete(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $token',
+    },
+  );
+ 
 
-  // 댓글 삭제 함수
-  Future<void> deleteComments(int commentId) async {
-    isLoading.value = true;
-    final url = Uri.parse('$mathUrl/community/comments/$commentId'); 
-    final token = await AuthTokenStorage.getToken();
-
-    if (token == null) {
-      print('Token not found');
-      isLoading.value = false;
-      return;
-    }
-
-    try {
-       print('Fetching comments from: $url'); 
-      final response = await http.delete(
-        url,
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer $token',
-        },
-        
-      );
-
-      if (response.statusCode == 204 || response.statusCode == 200) {
-      // 댓글 삭제 후 UI 갱신 또는 목록 갱신
-     comments.removeWhere((comment) => comment['id'] == commentId);
-      // UI 갱신을 위해 isLoading을 false로 설정합니다.
-      isLoading.value = false;
-      } else {
-        print('Failed to fetch comments with status: ${response.statusCode}');
-         print('Response body: ${response.body}');
-      }
-    } catch (e) {
-      print('An error occurred: $e');
-    } finally {
-      isLoading.value = false;
-    }
+  if (response.statusCode == 200 || response.statusCode == 204) {
+    print('Comment deleted successfully');
+    return true;
+  } else {
+    print('Failed to delete comment with status: ${response.statusCode}');
+    return false;
   }
 }
+
+
+Future<bool> updateComment(int commentId, String newContent) async {
+  final url = Uri.parse('$mathUrl/community/comments/$commentId'); // 해당 댓글의 ID를 사용하여 API 호출
+  final token = await AuthTokenStorage.getToken();
+
+  if (token == null) {
+    print('No token found');
+    return false;
+  }
+
+  final response = await http.patch(
+    url,
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $token',
+    },
+    body: json.encode({
+      'content': newContent,
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    print('Comment updated successfully');
+    return true;
+  } else {
+    print('Failed to update comment with status: ${response.statusCode}');
+    return false;
+  }
+}
+}
+
+
 
 
 

@@ -5,6 +5,7 @@ import 'package:mathgame/api/api_post_delete.dart';
 import 'package:mathgame/api/api_post_patch.dart';
 import 'package:mathgame/controller/PostDetailController.dart';
 import 'package:mathgame/page/community/postlistpage.dart';
+
 class PostDetailPage extends StatefulWidget {
   final Map<String, dynamic> post;
 
@@ -45,9 +46,10 @@ class _PostDetailPageState extends State<PostDetailPage> {
         actions: [
           ElevatedButton(
             onPressed: () async {
-              String newTitle = titleController.text; 
+              String newTitle = titleController.text;
               String newContent = contentController.text;
-              bool success = await updatePost(widget.post['id'], newTitle, newContent);
+              bool success =
+                  await updatePost(widget.post['id'], newTitle, newContent);
               if (success) {
                 Get.snackbar('성공', '게시물이 수정되었습니다.');
                 Get.to(() => Postlistpage());
@@ -70,7 +72,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
             },
             child: Text('삭제'),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red, 
+              backgroundColor: Colors.red,
             ),
           ),
         ],
@@ -155,7 +157,8 @@ class _PostDetailPageState extends State<PostDetailPage> {
                         onPressed: () async {
                           String comment = commentController.text;
                           if (comment.isNotEmpty) {
-                            await controller.addComment(widget.post['id'], comment);
+                            await controller.addComment(
+                                widget.post['id'], comment);
                             commentController.clear();
                             Get.snackbar('성공', '댓글이 추가되었습니다.');
                           }
@@ -164,8 +167,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                     ),
                   ),
                   SizedBox(height: 20),
-                   
-                 Obx(() {
+                  Obx(() {
                     if (controller.isLoading.value) {
                       return Center(child: CircularProgressIndicator());
                     } else if (controller.comments.isEmpty) {
@@ -177,19 +179,29 @@ class _PostDetailPageState extends State<PostDetailPage> {
                         itemCount: controller.comments.length,
                         itemBuilder: (context, index) {
                           final comment = controller.comments[index];
-                          return ListTile(
-                            subtitle: Bubble(
-                            margin: BubbleEdges.all(8),
-                            color: Colors.white, // 말풍선 배경색을 흰색으로 설정
-                            nip: BubbleNip.leftBottom, // 말풍선의 꼬리 방향을 설정
-                            elevation: 3, // 그림자 효과를 위해 elevation을 사용
-                            padding: BubbleEdges.all(16.0), // 내부 여백 설정
-                            child: Text(
-                              comment['content'], // 댓글 내용만 표시
-                              style: TextStyle(
-                                  color: Colors.black), // 텍스트 색상을 검정색으로 설정
+                          final commentId =
+                              comment['id']; // commentId를 정확히 가져옵니다
+                          return GestureDetector(
+                            onTap: () {
+                              if (commentId != null && commentId > 0) {
+                                _showCommentActions(context, comment);
+                              } else {
+                                print('Invalid comment ID');
+                              }
+                            },
+                            child: ListTile(
+                              subtitle: Bubble(
+                                margin: BubbleEdges.all(8),
+                                color: Colors.white,
+                                nip: BubbleNip.leftBottom,
+                                elevation: 3,
+                                padding: BubbleEdges.all(16.0),
+                                child: Text(
+                                  comment['content'],
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
                             ),
-                          ) // 댓글 내용만 표시
                           );
                         },
                       );
@@ -203,4 +215,91 @@ class _PostDetailPageState extends State<PostDetailPage> {
       ),
     );
   }
+
+  void _showCommentActions(BuildContext context, Map<String, dynamic> comment) {
+    final commentId = comment['id'];
+    if (commentId == null || commentId == 0) {
+      Get.snackbar('오류', '댓글 ID가 유효하지 않습니다.');
+      return;
+    }
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Wrap(
+          children: [
+            ListTile(
+              leading: Icon(Icons.edit),
+              title: Text('수정'),
+              onTap: () {
+                Navigator.pop(context);
+                _editComment(comment);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.delete),
+              title: Text('삭제'),
+              onTap: () async {
+                Navigator.pop(context);
+                bool success = await controller.deleteComment(commentId);
+                if (success) {
+                  controller.comments.removeWhere((c) => c['id'] == commentId);
+                  Get.snackbar('성공', '댓글이 삭제되었습니다.');
+                } else {
+                  Get.snackbar('오류', '댓글 삭제에 실패했습니다.');
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _editComment(Map<String, dynamic> comment) {
+    TextEditingController editController =
+        TextEditingController(text: comment['content']);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('댓글 수정'),
+          content: TextField(
+            controller: editController,
+            maxLines: null,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('취소'),
+            ),
+            TextButton(
+              onPressed: () async {
+                String newContent = editController.text;
+                if (newContent.isNotEmpty) {
+                  bool success =
+                      await controller.updateComment(comment['id'], newContent);
+                  if (success) {
+                    final index = controller.comments
+                        .indexWhere((c) => c['id'] == comment['id']);
+                    if (index != -1) {
+                      controller.comments[index]['content'] = newContent;
+                      controller.comments.refresh(); // 상태 갱신
+                    }
+                    Get.snackbar('성공', '댓글이 수정되었습니다.');
+                  } else {
+                    Get.snackbar('오류', '댓글 수정에 실패했습니다.');
+                  }
+                  Navigator.pop(context);
+                }
+              },
+              child: Text('수정'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }
