@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/mypage/learningInfo/learningStatistics.dart';
+import 'package:mathgame/page/join/loginPage.dart';
 import 'package:mathgame/page/odabnote/detailnotepage.dart';
 import 'package:mathgame/page/mypage/learningInfo/studyDaysPage.dart';
 import 'package:mathgame/page/mypage/rankgrade.dart';
@@ -85,7 +86,7 @@ class Mypage extends StatelessWidget {
                 child: _buildMenuItem('설정', Icons.settings, paddingTop: 20),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {Get.to(() => LoginPage());},
                 child: _buildMenuItem('로그아웃', Icons.logout, paddingTop: 20),
               ),
               SizedBox(height: 50),

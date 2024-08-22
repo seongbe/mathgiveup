@@ -100,7 +100,7 @@ class Postlistpage extends StatelessWidget {
                                 width: 292,
                                 height: 95,
                                 decoration: ShapeDecoration(
-                                  color: Color(0xFFD9D9D9),
+                                  color: Colors.white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),

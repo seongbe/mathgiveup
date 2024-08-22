@@ -4,8 +4,8 @@ import 'dart:convert';
 import 'package:mathgame/api/api.dart';
 import 'package:mathgame/auth/auth_token.dart';
 
-Future<List<Map<String, dynamic>>> getComments(int postId) async {
-  final url = Uri.parse('$mathUrl/community/comments/$postId'); 
+Future<List<Map<String, dynamic>>> getComments(int commentId) async {
+  final url = Uri.parse('$mathUrl/community/comments/$commentId'); 
   final token = await AuthTokenStorage.getToken(); 
 
   final response = await http.get(
