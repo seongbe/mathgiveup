@@ -81,12 +81,8 @@ class Mypage extends StatelessWidget {
               Divider(color: Colors.white, thickness: 1),
               GestureDetector(
                 onTap: () {
-                  Get.to(() => Setting());
+                  Get.to(() => LoginPage());
                 },
-                child: _buildMenuItem('설정', Icons.settings, paddingTop: 20),
-              ),
-              GestureDetector(
-                onTap: () {Get.to(() => LoginPage());},
                 child: _buildMenuItem('로그아웃', Icons.logout, paddingTop: 20),
               ),
               SizedBox(height: 50),
