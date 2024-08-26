@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
-import 'package:mathgame/page/test/grade1_02.dart';
+import 'package:mathgame/page/test/grade1_01.dart';
 import 'package:mathgame/page/test/testCode.dart';
-import 'package:mathgame/page/test/testCode02.dart';
 
 class MainTestPage extends StatelessWidget {
   @override
@@ -54,7 +53,7 @@ class _MyWidgetState extends State<MyWidget> {
           child: CustomButton(
             text: '시작하기',
             onPressed: () {
-              Get.to(Grade1_02());
+              Get.to(Grade1_01());
             },
           ),
         ),

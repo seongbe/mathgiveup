@@ -1,4 +1,4 @@
 //멤버 테이블 API
-final String membersUrl = 'http://52.78.225.224:8080/api/members';
+const String membersUrl = 'http://43.200.245.252:8080/api/members';
 //API
-final String mathUrl = 'http://52.78.225.224:8080/api';
+const String mathUrl = 'http://43.200.245.252:8080/api';

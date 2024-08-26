@@ -159,13 +159,13 @@ class NickChange extends StatelessWidget {
 
     if (response.statusCode == 200) {
       await UserPreferences.saveNickname(newNickname); // 닉네임 저장
+      Future.delayed(Duration(seconds: 2), () {
+        Get.to(() => Homepage());
+      });
       _showSnackbar(
         title: '닉네임 변경 성공',
         message: '입력하신 닉네임으로 변경되었습니다.',
       );
-      Future.delayed(Duration(seconds: 2), () {
-        Get.to(() => Homepage());
-      });
     } else {
       _showSnackbar(
         title: '닉네임 변경 실패',

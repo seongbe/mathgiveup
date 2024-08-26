@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/mypage/myaccount.dart';
 import 'package:mathgame/page/setting/nicknamechangepage.dart';
-import 'package:mathgame/page/setting/profilePage.dart';
+import 'package:mathgame/page/setting/iconChangePage.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
@@ -32,6 +32,10 @@ class _SettingState extends State<Setting> {
               image: DecorationImage(
                 image: AssetImage('assets/images/background.png'), // 배경 이미지 경로
                 fit: BoxFit.cover, // 이미지 크기 조정 방식
+                colorFilter: ColorFilter.mode(
+                  Colors.white.withOpacity(0.7), // 흰색 음영과 투명도 조절
+                  BlendMode.modulate, // 흰색 음영을 적용
+                ),
               ),
             ),
           ),
@@ -59,7 +63,7 @@ class _SettingState extends State<Setting> {
                       ),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Divider(
                       color: Colors.white,
@@ -84,7 +88,7 @@ class _SettingState extends State<Setting> {
                       ),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Divider(
                       color: Colors.white,
@@ -109,7 +113,7 @@ class _SettingState extends State<Setting> {
                       ),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Divider(
                       color: Colors.white,
@@ -138,7 +142,7 @@ class _SettingState extends State<Setting> {
                       ],
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Divider(
                       color: Colors.white,
@@ -167,7 +171,7 @@ class _SettingState extends State<Setting> {
                       ],
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Divider(
                       color: Colors.white,
@@ -196,7 +200,7 @@ class _SettingState extends State<Setting> {
                       ],
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Divider(
                       color: Colors.white,
