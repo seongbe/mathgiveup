@@ -23,6 +23,8 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScoreController scoreController = Get.put(ScoreController());
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -32,7 +34,17 @@ class GameScreen extends StatelessWidget {
           },
         ),
         title: Text('Game Page'),
-        
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Obx(() {
+              return Text(
+                'Score: ${scoreController.score.value}',
+                style: TextStyle(fontSize: 20),
+              );
+            }),
+          ),
+        ],
       ),
       body: GameWidget(
         game: MathGame(),
@@ -88,12 +100,14 @@ class MathGame extends FlameGame with HasCollisionDetection, TapCallbacks {
         Vector2(size.x * 0.25, 0),
         correctProblem,
         correctAnswer,
+        isCorrect: true,
       ));
 
       add(Star(
         Vector2(size.x * 0.75, 0),
         incorrectProblem,
         incorrectAnswer,
+        isCorrect: false,
       ));
 
       nextSpawnSeconds = 0.3 + Random().nextDouble() * 2;
@@ -176,8 +190,9 @@ class Star extends RectangleComponent with HasGameRef, CollisionCallbacks {
   late TextComponent answerTextComponent;
   final String problem;
   final int correctAnswer;
+  final bool isCorrect;
 
-  Star(Vector2 position, this.problem, this.correctAnswer)
+  Star(Vector2 position, this.problem, this.correctAnswer, {required this.isCorrect})
       : super(
           position: position,
           size: Vector2.all(starSize),
@@ -227,7 +242,8 @@ class Star extends RectangleComponent with HasGameRef, CollisionCallbacks {
     PositionComponent other,
   ) {
     if (other is AnimatedPlayer) {
-      if (problemTextComponent.text == answerTextComponent.text) {
+      // 정답이 맞는 별과 충돌했을 때만 점수 증가
+      if (isCorrect) {
         Get.find<ScoreController>().increaseScore();
       }
       removeFromParent();
