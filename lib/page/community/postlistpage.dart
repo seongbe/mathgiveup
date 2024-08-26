@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mathgame/api/api_post_get.dart';
+import 'package:mathgame/api/api_post_get_all.dart';
 import 'package:mathgame/page/community/communitypage.dart';
 import 'package:mathgame/page/community/postdetailpage.dart';
 

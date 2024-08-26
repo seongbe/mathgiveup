@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:mathgame/game/GamePage1.dart';
 import 'package:mathgame/game/GamePage2.dart';
 import 'package:mathgame/game/GamePage3.dart';
+import 'package:mathgame/game/GamePage4.dart';
+import 'package:mathgame/game/GamePage5.dart';
 
 class GameSelectPage extends StatelessWidget {
   const GameSelectPage({super.key});
@@ -47,7 +49,21 @@ class GameSelectPage extends StatelessWidget {
                   },
                   child: Text('수학스테이지 게임'),
                 ),
-                // 원하는 만큼 게임을 추가하세요.
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                   Get.to(() => GamePage4());
+                  },
+                  child: Text('수학피하기 게임'),
+                ),
+                 SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                   Get.to(() => Gamepage5());
+                  },
+                  child: Text('미로게임'),
+                ),
+               
               ],
             ),
           ),
