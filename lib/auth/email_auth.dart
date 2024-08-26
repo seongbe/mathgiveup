@@ -1,6 +1,4 @@
-import 'dart:ffi';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:mathgame/api/api.dart';
 
 class EmailAuthService {
