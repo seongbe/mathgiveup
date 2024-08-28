@@ -62,78 +62,80 @@ class _CommunitypageState extends State<Communitypage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
-             ...communitys.asMap().entries.map((entry) {
-  int index = entry.key;
-  Community community = entry.value;
+              ...communitys.asMap().entries.map((entry) {
+                int index = entry.key;
+                Community community = entry.value;
 
-  return Column(
-    children: [
-      GestureDetector(
-       onTap: () {
+                return Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
                         if (index == 0) {
-                          Get.to(() => Postlistpage()); // 첫 번째 컨테이너 클릭 시 Postpage로 이동
+                          Get.to(() =>
+                              Postlistpage()); // 첫 번째 컨테이너 클릭 시 Postpage로 이동
                         } else if (index == 1) {
-                          Get.to(() => Postpage()); // 두 번째 컨테이너 클릭 시 Friendpage로 이동
+                          Get.to(() =>
+                              Postpage()); // 두 번째 컨테이너 클릭 시 Friendpage로 이동
                         }
                         // 추가적인 인덱스에 대한 동작을 여기에 추가할 수 있습니다.
                       },
-        child: CommunityContainer(
-          width: MediaQuery.of(context).size.width * 0.8,
-          height: 240,
-          community: community,
-        ),
-      ),
-      if (index == 0) // 첫 번째 컨테이너인지 확인
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Get.to(() => Writepage()); 
-              },
-              child: Text('글쓰기'),
-            ),
-            SizedBox(width: 10),
-             ElevatedButton(
-              onPressed: () {
-                Get.to(() => Postlistpage()); 
-              },
-              child: Text('글목록'),
-            ),
-               SizedBox(width: 10),
-          ],
-        ),
-      Divider(
-        color: Colors.white,
-      ),
-    ],
-  );
-}).toList(),
-              SizedBox(height: 30,),
-              
-              
-                   
-             Column(
-                    children: [
-                       SizedBox(height: 20,),
-                       Text('랭킹',
-                             style: skyboriTextStyle.copyWith(fontSize: 30),
-                           ),
-                              SizedBox(height: 20,),
+                      child: CommunityContainer(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: 240,
+                        community: community,
+                      ),
+                    ),
+                    if (index == 0) // 첫 번째 컨테이너인지 확인
                       Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        
-                     
-                       RankingContainer(),
-                      ],
-                                      ),
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              Get.to(() => Writepage());
+                            },
+                            child: Text('글쓰기'),
+                          ),
+                          SizedBox(width: 10),
+                          ElevatedButton(
+                            onPressed: () {
+                              Get.to(() => Postlistpage());
+                            },
+                            child: Text('글목록'),
+                          ),
+                          SizedBox(width: 10),
+                        ],
+                      ),
+                    Divider(
+                      color: Colors.white,
+                    ),
+                  ],
+                );
+              }).toList(),
+              SizedBox(
+                height: 30,
+              ),
+              Column(
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    '랭킹',
+                    style: skyboriTextStyle.copyWith(fontSize: 30),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RankingContainer(),
                     ],
                   ),
+                ],
+              ),
             ],
-            
           ),
-          
         ),
       ],
     );
@@ -175,7 +177,7 @@ class CommunityContainer extends StatelessWidget {
   final double width;
   final double height;
 
-  const CommunityContainer({
+  CommunityContainer({
     Key? key,
     required this.width,
     required this.height,
@@ -207,8 +209,9 @@ class CommunityContainer extends StatelessWidget {
                 community.number,
                 style: skyboriHintTextStyle,
               ),
-              SizedBox(width: 120,),
-               
+              SizedBox(
+                width: 120,
+              ),
             ],
           ),
           SizedBox(height: 8.0),
@@ -307,8 +310,8 @@ class CommunityContainer extends StatelessWidget {
   }
 }
 
-class Chat{
- final String title;
+class Chat {
+  final String title;
   final String username;
   final String description;
   final String number;
@@ -317,7 +320,7 @@ class Chat{
   final String username3;
   final String description3;
 
-    Chat({
+  Chat({
     required this.title,
     required this.username,
     required this.description,
@@ -326,18 +329,17 @@ class Chat{
     required this.description2,
     required this.username3,
     required this.description3,
-     
   });
 }
 
 class ChatContainer extends StatelessWidget {
-  const ChatContainer({super.key, required this.chat});
+  ChatContainer({super.key, required this.chat});
   final Chat chat;
 
   @override
   Widget build(BuildContext context) {
-    return   Container(
-       width: MediaQuery.of(context).size.width * 0.8,
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
       height: 260,
       margin: EdgeInsets.all(20.0),
       padding: EdgeInsets.all(30.0),
@@ -347,7 +349,6 @@ class ChatContainer extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        
         children: [
           Row(
             children: [
@@ -365,8 +366,9 @@ class ChatContainer extends StatelessWidget {
           SizedBox(height: 15),
           Row(
             children: [
-              Icon(Icons.chat,
-              weight: 40,
+              Icon(
+                Icons.chat,
+                weight: 40,
               ),
               SizedBox(width: 20),
               Column(
@@ -388,8 +390,9 @@ class ChatContainer extends StatelessWidget {
           SizedBox(height: 15),
           Row(
             children: [
-              Icon(Icons.chat,
-              weight: 40,
+              Icon(
+                Icons.chat,
+                weight: 40,
               ),
               SizedBox(width: 20),
               Column(
@@ -411,8 +414,9 @@ class ChatContainer extends StatelessWidget {
           SizedBox(height: 15),
           Row(
             children: [
-              Icon(Icons.chat,
-              weight: 40,
+              Icon(
+                Icons.chat,
+                weight: 40,
               ),
               SizedBox(width: 20),
               Column(
@@ -431,23 +435,19 @@ class ChatContainer extends StatelessWidget {
               ),
             ],
           ),
-            
         ],
       ),
     );
   }
 }
 
-
-
 class RankingContainer extends StatelessWidget {
   const RankingContainer({super.key});
-  
 
   @override
   Widget build(BuildContext context) {
-    return    Container(
-       width: MediaQuery.of(context).size.width * 0.8,
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
       height: 260,
       margin: EdgeInsets.all(20.0),
       padding: EdgeInsets.all(30.0),
@@ -457,7 +457,6 @@ class RankingContainer extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        
         children: [
           Column(
             children: [
@@ -467,76 +466,96 @@ class RankingContainer extends StatelessWidget {
                     '스테이지 게임',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(width: 30,),
+                  SizedBox(
+                    width: 30,
+                  ),
                   Text(
                     '1:1 게임',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                   SizedBox(width: 30,),
-                   Text(
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Text(
                     '퀴즈게임',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
               SizedBox(height: 15),
-               Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('스테이지 게임 순위',
-                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-                  
+                  Text(
+                    '스테이지 게임 순위',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
                 ],
-               ),
+              ),
             ],
           ),
           SizedBox(height: 15),
-          Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('🥇',
-                style: TextStyle(fontSize: 25),),
-               
-                 Text('닉네임',
-                style: TextStyle(fontSize: 25),),
-                Text('STAGE3-15',
-                style: TextStyle(fontSize: 15),),
-                
-              ],
-            ),
-            SizedBox(height: 5,),
-           Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('🥈',
-                style: TextStyle(fontSize: 25),),
-               
-                 Text('닉네임',
-                style: TextStyle(fontSize: 25),),
-                Text('STAGE3-15',
-                style: TextStyle(fontSize: 15),),
-                
-              ],
-            ),
-            SizedBox(height: 5,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('🥉',
-                style: TextStyle(fontSize: 25),),
-               
-                 Text('닉네임',
-                style: TextStyle(fontSize: 25),),
-                Text('STAGE3-15',
-                style: TextStyle(fontSize: 15),),
-                
-              ],
-            ),
-          ],)
-         
-       
-            
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '🥇',
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  Text(
+                    '닉네임',
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  Text(
+                    'STAGE3-15',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '🥈',
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  Text(
+                    '닉네임',
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  Text(
+                    'STAGE3-15',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '🥉',
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  Text(
+                    '닉네임',
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  Text(
+                    'STAGE3-15',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ],
+              ),
+            ],
+          )
         ],
       ),
     );

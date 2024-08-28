@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mathgame/auth/google_sign_in_provider.dart';
+import 'package:mathgame/page/find/findIdPage.dart';
+import 'package:mathgame/page/find/findPasswdPage.dart';
 import 'package:provider/provider.dart';
 import 'package:mathgame/const/styles.dart';
 
@@ -22,6 +25,10 @@ class MyAccount extends StatelessWidget {
               image: DecorationImage(
                 image: AssetImage('assets/images/background.png'), // 배경 이미지 경로
                 fit: BoxFit.cover, // 이미지 크기 조정 방식
+                colorFilter: ColorFilter.mode(
+                  Colors.white.withOpacity(0.7), // 흰색 음영과 투명도 조절
+                  BlendMode.modulate, // 흰색 음영을 적용
+                ),
               ),
             ),
           ),
@@ -31,99 +38,69 @@ class MyAccount extends StatelessWidget {
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(40, 20, 0, 20),
-                    child: Row(
-                      children: [
-                        Text(
-                          '아이디 찾기',
-                          style: skyboriBaseTextStyle.copyWith(fontSize: 20),
-                        ),
-                        SizedBox(width: 30),
-                        Icon(Icons.arrow_circle_right_outlined),
-                      ],
-                    ),
+                  _buildMenuItem(
+                    '아이디 찾기',
+                    Icons.arrow_circle_right_outlined,
+                    onPressed: () => Get.to(() => FindIdPage()),
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: Divider(
-                      color: Colors.white,
-                      thickness: 2,
-                    ),
+                  _buildDivider(context),
+                  _buildMenuItem(
+                    '비밀번호 재설정',
+                    Icons.arrow_circle_right_outlined,
+                    onPressed: () => Get.to(() => FindPasswdPage()),
                   ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(40, 20, 0, 20),
-                    child: Row(
-                      children: [
-                        Text(
-                          '비밀번호 찾기',
-                          style: skyboriBaseTextStyle.copyWith(fontSize: 20),
-                        ),
-                        SizedBox(width: 30),
-                        Icon(Icons.arrow_circle_right_outlined),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: Divider(
-                      color: Colors.white,
-                      thickness: 2,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () async {
+                  _buildDivider(context),
+                  _buildMenuItem(
+                    '로그아웃',
+                    Icons.logout,
+                    onPressed: () async {
                       await Provider.of<GoogleSignInProvider>(context,
                               listen: false)
                           .signOut();
                       Navigator.pushReplacementNamed(context, '/login');
                     },
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(40, 20, 0, 20),
-                      child: Row(
-                        children: [
-                          Text(
-                            '로그아웃',
-                            style: skyboriBaseTextStyle.copyWith(fontSize: 20),
-                          ),
-                          SizedBox(width: 30),
-                          Icon(Icons.logout),
-                        ],
-                      ),
-                    ),
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: Divider(
-                      color: Colors.white,
-                      thickness: 2,
-                    ),
+                  _buildDivider(context),
+                  _buildMenuItem(
+                    '회원탈퇴',
+                    Icons.delete,
                   ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(40, 20, 0, 20),
-                    child: Row(
-                      children: [
-                        Text(
-                          '회원탈퇴',
-                          style: skyboriBaseTextStyle.copyWith(fontSize: 20),
-                        ),
-                        SizedBox(width: 30),
-                        Icon(Icons.delete)
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: Divider(
-                      color: Colors.white,
-                      thickness: 2,
-                    ),
-                  ),
+                  _buildDivider(context),
                 ],
               ),
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMenuItem(String title, IconData icon,
+      {VoidCallback? onPressed}) {
+    return GestureDetector(
+      onTap: onPressed, // onPressed 콜백을 설정하여 클릭 이벤트를 처리
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(30, 20, 0, 20),
+        child: Row(
+          children: [
+            Text(
+              title,
+              style: skyboriBaseTextStyle.copyWith(fontSize: 20),
+            ),
+            const SizedBox(width: 10),
+            Icon(icon),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDivider(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.9,
+      child: const Divider(
+        color: Colors.white,
+        thickness: 2,
       ),
     );
   }
