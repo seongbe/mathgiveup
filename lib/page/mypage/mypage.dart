@@ -82,6 +82,7 @@ class _MypageState extends State<Mypage> {
               Divider(color: Colors.white, thickness: 1),
               GestureDetector(
                 onTap: () {
+                  _logout();
                   Get.to(() => LoginPage());
                 },
                 child: _buildMenuItem('로그아웃', Icons.logout, paddingTop: 20),
@@ -193,5 +194,9 @@ class _MypageState extends State<Mypage> {
         ],
       ),
     );
+  }
+
+  Future<void> _logout() async {
+    await UserPreferences.logout();
   }
 }
