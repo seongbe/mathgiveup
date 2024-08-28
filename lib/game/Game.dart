@@ -57,11 +57,11 @@ class GameSelectPage extends StatelessWidget {
                   child: Text('수학피하기 게임'),
                 ),
                  SizedBox(height: 20),
-                ElevatedButton(
+                 ElevatedButton(
                   onPressed: () {
                    Get.to(() => Gamepage5());
                   },
-                  child: Text('미로게임'),
+                  child: Text('좌표평면 게임'),
                 ),
                
               ],
