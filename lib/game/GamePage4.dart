@@ -64,11 +64,21 @@ class ScoreController extends GetxController {
 class MathGame extends FlameGame with HasCollisionDetection, TapCallbacks {
   late AnimatedPlayer player;
   late SpriteComponent background;
+  late JoystickComponent joystick;
   double nextSpawnSeconds = 0;
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
+
+
+    joystick = JoystickComponent(
+      knob: CircleComponent(radius: 20, paint: Paint()..color = Colors.blue),
+      background: CircleComponent(radius: 50, paint: Paint()..color = Colors.grey.withOpacity(0.5)),
+      margin: const EdgeInsets.only(left: 40, bottom: 40),
+    );
+
+    add(joystick);
 
     background = SpriteComponent()
       ..sprite = await loadSprite('background.png')
