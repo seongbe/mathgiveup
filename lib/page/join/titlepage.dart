@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
+import 'package:mathgame/auth/auth_token.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/router/homepage.dart';
@@ -14,12 +14,6 @@ class Titlepage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // Lottie.asset(
-          //   'assets/titlePage.json',
-          //   fit: BoxFit.cover,
-          //   width: double.infinity,
-          //   height: double.infinity,
-          // ),
           Image.asset(
             'assets/titlePage.gif',
             fit: BoxFit.cover,
@@ -56,8 +50,16 @@ class Titlepage extends StatelessWidget {
                   height: 60,
                   child: CustomButton(
                     text: '로그인',
-                    onPressed: () {
-                      Get.to(LoginPage());
+                    onPressed: () async {
+                      // 저장된 토큰 확인
+                      final token = await AuthTokenStorage.getToken();
+                      if (token != null) {
+                        // 토큰이 있으면 Homepage로 이동
+                        Get.to(() => Homepage());
+                      } else {
+                        // 토큰이 없으면 LoginPage로 이동
+                        Get.to(() => LoginPage());
+                      }
                     },
                   ),
                 ),

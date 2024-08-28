@@ -1,6 +1,19 @@
+import 'package:mathgame/auth/auth_token.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreferences {
+  // 로그아웃 처리: 모든 데이터와 토큰 삭제
+  static Future<void> logout() async {
+    await clearAll(); // 모든 SharedPreferences 데이터 삭제
+    await AuthTokenStorage.deleteToken(); // 토큰 삭제
+  }
+
+  // 모든 데이터 삭제
+  static Future<void> clearAll() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
+
   // 닉네임 저장
   static Future<void> saveNickname(String nickname) async {
     final prefs = await SharedPreferences.getInstance();

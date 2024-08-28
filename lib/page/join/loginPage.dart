@@ -28,7 +28,7 @@ class LoginPage extends StatelessWidget {
           style: skyboriBaseTextStyle.copyWith(fontSize: 30),
         ),
         leading: Container(),
-      ), //CustomAppBar(title: '로그인'),
+      ),
       body: BackgroundContainer(
         child: ListView(
           padding: const EdgeInsets.all(16.0),
@@ -51,8 +51,23 @@ class _MyWidgetState extends State<MyWidget> {
   final TextEditingController passwordController = TextEditingController();
   bool keepLoggedIn = false;
   String errorMessage = '아이디 또는 비밀번호를 다시 확인해 주세요';
-  String _message = '';
   Color errorColor = Colors.transparent;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkSavedToken(); // 페이지 로드 시 토큰 확인
+  }
+
+  // 저장된 토큰 확인
+  Future<void> _checkSavedToken() async {
+    final token = await AuthTokenStorage.getToken();
+    if (token != null) {
+      print('Saved token found: $token');
+    } else {
+      print('No saved token found.');
+    }
+  }
 
   // 백엔드 API 호출
   Future<void> _login() async {
@@ -85,10 +100,12 @@ class _MyWidgetState extends State<MyWidget> {
       final data = jsonDecode(decodedString);
       final token = data['token'];
       final nickname = data['nickname'];
+      final icon = data['icon'];
 
       // 닉네임과 토큰 처리
       await AuthTokenStorage.saveToken(token);
       await UserPreferences.saveNickname(nickname);
+      await UserPreferences.saveIcon(icon);
 
       // 페이지 이동
       setState(() {
