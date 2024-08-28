@@ -9,6 +9,7 @@ import 'package:mathgame/game/Game.dart';
 import 'package:mathgame/game/GamePage1.dart';
 import 'package:mathgame/game/GamePage2.dart';
 import 'package:mathgame/game/GamePage3.dart';
+import 'package:mathgame/game/GamePage4.dart';
 import 'package:mathgame/page/community/communitypage.dart';
 import 'package:mathgame/page/odabnote/detailnotepage.dart';
 import 'package:mathgame/page/mypage/mypage.dart';
@@ -271,14 +272,7 @@ class HomePageContent extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-              CustomButton(
-                text: '처음부터하기',
-                width: 231,
-                height: 55,
-                onPressed: () {
-                  Get.to(() => GamePage3());
-                },
-              ),
+               
             ],
           ),
         ],
