@@ -5,7 +5,10 @@ import 'package:mathgame/game/GamePage2.dart';
 import 'package:mathgame/game/GamePage3.dart';
 import 'package:mathgame/game/GamePage4.dart';
 import 'package:mathgame/game/GamePage5.dart';
+import 'package:mathgame/game/Stage/primeFactorizationGame.dart';
 import 'package:mathgame/game/Stage/stage01.dart';
+import 'package:mathgame/game/Stage/stageSelectionPage.dart';
+import 'package:mathgame/game/vsGame.dart';
 
 class GameSelectPage extends StatelessWidget {
   const GameSelectPage({super.key});
@@ -66,9 +69,16 @@ class GameSelectPage extends StatelessWidget {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  Get.to(() => Stage01());
+                  Get.to(() => StageSelectionPage());
                 },
-                child: Text('스테이지 게임'),
+                child: Text('Stage 게임'),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Get.to(() => VsGame());
+                },
+                child: Text('1:1 게임'),
               ),
             ],
           ),

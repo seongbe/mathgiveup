@@ -53,12 +53,7 @@ class MyAccount extends StatelessWidget {
                   _buildMenuItem(
                     '로그아웃',
                     Icons.logout,
-                    onPressed: () async {
-                      await Provider.of<GoogleSignInProvider>(context,
-                              listen: false)
-                          .signOut();
-                      Navigator.pushReplacementNamed(context, '/login');
-                    },
+                    onPressed: () {},
                   ),
                   _buildDivider(context),
                   _buildMenuItem(
