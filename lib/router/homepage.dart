@@ -99,7 +99,7 @@ class HomePageContent extends StatelessWidget {
   final List<Notice> notices = [
     Notice(
       title: "첫번쨰 공지사항",
-      description: "오늘은 게임 좀 쉬세요.",
+      description: "좌표게임은 점검으로 인하여 잠시 접속불가예정입니다.",
       date: DateTime.now(),
     ),
     Notice(
@@ -127,44 +127,44 @@ class HomePageContent extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(() => GamePage());
-                    },
-                    child: Container(
-                      width: 161,
-                      height: 185,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/mathgame1.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(() => GamePage2());
-                    },
-                    child: Container(
-                      width: 161,
-                      height: 185,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/mathgame2.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     GestureDetector(
+              //       onTap: () {
+              //         Get.to(() => GamePage());
+              //       },
+              //       child: Container(
+              //         width: 161,
+              //         height: 185,
+              //         decoration: BoxDecoration(
+              //           image: DecorationImage(
+              //             image: AssetImage('assets/images/gamescreen.png'),
+              //             fit: BoxFit.fill,
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       width: 20,
+              //     ),
+              //     GestureDetector(
+              //       onTap: () {
+              //         Get.to(() => GamePage2());
+              //       },
+              //       child: Container(
+              //         width: 161,
+              //         height: 185,
+              //         decoration: BoxDecoration(
+              //           image: DecorationImage(
+              //             image: AssetImage('assets/images/gamescreen2.png'),
+              //             fit: BoxFit.fill,
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -227,16 +227,16 @@ class HomePageContent extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Goal(
-                      text: '0승/5승',
+                      text: '2승/5승',
                       text2: '오늘의 승리수',
                     ),
                     Goal(
-                      text: '0승/5승',
-                      text2: '오늘의 승리수',
+                      text: '14/50',
+                      text2: '오늘의 스테이지수',
                     ),
                     Goal(
-                      text: '0승/5승',
-                      text2: '오늘의 승리수',
+                      text: '1판/5판',
+                      text2: '오늘의 피하기',
                     ),
                   ],
                 ),

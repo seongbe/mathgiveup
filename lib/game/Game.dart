@@ -5,6 +5,7 @@ import 'package:mathgame/game/GamePage2.dart';
 import 'package:mathgame/game/GamePage3.dart';
 import 'package:mathgame/game/GamePage4.dart';
 import 'package:mathgame/game/GamePage5.dart';
+import 'package:mathgame/game/GamePage6.dart';
 
 class GameSelectPage extends StatelessWidget {
   const GameSelectPage({super.key});
@@ -62,6 +63,13 @@ class GameSelectPage extends StatelessWidget {
                    Get.to(() => Gamepage5());
                   },
                   child: Text('좌표평면 게임'),
+                ),
+                SizedBox(height: 20),
+                   ElevatedButton(
+                  onPressed: () {
+                   Get.to(() => Gamepage6());
+                  },
+                  child: Text('마리오 게임'),
                 ),
                
               ],
