@@ -9,6 +9,7 @@ import 'package:mathgame/game/Stage/primeFactorizationGame.dart';
 import 'package:mathgame/game/Stage/stage01.dart';
 import 'package:mathgame/game/Stage/stageSelectionPage.dart';
 import 'package:mathgame/game/vsGame.dart';
+import 'package:mathgame/game/GamePage6.dart';
 
 class GameSelectPage extends StatelessWidget {
   const GameSelectPage({super.key});
@@ -66,6 +67,13 @@ class GameSelectPage extends StatelessWidget {
                 },
                 child: Text('좌표평면 게임'),
               ),
+                SizedBox(height: 20),
+                   ElevatedButton(
+                  onPressed: () {
+                   Get.to(() => Gamepage6());
+                  },
+                  child: Text('마리오 게임'),
+                ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {

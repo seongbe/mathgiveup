@@ -39,7 +39,7 @@ class _Gamepage5State extends State<Gamepage5> {
 void showCoordinateInputDialog(Vector2 foodPosition, Function(bool) onAnswerChecked) {
     final xController = TextEditingController();
     final yController = TextEditingController();
-    const double gridSize = 50.0;
+    final double gridSize = game.size.x / 2;
 
     final screenSize = game.size;
 
@@ -70,10 +70,7 @@ void showCoordinateInputDialog(Vector2 foodPosition, Function(bool) onAnswerChec
                 keyboardType: TextInputType.number,
               ),
               SizedBox(height: 10),
-              Text(
-                'Correct answer: X = $mathX, Y = $mathY',
-                style: TextStyle(color: Colors.red),
-              ),
+              
             ],
           ),
           actions: [
