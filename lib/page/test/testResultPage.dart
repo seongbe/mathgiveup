@@ -43,8 +43,8 @@ class _MyWidgetState extends State<MyWidget> {
     List<double> scores = [
       score01 ?? 0.0,
       score02 ?? 0.0,
-      score03 ?? 0.0,
-      score04 ?? 0.0,
+      score03 ?? 60.0,
+      score04 ?? 60.0,
     ];
 
     return {

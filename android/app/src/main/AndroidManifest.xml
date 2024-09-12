@@ -25,13 +25,15 @@
         </activity>
 
         <!-- Meta-data for Google Sign-In -->
+        <!--
         <meta-data
             android:name="com.google.android.gms.appid"
             android:value="@string/google_app_id" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        
+        -->
+
         <!-- 주석 처리된 ADMOB APP ID, FCM NOTIFICATION ICON & COLOR, GOOGLE MAPS KEY -->
         <!--
         <meta-data

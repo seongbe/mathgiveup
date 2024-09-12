@@ -442,7 +442,30 @@ class ChatContainer extends StatelessWidget {
 }
 
 class RankingContainer extends StatelessWidget {
-  const RankingContainer({super.key});
+  const RankingContainer({Key? key}) : super(key: key);
+
+  Widget _buildRankRow(
+      {required String medal,
+      required String nickname,
+      required String stage}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          medal,
+          style: TextStyle(fontSize: 25),
+        ),
+        Text(
+          nickname,
+          style: TextStyle(fontSize: 25),
+        ),
+        Text(
+          stage,
+          style: TextStyle(fontSize: 15),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -458,104 +481,39 @@ class RankingContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
+          // 게임 종류 표시
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  Text(
-                    '스테이지 게임',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Text(
-                    '1:1 게임',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Text(
-                    '퀴즈게임',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
+              Text(
+                '스테이지 게임',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '스테이지 게임 순위',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
+              Text(
+                '1:1 게임',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                '퀴즈게임',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ],
           ),
           SizedBox(height: 15),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '🥇',
-                    style: TextStyle(fontSize: 25),
-                  ),
-                  Text(
-                    '닉네임',
-                    style: TextStyle(fontSize: 25),
-                  ),
-                  Text(
-                    'STAGE3-15',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '🥈',
-                    style: TextStyle(fontSize: 25),
-                  ),
-                  Text(
-                    '닉네임',
-                    style: TextStyle(fontSize: 25),
-                  ),
-                  Text(
-                    'STAGE3-15',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '🥉',
-                    style: TextStyle(fontSize: 25),
-                  ),
-                  Text(
-                    '닉네임',
-                    style: TextStyle(fontSize: 25),
-                  ),
-                  Text(
-                    'STAGE3-15',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                ],
-              ),
-            ],
-          )
+          // 랭킹 타이틀
+          Center(
+            child: Text(
+              '스테이지 게임 순위',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(height: 15),
+          // 랭킹 목록
+          _buildRankRow(medal: '🥇', nickname: 'User1', stage: 'STAGE3-15'),
+          SizedBox(height: 5),
+          _buildRankRow(medal: '🥈', nickname: 'User2', stage: 'STAGE3-12'),
+          SizedBox(height: 5),
+          _buildRankRow(medal: '🥉', nickname: 'User3', stage: 'STAGE3-09'),
         ],
       ),
     );
