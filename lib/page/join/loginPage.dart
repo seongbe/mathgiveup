@@ -7,7 +7,7 @@ import 'package:mathgame/userInfo/userPreferences.dart';
 import 'package:mathgame/api/api.dart';
 import 'package:mathgame/page/join/joinPage02.dart';
 import 'package:provider/provider.dart';
-import 'package:mathgame/auth/google_sign_in_provider.dart';
+//import 'package:mathgame/auth/google_sign_in_provider.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/find/findIdPage.dart';
@@ -213,9 +213,9 @@ class _MyWidgetState extends State<MyWidget> {
             children: [
               snsButton(
                 assetPath: 'assets/images/google.png',
-                onTap: () =>
-                    Provider.of<GoogleSignInProvider>(context, listen: false)
-                        .signInWithGoogle(context),
+                onTap: () {
+                  print('Google Sign In Button Pressed');
+                },
                 backgroundColor: Colors.white,
               ),
               SizedBox(width: 30),

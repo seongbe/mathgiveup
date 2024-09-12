@@ -4,7 +4,11 @@ import 'dart:math';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 
-class Stage01 extends StatelessWidget {
+class Stage1 extends StatelessWidget {
+  final VoidCallback? onStageCompleted;
+
+  Stage1({this.onStageCompleted});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,12 +16,12 @@ class Stage01 extends StatelessWidget {
         Colors.white.withOpacity(0.35),
         BACKGROUND_COLOR,
       ),
-      appBar: CustomAppBar(title: '스테이지 1 - 소인수분해'),
+      appBar: CustomAppBar(title: '스테이지 1'),
       body: BackgroundContainer(
         child: ListView(
           padding: const EdgeInsets.all(16.0),
           children: [
-            StageGamePage01(),
+            StageGamePage01(onStageCompleted: onStageCompleted),
           ],
         ),
       ),
@@ -26,6 +30,10 @@ class Stage01 extends StatelessWidget {
 }
 
 class StageGamePage01 extends StatefulWidget {
+  final VoidCallback? onStageCompleted;
+
+  StageGamePage01({this.onStageCompleted});
+
   @override
   _StageGamePageState01 createState() => _StageGamePageState01();
 }
@@ -89,6 +97,9 @@ class _StageGamePageState01 extends State<StageGamePage01> {
           score += level * 10;
           message = "레벨 $level 완료! 새로운 숫자로 이동합니다.";
           _startNewLevel();
+          if (widget.onStageCompleted != null) {
+            widget.onStageCompleted!(); // 스테이지 완료 콜백 호출
+          }
         }
       });
     } else {
