@@ -33,26 +33,26 @@ class GameSelectPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              ElevatedButton(
-                onPressed: () {
-                  Get.to(() => GamePage());
-                },
-                child: Text('문제 맞추기 게임'),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Get.to(() => GamePage2());
-                },
-                child: Text('1대1게임'),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Get.to(() => GamePage3());
-                },
-                child: Text('수학스테이지 게임'),
-              ),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Get.to(() => GamePage());
+              //   },
+              //   child: Text('문제 맞추기 게임'),
+              // ),
+              // SizedBox(height: 20),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Get.to(() => GamePage2());
+              //   },
+              //   child: Text('1대1게임'),
+              // ),
+              // SizedBox(height: 20),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Get.to(() => GamePage3());
+              //   },
+              //   child: Text('수학스테이지 게임'),
+              // ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
@@ -67,27 +67,28 @@ class GameSelectPage extends StatelessWidget {
                 },
                 child: Text('좌표평면 게임'),
               ),
-                SizedBox(height: 20),
-                   ElevatedButton(
-                  onPressed: () {
-                   Get.to(() => Gamepage6());
-                  },
-                  child: Text('마리오 게임'),
-                ),
-              SizedBox(height: 20),
+              //   SizedBox(height: 20),
+              //      ElevatedButton(
+              //     onPressed: () {
+              //      Get.to(() => Gamepage6());
+              //     },
+              //     child: Text('마리오 게임'),
+              //   ),
+              // SizedBox(height: 20),
+               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   Get.to(() => StageSelectionPage());
                 },
                 child: Text('Stage 게임'),
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Get.to(() => VsGame());
-                },
-                child: Text('1:1 게임'),
-              ),
+              // SizedBox(height: 20),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Get.to(() => VsGame());
+              //   },
+              //   child: Text('1:1 게임'),
+              // ),
             ],
           ),
         ),
