@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_math_fork/flutter_math.dart';
-import 'package:mathgame/page/test/%08testResultPage.dart';
+import 'package:mathgame/page/test/testResultPage.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/test/grade1_process02.dart'; // 새로 분리된 메소드 파일
