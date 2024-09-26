@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:mathgame/page/test/%08testResultPage.dart';
+import 'package:mathgame/page/test/testResultPage.dart';
 import 'package:mathgame/userInfo/userPreferences.dart';
 
 class Grade1Process02 {

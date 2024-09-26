@@ -120,7 +120,7 @@ class _CommunitypageState extends State<Communitypage> {
                     height: 20,
                   ),
                   Text(
-                    '랭킹',
+                    '학교랭킹',
                     style: skyboriTextStyle.copyWith(fontSize: 30),
                   ),
                   SizedBox(
@@ -486,15 +486,15 @@ class RankingContainer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '스테이지 게임',
+                '옥정중학교',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               Text(
-                '1:1 게임',
+                '서경중학교',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               Text(
-                '퀴즈게임',
+                '대일중학교',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ],
@@ -503,17 +503,17 @@ class RankingContainer extends StatelessWidget {
           // 랭킹 타이틀
           Center(
             child: Text(
-              '스테이지 게임 순위',
+              '학교내 점수 순위',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(height: 15),
           // 랭킹 목록
-          _buildRankRow(medal: '🥇', nickname: 'User1', stage: 'STAGE3-15'),
+          _buildRankRow(medal: '🥇', nickname: '김삿갓', stage: '30점'),
           SizedBox(height: 5),
-          _buildRankRow(medal: '🥈', nickname: 'User2', stage: 'STAGE3-12'),
+          _buildRankRow(medal: '🥈', nickname: '감소라', stage: '20점'),
           SizedBox(height: 5),
-          _buildRankRow(medal: '🥉', nickname: 'User3', stage: 'STAGE3-09'),
+          _buildRankRow(medal: '🥉', nickname: '강빛나', stage: '10점'),
         ],
       ),
     );
