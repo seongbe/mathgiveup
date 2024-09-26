@@ -5,10 +5,10 @@ import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/game/Stage/stageSelectionPage.dart';
 import 'package:mathgame/page/test/grade1_process01.dart'; // 올바른 경로로 수정 필요
 
-class Stage2 extends StatelessWidget {
+class Stage02 extends StatelessWidget {
   final VoidCallback? onStageCompleted;
 
-  Stage2({this.onStageCompleted});
+  Stage02({this.onStageCompleted});
 
   @override
   Widget build(BuildContext context) {

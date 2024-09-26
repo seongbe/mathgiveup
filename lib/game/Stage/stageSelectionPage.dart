@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mathgame/game/Stage/cloudGame/cloudGameApp.dart';
+import 'package:mathgame/game/Stage/cloudGame/cloudGameApp02.dart';
 import 'package:mathgame/game/Stage/stage04.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mathgame/const/colors.dart'; // BACKGROUND_COLOR를 위한 임포트
@@ -153,7 +155,7 @@ class _StageSelectionScreenState extends State<StageSelectionScreen> {
 
     switch (stageNumber) {
       case 1:
-        targetPage = Stage1(
+        targetPage = CloudGameApp(
           onStageCompleted: () {
             widget.onStageCompleted(stageNumber + 1); // 다음 스테이지 열림
             Navigator.pop(context); // 현재 스테이지 종료 후 돌아옴
@@ -161,7 +163,15 @@ class _StageSelectionScreenState extends State<StageSelectionScreen> {
         );
         break;
       case 2:
-        targetPage = Stage2(
+        targetPage = Stage02(
+          onStageCompleted: () {
+            widget.onStageCompleted(stageNumber + 1); // 다음 스테이지 열림
+            Navigator.pop(context); // 현재 스테이지 종료 후 돌아옴
+          },
+        );
+        break;
+      case 3:
+        targetPage = CloudGameApp02(
           onStageCompleted: () {
             widget.onStageCompleted(stageNumber + 1); // 다음 스테이지 열림
             Navigator.pop(context); // 현재 스테이지 종료 후 돌아옴

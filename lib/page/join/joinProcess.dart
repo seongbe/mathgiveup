@@ -47,7 +47,7 @@ class JoinProcess {
         RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$&*~]).{8,}$');
     print(password);
     bool result = regex.hasMatch(password);
-    print(result);
+    print("비밀번호 확인 결과: ${result}");
     return regex.hasMatch(password);
   }
 
