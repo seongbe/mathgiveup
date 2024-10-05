@@ -83,24 +83,24 @@ class CloudGame02 extends FlameGame with HasCollisionDetection, TapDetector {
   }
 
   @override
-  void update(double dt) {
+  Future<void> update(double dt) async {
     super.update(dt);
 
     // 일정 시간마다 구름 생성
     _cloudTimer += dt;
-    if (_cloudTimer > 2) {
+    if (_cloudTimer > 1.5) {
       _cloudTimer = 0.0;
-      int cloudType = 1;
       //int cloudType = _random.nextBool() ? 1 : 2;
       for (int i = 0; i < 5; i++) {
-        Cloud cloud = Cloud(cloudType);
-        cloud.position = Vector2(i * 80.0, size.y / 2);
+        Num _num = Num(); // 숫자 생성
+        await add(_num);
+        int type = _num.numType;
+        //print('숫자 타입: ${_num.numType}, 숫자: ${_num.num}');
+        Cloud cloud = Cloud(type); // 구름 생성
+        cloud.position = Vector2(i * 80.0, size.y / 2 - 100); // 구름 위치 조정
+        _num.position = cloud.position + Vector2(25, 20); // 숫자 위치 조정
         world.add(cloud);
         cloudList.add(cloud);
-
-        Num _num = Num();
-        _num.position = cloud.position + Vector2(25, 20);
-        print('num: ${_num.num}, numType: ${_num.numType}');
         world.add(_num);
         numList.add(_num);
       }
@@ -116,20 +116,19 @@ class CloudGame02 extends FlameGame with HasCollisionDetection, TapDetector {
     print("구름 초기화 시작");
     // 초기 구름 5개 하단에 배치
     for (int i = 0; i < 5; i++) {
-      for (int j = 0; j < 3; j++) {
-        int cloudType = _random.nextBool() ? 1 : 2;
-        Cloud cloud = Cloud(cloudType);
+      for (int j = 0; j < 4; j++) {
+        Cloud cloud = Cloud(1);
         //print(cloud.position);
 
         // 구름을 하단에 배치하도록 position을 설정
         cloud.position = Vector2(
           i * 80.0,
-          size.y - (j * 150),
+          size.y - (j * 150) - 20,
         );
 
         world.add(cloud); // 구름을 월드에 추가
         cloudList.add(cloud); // 구름을 리스트에 추가
-        //print(cloud.position);
+        print(cloud.position);
       }
     }
     print("구름 초기화 완료");
@@ -152,6 +151,12 @@ class CloudGame02 extends FlameGame with HasCollisionDetection, TapDetector {
       }
     }
     cloudList.clear(); // 구름 리스트 비움
+    for (Num num in numList) {
+      if (num.parent != null) {
+        world.remove(num);
+      }
+    }
+    numList.clear();
     startCloud();
     //setCamera();
   }

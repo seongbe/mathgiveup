@@ -7,7 +7,7 @@ import 'package:mathgame/const/styles.dart';
 class Num extends TextComponent with HasGameRef {
   final Random _random = Random();
   int num = 0;
-  int numType = 0; // 1: 소수가 아닌 수, 2: 소수
+  int numType = 0; // 1: 소수, 2: 소수가 아닌 수
 
   @override
   Future<void> onLoad() async {
@@ -32,7 +32,7 @@ class Num extends TextComponent with HasGameRef {
         gameRef.camera.viewfinder.position.y - _random.nextDouble() * 100,
       );
     }
-    print('Num class num: ${num}, numType: ${numType}');
+    //print('Num class num: ${num}, numType: ${numType}');
   }
 
   @override
@@ -42,18 +42,21 @@ class Num extends TextComponent with HasGameRef {
     if (position.y > gameRef.size.y) {
       removeFromParent(); // 화면 밖으로 나가면 제거
     }
+
+    // numType 값이 정상적으로 유지되는지 확인
+    //print('Update 중 numType: $numType');
   }
 
   // 소수 확인
   int checkPrimeNum() {
     if (num < 2) {
-      return 1;
+      return 2;
     }
     for (int i = 2; i <= num ~/ 2; i++) {
       if (num % i == 0) {
-        return 1;
+        return 2;
       }
     }
-    return 2;
+    return 1;
   }
 }
