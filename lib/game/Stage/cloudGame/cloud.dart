@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/collisions.dart';
 import 'dart:math';
+import 'package:mathgame/game/Stage/cloudGame/player.dart';
 
 class Cloud extends SpriteComponent with HasGameRef, CollisionCallbacks {
   Cloud(this.type);
@@ -36,5 +37,21 @@ class Cloud extends SpriteComponent with HasGameRef, CollisionCallbacks {
     if (position.y > gameRef.size.y) {
       removeFromParent(); // 화면 밖으로 나가면 제거
     }
+  }
+
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (other is Player) {
+      print('Cloud와 Player가 충돌했습니다.');
+      //if (other.velocity.y > -150) removeFromParent();
+    }
+    // if (other is Player) {
+    //   final playerBottom = other.position.y + other.size.y;
+    //   final cloudTop = position.y;
+    //   //print("플레이어 하단: ${playerBottom.truncate()}, 구름 상단: ${cloudTop.truncate()}");
+
+    //   if (playerBottom.truncate() == cloudTop.truncate()) removeFromParent();
+    // }
+    super.onCollision(intersectionPoints, other);
   }
 }
