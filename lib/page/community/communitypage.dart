@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/community/postpage.dart';
 import 'package:mathgame/page/community/writepage.dart';
 import 'package:mathgame/page/community/postlistpage.dart';
+import 'dart:convert';
 
 class Communitypage extends StatefulWidget {
   @override
@@ -440,14 +441,32 @@ class ChatContainer extends StatelessWidget {
     );
   }
 }
-
-class RankingContainer extends StatelessWidget {
+class RankingContainer extends StatefulWidget {
   const RankingContainer({Key? key}) : super(key: key);
 
-  Widget _buildRankRow(
-      {required String medal,
-      required String nickname,
-      required String stage}) {
+  @override
+  _RankingContainerState createState() => _RankingContainerState();
+}
+
+class _RankingContainerState extends State<RankingContainer> {
+  Future<List<String>> fetchSchools() async {
+    final response = await http.get(Uri.parse(
+        'https://www.career.go.kr/cnet/openapi/getOpenApi?apiKey=a158b0dd00e34efa80c15fee4b98e98f&svcType=api&svcCode=SCHOOL&contentType=json&gubun=midd_list&region=100260'));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      List<String> schoolNames = [];
+
+      for (var school in data['dataSearch']['content']) {
+        schoolNames.add(school['schoolName']);
+      }
+      return schoolNames;
+    } else {
+      throw Exception('Failed to load schools');
+    }
+  }
+
+  Widget _buildRankRow({required String medal, required String nickname, required String stage}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -478,43 +497,48 @@ class RankingContainer extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(40.0),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // 게임 종류 표시
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '옥정중학교',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                '서경중학교',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                '대일중학교',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          SizedBox(height: 15),
-          // 랭킹 타이틀
-          Center(
-            child: Text(
-              '학교내 점수 순위',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(height: 15),
-          // 랭킹 목록
-          _buildRankRow(medal: '🥇', nickname: '김삿갓', stage: '30점'),
-          SizedBox(height: 5),
-          _buildRankRow(medal: '🥈', nickname: '감소라', stage: '20점'),
-          SizedBox(height: 5),
-          _buildRankRow(medal: '🥉', nickname: '강빛나', stage: '10점'),
-        ],
+      child: FutureBuilder<List<String>>(
+        future: fetchSchools(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('학교 목록을 불러오는 중 오류가 발생했습니다.'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('학교 목록을 찾을 수 없습니다.'));
+          } else {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // 학교 이름 표시
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: snapshot.data!.take(3).map((schoolName) {
+                    return Text(
+                      schoolName,
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    );
+                  }).toList(),
+                ),
+                SizedBox(height: 15),
+                // 랭킹 타이틀
+                Center(
+                  child: Text(
+                    '학교내 점수 순위',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(height: 15),
+                // 랭킹 목록
+                _buildRankRow(medal: '🥇', nickname: '김삿갓', stage: '30점'),
+                SizedBox(height: 5),
+                _buildRankRow(medal: '🥈', nickname: '감소라', stage: '20점'),
+                SizedBox(height: 5),
+                _buildRankRow(medal: '🥉', nickname: '강빛나', stage: '10점'),
+              ],
+            );
+          }
+        },
       ),
     );
   }
