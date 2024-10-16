@@ -23,7 +23,7 @@ class Homepage extends StatelessWidget {
   final List<Widget> pages = [
     HomePageContent(), // 홈 페이지 컨텐츠
     Communitypage(),
-    Odabnotepage(),
+     
     Mypage(),
     GameSelectPage(),
   ];
@@ -68,10 +68,7 @@ class Homepage extends StatelessWidget {
                 icon: Icon(Icons.chat),
                 label: '커뮤니티',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.note),
-                label: '오답노트',
-              ),
+              
               BottomNavigationBarItem(
                 icon: Icon(Icons.people),
                 label: '마이페이지',

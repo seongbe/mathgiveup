@@ -186,6 +186,14 @@ class _StageSelectionScreenState extends State<StageSelectionScreen> {
           },
         );
         break;
+        case 5:
+        targetPage = Stage04(
+          onStageCompleted: () {
+            widget.onStageCompleted(stageNumber + 1); // 다음 스테이지 열림
+            Navigator.pop(context); // 현재 스테이지 종료 후 돌아옴
+          },
+        );
+        break;
       default:
         targetPage = Scaffold(
           appBar: AppBar(

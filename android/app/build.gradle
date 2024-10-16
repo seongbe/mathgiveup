@@ -1,9 +1,11 @@
+// android/app/build.gradle
+
 plugins {
     id "com.android.application"
+    id "org.jetbrains.kotlin.android" // Kotlin 플러그인 추가
     // Firebase 및 Google Services 플러그인 설정 (필요 시 주석 해제)
     // id 'com.google.gms.google-services'
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
-    id "dev.flutter.flutter-gradle-plugin"
+    // The Flutter Gradle Plugin is applied automatically by Flutter SDK
 }
 
 def localProperties = new Properties()
@@ -14,32 +16,29 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-def flutterVersionCode = localProperties.getProperty("flutter.versionCode")
-if (flutterVersionCode == null) {
-    flutterVersionCode = "1"
-}
-
-def flutterVersionName = localProperties.getProperty("flutter.versionName")
-if (flutterVersionName == null) {
-    flutterVersionName = "1.0"
-}
+def flutterVersionCode = localProperties.getProperty("flutter.versionCode") ?: "1"
+def flutterVersionName = localProperties.getProperty("flutter.versionName") ?: "1.0"
 
 android {
     namespace = "com.example.mathgame"
-    compileSdk = 34 // flutter.compileSdkVersion 대신 직접 명시
+    compileSdk = 34
 
-    // NDK 버전 설정
-    ndkVersion = "21.4.7075529" // flutter.ndkVersion 대신 명시적으로 설정
+    // NDK 버전 설정 (필요 시)
+    // ndkVersion = "21.4.7075529"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
     defaultConfig {
         applicationId = "com.hanium.SMath"
-        minSdk = 23 // flutter.minSdkVersion 대신 직접 명시
-        targetSdk = 34 // flutter.targetSdkVersion 대신 직접 명시
+        minSdk = 23
+        targetSdk = 34
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
     }
@@ -47,6 +46,8 @@ android {
     buildTypes {
         release {
             signingConfig = signingConfigs.debug
+            minifyEnabled false
+            // ProGuard 설정 등 필요한 경우 추가
         }
     }
 }
@@ -56,13 +57,13 @@ flutter {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.6.1' // 최신 안정화 버전 사용
-    implementation 'com.google.android.material:material:1.7.0' // 최신 안정화 버전 사용
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4' // 최신 안정화 버전 사용
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1' // 최신 안정화 버전 사용
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1' // 최신 안정화 버전 사용
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3' // 최신 안정화 버전 사용
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3' // 최신 안정화 버전 사용
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
