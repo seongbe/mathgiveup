@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mathgame/const/colors.dart';
 import 'package:mathgame/const/styles.dart';
 import 'package:mathgame/page/test/grade1_01.dart';
+import 'package:mathgame/page/test/realTest/grade01_testPage.dart';
 import 'package:mathgame/page/test/testCode.dart';
 
 class MainTestPage extends StatelessWidget {
@@ -53,7 +54,7 @@ class _MyWidgetState extends State<MyWidget> {
           child: CustomButton(
             text: '시작하기',
             onPressed: () {
-              Get.to(Grade1_01());
+              Get.to(Grade01Testpage());
             },
           ),
         ),

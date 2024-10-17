@@ -34,6 +34,7 @@ class _MyWidgetState extends State<MyWidget> {
   final TextEditingController checkPasswordController = TextEditingController();
   final TextEditingController nicknameController = TextEditingController();
   final TextEditingController birthController = TextEditingController();
+  final TextEditingController schoolController = TextEditingController();
 
   late JoinProcess joinProcess;
 
@@ -47,6 +48,7 @@ class _MyWidgetState extends State<MyWidget> {
       checkPasswordController: checkPasswordController,
       nicknameController: nicknameController,
       birthController: birthController,
+      schoolController: schoolController,
     );
     joinProcess.initEmail(Get.arguments as String);
   }
@@ -109,6 +111,16 @@ class _MyWidgetState extends State<MyWidget> {
             errorMessage: '',
             onTap: () {
               joinProcess.selectDate(context, this);
+            },
+          ),
+          SizedBox(height: 20),
+          CustomInputField(
+            label: '학교',
+            controller: schoolController,
+            hintText: '학교를 입력하세요',
+            errorMessage: '',
+            onTap: () {
+              joinProcess.showSchoolSearchDialog(context); // 수정하기
             },
           ),
           SizedBox(height: 20),
