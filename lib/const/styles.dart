@@ -161,10 +161,15 @@ class CustomInputField extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text(
-              label,
-              style: skyboriBaseTextStyle.copyWith(
-                fontSize: 20,
+            Expanded(
+              child: Text(
+                label,
+                style: skyboriBaseTextStyle.copyWith(
+                  fontSize: 20,
+                ),
+                maxLines: 3, // 레이블이 3줄을 넘지 않도록 설정
+                overflow: TextOverflow.ellipsis, // 넘치면 텍스트 말줄임
+                softWrap: true, // 줄바꿈 가능
               ),
             ),
             SizedBox(width: 10),

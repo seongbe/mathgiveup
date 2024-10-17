@@ -15,6 +15,7 @@ class JoinProcess {
   final TextEditingController checkPasswordController;
   final TextEditingController nicknameController;
   final TextEditingController birthController;
+  final TextEditingController schoolController;
 
   JoinProcess({
     required this.nameController,
@@ -23,6 +24,7 @@ class JoinProcess {
     required this.checkPasswordController,
     required this.nicknameController,
     required this.birthController,
+    required this.schoolController,
   });
 
   String idErrorMessage = '';
@@ -180,5 +182,126 @@ class JoinProcess {
 
       state.setState(() {});
     }
+  }
+
+  Future<void> schoolName(String searchName, BuildContext parentContext) async {
+    try {
+      final url = Uri.parse(
+          'https://www.career.go.kr/cnet/openapi/getOpenApi?apiKey=a158b0dd00e34efa80c15fee4b98e98f&svcType=api&svcCode=SCHOOL&contentType=json&gubun=midd_list&region=100276&searchSchulNm=${searchName}');
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        List<String> schoolNames = [];
+
+        for (var school in data['dataSearch']['content']) {
+          schoolNames.add(school['schoolName']);
+        }
+        print(schoolNames);
+
+        if (schoolNames.isNotEmpty) {
+          showSchoolOptionsDialog(parentContext, schoolNames);
+        } else {
+          showNoResultsDialog(parentContext, searchName);
+        }
+      } else {
+        print('Failed to load data. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error occurred: $e');
+    }
+  }
+
+  Future<void> showSchoolSearchDialog(BuildContext context) async {
+    final parentContext = context;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        String school = '';
+
+        return AlertDialog(
+          title: Text('학교 검색'),
+          content: TextField(
+            //controller: schoolController,
+            onChanged: (value) {
+              school = value;
+            },
+            decoration: InputDecoration(
+              hintText: '학교 이름을 입력하세요',
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // 팝업 닫기
+              },
+              child: Text('취소'),
+            ),
+            TextButton(
+              onPressed: () {
+                schoolName(school, parentContext);
+                //schoolController.text = school;
+                print('입력된 학교: $school');
+                Navigator.of(context).pop(); // 팝업 닫기
+              },
+              child: Text('확인'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showSchoolOptionsDialog(BuildContext context, List<String> schoolNames) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('검색 결과'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: schoolNames
+                .map((name) => ListTile(
+                      title: Text(name),
+                      onTap: () {
+                        schoolController.text = name;
+                        print('선택된 학교: $name');
+                        Navigator.of(context).pop();
+                      },
+                    ))
+                .toList(),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('닫기'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showNoResultsDialog(BuildContext context, String searchName) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('검색 결과 없음'),
+          content: Text('\"$searchName\"에 해당하는 학교를 찾을 수 없습니다.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('닫기'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
