@@ -28,19 +28,7 @@ class _CommunitypageState extends State<Communitypage> {
       image2: 'assets/images/profile2.png',
       image3: 'assets/images/profile3.png',
     ),
-    Community(
-      title: "친구",
-      number: '7',
-      username: "이채연.",
-      description: "longcyanc.com",
-      username2: "김용용",
-      description2: "chepei.com",
-      username3: "김랑롱",
-      description3: "naver.com",
-      image1: 'assets/images/profile4.png',
-      image2: 'assets/images/profile5.png',
-      image3: 'assets/images/profile6.png',
-    ),
+     
     // 다른 공지사항들을 필요에 따라 추가할 수 있습니다.
   ];
 
@@ -455,6 +443,7 @@ class _RankingContainerState extends State<RankingContainer> {
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
+      
       List<String> schoolNames = [];
 
       for (var school in data['dataSearch']['content']) {
@@ -490,7 +479,7 @@ class _RankingContainerState extends State<RankingContainer> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
-      height: 260,
+      height: 200,
       margin: EdgeInsets.all(20.0),
       padding: EdgeInsets.all(30.0),
       decoration: BoxDecoration(
@@ -498,8 +487,12 @@ class _RankingContainerState extends State<RankingContainer> {
         borderRadius: BorderRadius.circular(40.0),
       ),
       child: FutureBuilder<List<String>>(
+        
         future: fetchSchools(),
+        
         builder: (context, snapshot) {
+
+final schoolNames = snapshot.data!.take(3).toList();
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
@@ -508,35 +501,24 @@ class _RankingContainerState extends State<RankingContainer> {
             return Center(child: Text('학교 목록을 찾을 수 없습니다.'));
           } else {
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // 학교 이름 표시
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: snapshot.data!.take(3).map((schoolName) {
-                    return Text(
-                      schoolName,
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    );
-                  }).toList(),
-                ),
-                SizedBox(height: 15),
-                // 랭킹 타이틀
-                Center(
-                  child: Text(
-                    '학교내 점수 순위',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                SizedBox(height: 15),
-                // 랭킹 목록
-                _buildRankRow(medal: '🥇', nickname: '김삿갓', stage: '30점'),
-                SizedBox(height: 5),
-                _buildRankRow(medal: '🥈', nickname: '감소라', stage: '20점'),
-                SizedBox(height: 5),
-                _buildRankRow(medal: '🥉', nickname: '강빛나', stage: '10점'),
-              ],
-            );
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+     
+    // SizedBox(height: 15),
+    // Center(
+    //   child: Text(
+    //     '학교 순위',
+    //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    //   ),
+    // ),
+    SizedBox(height: 15),
+    _buildRankRow(medal: '🥇', nickname: schoolNames[0], stage: '30점'),
+    SizedBox(height: 5),
+    _buildRankRow(medal: '🥈', nickname: schoolNames[1], stage: '20점'),
+    SizedBox(height: 5),
+    _buildRankRow(medal: '🥉', nickname: schoolNames[2], stage: '10점'),
+  ],
+);
           }
         },
       ),
