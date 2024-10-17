@@ -1,23 +1,18 @@
-// android/build.gradle
-
-buildscript {
-    ext.kotlin_version = '1.8.10' // 최신 안정 버전으로 설정
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.1' // 최신 안정 버전으로 설정
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        // Flutter Gradle Plugin은 Flutter SDK에서 자동으로 관리되므로 명시적으로 추가하지 않아도 됩니다.
-        // classpath "dev.flutter:flutter-gradle-plugin:1.0.0" // 이 줄은 삭제해도 됩니다.
-        // 필요한 다른 classpath 의존성들
-    }
-}
-
 allprojects {
     repositories {
         google()
         mavenCentral()
     }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
 }
