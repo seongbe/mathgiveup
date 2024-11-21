@@ -1,0 +1,57 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.0'
+    id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'hanium'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+    google()
+    maven {
+        url 'https://maven.google.com'
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.h2database:h2'
+    implementation 'com.google.firebase:firebase-admin:9.2.0'
+    implementation 'com.google.cloud:google-cloud-firestore:3.15.4'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'com.google.auth:google-auth-library-oauth2-http:1.20.0' // 최신 버전 사용
+    implementation 'com.google.api-client:google-api-client:1.32.2'
+    implementation 'com.google.http-client:google-http-client-jackson2:1.40.1'
+
+    implementation 'com.google.auth:google-auth-library-credentials:1.20.0'  // 추가
+
+    implementation 'io.github.cdimascio:java-dotenv:5.2.2'
+
+    implementation 'com.google.apis:google-api-services-indexing:v3-rev20200804-1.32.1'
+
+    implementation 'com.google.api-client:google-api-client:1.32.2'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.32.1'
+    implementation 'com.google.oauth-client:google-oauth-client:1.32.1'
+    implementation 'com.google.http-client:google-http-client-jackson2:1.40.1'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
